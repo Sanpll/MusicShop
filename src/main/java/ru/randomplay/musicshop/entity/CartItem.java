@@ -1,7 +1,13 @@
 package ru.randomplay.musicshop.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "cart_items",
         uniqueConstraints = @UniqueConstraint(columnNames = {"cart_id", "product_id"}))

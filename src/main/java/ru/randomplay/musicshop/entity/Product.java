@@ -1,12 +1,18 @@
 package ru.randomplay.musicshop.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 import ru.randomplay.musicshop.model.ProductStatus;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "products")
 public class Product {

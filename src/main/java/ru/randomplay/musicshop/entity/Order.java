@@ -1,11 +1,17 @@
 package ru.randomplay.musicshop.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 import ru.randomplay.musicshop.model.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "orders")
 public class Order {

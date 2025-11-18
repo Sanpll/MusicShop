@@ -1,11 +1,17 @@
 package ru.randomplay.musicshop.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 import ru.randomplay.musicshop.model.WorkerStatus;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "warehouse_managers")
 public class WarehouseManager {
