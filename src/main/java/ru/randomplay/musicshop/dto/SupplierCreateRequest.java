@@ -1,11 +1,13 @@
 package ru.randomplay.musicshop.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 public class SupplierCreateRequest {
     private String name;
     private String country;
