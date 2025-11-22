@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public Customer save(UserCreateRequest userCreateRequest) {
         if (userRepository.findByEmail(userCreateRequest.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("Email already exists");
+            throw new IllegalArgumentException("User with this email already exists");
         }
 
         User createdUser = userMapper.toUser(userCreateRequest);

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<h2>Список товаров</h2>
+<table th:bgcolor="black">
+    <tr th:bgcolor="lightgrey">
+        <th th:width="50">ID</th>
+        <th th:width="150">Имя</th>
+        <th th:width="150">Фамилия</th>
+        <th th:width="100">Факультет</th>
+        <th th:width="100">Статус</th>
+        <th th:width="140">Год зачисления</th>
+        <th th:width="140">Год выпуска</th>
+    </tr>
+    <tr th:bgcolor="azure" th:each="student : ${students}">
+        <td>
+            <a th:if="${changeStudentUrl}" th:href="@{${changeStudentUrl} + ${student.id}}" th:text="${student.id}"></a>
+            <span th:unless="${changeStudentUrl}" th:text="${student.id}"></span>
+        </td>
+        <td th:text="${student.userStudent.firstName}"></td>
+        <td th:text="${student.userStudent.lastName}"></td>
+        <td th:text="${student.userStudent.faculty}"></td>
+        <td>
+            <span th:if="${student.status.name() == 'ACTIVE'}">Обучается</span>
+            <span th:if="${student.status.name() == 'ACADEMIC_LEAVE'}">Академ</span>
+            <span th:if="${student.status.name() == 'GRADUATED'}">Выпустился</span>
+            <span th:if="${student.status.name() == 'EXPELLED'}">Отчислен</span>
+        </td>
+        <td th:text="${student.yearOfAdmission}"></td>
+        <td th:text="${student.yearOfGraduation} ?: '-'"></td>
+    </tr>
+</table>
+</body>
+</html>
