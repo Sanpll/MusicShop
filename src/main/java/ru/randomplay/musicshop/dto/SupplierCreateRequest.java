@@ -11,8 +11,6 @@ import java.time.LocalDate;
 public class SupplierCreateRequest {
     private String name;
     private String country;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate contractStart;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate contractEnd;
 }

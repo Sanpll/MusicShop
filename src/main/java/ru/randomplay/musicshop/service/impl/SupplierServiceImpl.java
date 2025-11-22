@@ -8,11 +8,18 @@ import ru.randomplay.musicshop.mapper.SupplierMapper;
 import ru.randomplay.musicshop.repository.SupplierRepository;
 import ru.randomplay.musicshop.service.SupplierService;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class SupplierServiceImpl  implements SupplierService {
     private final SupplierRepository supplierRepository;
     private final SupplierMapper supplierMapper;
+
+    @Override
+    public List<Supplier> getAll() {
+        return supplierRepository.findAll();
+    }
 
     @Override
     public Supplier save(SupplierCreateRequest supplierCreateRequest) {

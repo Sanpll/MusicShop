@@ -15,12 +15,12 @@ public class AuthController {
     @GetMapping("/login")
     public String loginPage(Model model, @RequestParam(required = false) String error) {
         model.addAttribute("error", error);
-        return "login";
+        return "auth/login";
     }
 
     @GetMapping("/registration")
     public String registrationPage() {
-        return "registration";
+        return "auth/registration";
     }
 
     @PostMapping("/registration")

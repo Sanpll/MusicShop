@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class EmployeeController {
     @GetMapping("/products")
     public String productsPage() {
-        return "products";
+        return "employee/products";
     }
 }
