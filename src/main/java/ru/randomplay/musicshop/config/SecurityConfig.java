@@ -28,7 +28,7 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/login-success", true)
                         .failureUrl("/login?error=true")
                         .permitAll())
                 // Настройка выхода из аккаунта
