@@ -2,6 +2,7 @@ package ru.randomplay.musicshop.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import ru.randomplay.musicshop.model.StoreStatus;
 
 import java.time.LocalDate;
@@ -30,6 +31,7 @@ public class Store {
     @Column(name = "working_hours")
     private String workingHours;
 
+    @CreationTimestamp
     @Column(name = "open_date", nullable = false)
     private LocalDate openDate;
 

@@ -29,7 +29,7 @@ public class WarehouseManager {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private WorkerStatus status;
+    private WorkerStatus status = WorkerStatus.ACTIVE;
 
 
     @OneToMany(mappedBy = "warehouseManager")

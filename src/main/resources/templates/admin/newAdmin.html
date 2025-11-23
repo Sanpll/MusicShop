@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<div>
+  <h2>Добавление нового админа</h2>
+  <form method="post" action="/admin/add">
+
+    <div>
+      <label for="email">Почта:</label>
+      <input type="email" id="email" name="email" placeholder="ivanovivan@email.com" required>
+    </div>
+    <br>
+
+    <div>
+      <label for="password">Пароль:</label>
+      <input type="password" id="password" name="password" maxlength="32" required>
+    </div>
+    <br>
+
+    <div>
+      <label for="firstName">Имя:</label>
+      <input type="text" id="firstName" name="firstName" maxlength="32" required>
+    </div>
+    <br>
+
+    <div>
+      <label for="lastName">Фамилия:</label>
+      <input type="text" id="lastName" name="lastName" maxlength="32" required>
+    </div>
+    <br>
+
+    <div>
+      <label for="phone">Телефон:</label>
+      <input type="tel" id="phone" name="phone" placeholder="+78005553535">
+    </div>
+    <br>
+
+    <button type="submit">Подтвердить</button>
+    <br>
+  </form>
+</div>
+</body>
+</html>

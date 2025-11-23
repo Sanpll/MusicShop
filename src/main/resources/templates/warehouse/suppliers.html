@@ -8,14 +8,14 @@
 <a href="/warehouse/suppliers/add">Добавить поставщика</a>
 <br>
 <h2>Список поставщиков</h2>
-<table th:bgcolor="black">
-    <tr th:bgcolor="lightgrey">
+<table>
+    <tr>
         <th>Название</th>
         <th>Страна</th>
         <th>Дата начала контракта</th>
         <th>Дата окончания контракта</th>
     </tr>
-    <tr th:bgcolor="azure" th:each="supplier : ${suppliers}">
+    <tr th:each="supplier : ${suppliers}">
         <td th:text="${supplier.name}"></td>
         <td th:text="${supplier.country}"></td>
         <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}"></td>

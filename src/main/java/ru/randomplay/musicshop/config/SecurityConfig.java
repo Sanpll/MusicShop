@@ -2,6 +2,7 @@ package ru.randomplay.musicshop.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -11,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-//@EnableMethodSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
@@ -19,7 +20,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(requests -> requests
                         // Разрешаем данные эндпоинты для всех
-                        .requestMatchers("/login", "/registration").permitAll()
+                        .requestMatchers("/login", "/registration", "/home").permitAll()
+                        .requestMatchers("/employee/**").hasRole("EMPLOYEE")
+                        .requestMatchers("/warehouse/**").hasRole("WAREHOUSE_MANAGER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         // Все остальные эндпоинты требуют аутентификации
                         .anyRequest().authenticated())
                 // Настройка кастомной страницы для входа в аккаунт

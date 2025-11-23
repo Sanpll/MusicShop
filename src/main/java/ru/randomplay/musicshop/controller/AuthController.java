@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.randomplay.musicshop.dto.UserCreateRequest;
+import ru.randomplay.musicshop.dto.CustomerCreateRequest;
 import ru.randomplay.musicshop.service.CustomerService;
 
 @Controller
@@ -32,7 +32,7 @@ public class AuthController {
         return switch (userRole) {
             case "ROLE_EMPLOYEE" -> "redirect:/employee/products";
             case "ROLE_WAREHOUSE_MANAGER" -> "redirect:/warehouse/suppliers";
-            case "ROLE_ADMIN" -> "redirect:/admin/...";
+            case "ROLE_ADMIN" -> "redirect:/admin/dashboard";
             default -> "redirect:/home";
         };
     }
@@ -43,8 +43,8 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute UserCreateRequest userCreateRequest) {
-        customerService.save(userCreateRequest);
+    public String registration(@ModelAttribute CustomerCreateRequest customerCreateRequest) {
+        customerService.save(customerCreateRequest);
         return "redirect:/home";
     }
 

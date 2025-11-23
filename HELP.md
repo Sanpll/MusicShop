@@ -3,7 +3,7 @@ Spring Security: https://www.geeksforgeeks.org/advance-java/implementing-databas
 Про dto (обычно dto используется только в контроллере) и MapStruct: https://habr.com/ru/articles/818489/
 Документация Thymeleaf: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#standard-expression-syntax
 
-@Data = @Getter + @Setter + @EqualsAndHashCode + @ToString
+@Data = @Getter + @Setter + @RequiredArgsConstructor + @EqualsAndHashCode + @ToString
 
 Тестовый пользователь: 
 email=aa@aa.a

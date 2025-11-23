@@ -21,7 +21,7 @@ public class Cart {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private CartStatus status;
+    private CartStatus status = CartStatus.ACTIVE;
 
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)

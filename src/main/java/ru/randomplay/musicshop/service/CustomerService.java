@@ -1,8 +1,7 @@
 package ru.randomplay.musicshop.service;
 
-import ru.randomplay.musicshop.dto.UserCreateRequest;
-import ru.randomplay.musicshop.entity.Customer;
+import ru.randomplay.musicshop.dto.CustomerCreateRequest;
 
 public interface CustomerService {
-    Customer save(UserCreateRequest userCreateRequest);
+    void save(CustomerCreateRequest customerCreateRequest);
 }

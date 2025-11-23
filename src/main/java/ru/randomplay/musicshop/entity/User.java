@@ -37,7 +37,7 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "activity", nullable = false)
-    private UserActivity activity;
+    private UserActivity activity = UserActivity.ACTIVE;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
