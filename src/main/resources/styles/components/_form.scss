@@ -1,0 +1,144 @@
+@use '../helpers/index' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &--auth {
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  &--right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+}
+
+.input {
+  --input-width: 250px;
+
+  border: var(--border);
+  border-radius: 8px;
+  padding: 6px;
+  background-color: var(--bg-light);
+  color: var(--text);
+  width: var(--input-width);
+
+  @include hover {
+    background-color: var(--bg);
+    border-color: var(--border-muted);
+    transition-duration: var(--transition-duration);
+  }
+
+  &:focus {
+    outline: none;
+    background-color: var(--bg);
+  }
+}
+
+.button-submit {
+  height: var(--input-height);
+  width: 60%;
+  background-color: var(--primary);
+  border: 2px solid var(--caret);
+  border-radius: var(--border-radius);
+  color: var(--bg);
+  font-size: 16px;
+  font-weight: 600;
+  align-self: center;
+  box-shadow: var(--shadow-l);
+
+  @include hover {
+    background-color: var(--primary-hover);
+    transition-duration: var(--transition-duration);
+    color: var(--bg-light);
+  }
+
+  &:active {
+    transition-duration: var(--transition-duration);
+    transform: translateY(2px);
+  }
+}
+
+.select {
+  max-width: var(--input-width);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  option {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.auth {
+  &__help {
+    @include flex-center;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__error {
+    color: var(--error);
+    text-align: center;
+
+    animation: shake 1s;
+  }
+}
+
+.link__wrapper {
+  @include flex-center;
+  gap: 24px;
+}
+
+.link {
+  position: relative;
+  height: calc(var(--input-height) * 1.2);
+  text-decoration: none;
+  background-color: var(--primary);
+  border: 2px solid var(--caret);
+  border-radius: var(--border-radius);
+  color: var(--bg);
+  padding: 6px 36px 6px 6px;
+  font-weight: 600;
+  box-shadow: var(--shadow-l);
+
+  &::after {
+    content: '→';
+    @include abs-y;
+    right: 10px;
+    font-size: 24px;
+    transform: rotate(-45deg);
+  }
+
+  @include hover {
+    background-color: var(--primary-hover);
+    transition-duration: var(--transition-duration);
+    color: var(--bg-light);
+  }
+
+  &:active {
+    transition-duration: var(--transition-duration);
+    transform: translateY(2px);
+  }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}

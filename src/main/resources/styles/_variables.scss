@@ -1,0 +1,55 @@
+:root {
+  --bg-dark: oklch(25% 0.01 250deg);
+  --bg: oklch(28% 0.01 250deg);
+  --bg-light: oklch(32% 0.01 250deg);
+
+  --text: oklch(84% 0.02 80deg);
+  --text-muted: oklch(45% 0.01 250deg);
+  --text-sub: oklch(33% 0.01 250deg);
+
+  --caret: oklch(65% 0.15 85deg);
+  --primary: oklch(75% 0.15 85deg);
+  --primary-hover: oklch(68% 0.15 85deg);
+  --secondary: oklch(45% 0.01 250deg);
+
+  --error: oklch(55% 0.18 15deg);
+  --error-extra: oklch(38% 0.14 15deg);
+  --success: oklch(62% 0.14 145deg);
+  --warning: oklch(75% 0.15 85deg);
+  --info: oklch(65% 0.15 250deg);
+  --border-color: oklch(45% 0.01 250deg);
+  --border-muted: oklch(33% 0.01 250deg);
+
+  /* shadows */
+  --shadow-s:
+    inset 0 1px 2px #ffffff30, /* top highlight */ 0 1px 2px #00000030,
+      /* dark shadow */ 0 2px 4px #00000015; /* soft shadow */
+  --shadow-m:
+    inset 0 1px 2px #ffffff50, /* top highlight */ 0 2px 4px #00000030,
+      /* dark shadow */ 0 4px 8px #00000015; /* soft shadow */
+  --shadow-l:
+    inset 0 1px 2px #ffffff70, /* top highlight */ 0 4px 6px #00000030,
+      /* dark shadow */ 0 6px 10px #00000015; /* soft shadow */
+
+  --border: var(--border-width-m) solid var(--border-color);
+
+  --border-width-xl: 6px;
+  --border-width-l: 4px;
+  --border-width-m: 3px;
+  --border-width-xm: 2px;
+  --border-width-s: 1px;
+
+  --border-radius-l: 12px;
+  --border-radius-m: 10px;
+  --border-radius: 8px;
+  --border-radius-xs: 6px;
+  --border-radius-xxs: 5px;
+  --border-radius-xxxs: 4px;
+
+  --input-height: 36px;
+  --transition-duration: 0.2s;
+
+  --container-padding-x: 16px;
+
+  --font-family-base: 'Rubik', sans-serif;
+}
