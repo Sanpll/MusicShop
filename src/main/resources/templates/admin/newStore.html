@@ -2,46 +2,88 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Добавление магазина</title>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <link
+    rel="stylesheet"
+    href="../../styles/styles.css"
+  >
 </head>
 
 <body>
-<div>
-  <h2>Добавление нового магазина</h2>
-  <form method="post" action="/admin/add/store">
+<section class="section container">
+  <h1 class="h2">Добавление нового магазина</h1>
+  <form
+    method="post"
+    action="/admin/add/store"
+    class="form"
+  >
 
-    <div>
+    <div class="field--right">
       <label for="status">Статус магазина:</label>
-      <select id="status" name="status">
+      <select
+        id="status"
+        name="status"
+        class="input select"
+      >
         <option value="ACTIVE">Работает</option>
         <option value="CLOSED">Закрыт навсегда</option>
         <option value="INACTIVE">Временно закрыт</option>
       </select>
     </div>
-    <br>
 
-    <div>
+    <div class="field--right">
       <label for="location">Адрес магазина:</label>
-      <input type="text" id="location" name="location" maxlength="64" placeholder="г. Москва, ул. Декабрьская Б., д. 3, стр. 1" required>
+      <input
+        type="text"
+        id="location"
+        name="location"
+        maxlength="64"
+        placeholder="г. Москва, ул. Декабрьская Б., д. 3, стр. 1"
+        class="input"
+        required
+      >
     </div>
-    <br>
 
-    <div>
+    <div class="field--right">
       <label for="workingHours">Время работы:</label>
-      <input type="text" id="workingHours" name="workingHours" maxlength="32" placeholder="Пн-Пт 8:00-20:00" required>
+      <input
+        type="text"
+        id="workingHours"
+        name="workingHours"
+        maxlength="32"
+        placeholder="Пн-Пт 8:00-20:00"
+        class="input"
+        required
+      >
     </div>
-    <br>
 
-    <div>
+    <div class="field--right">
       <label for="openDate">Дата открытия:</label>
-      <input type="date" id="openDate" name="openDate" pattern="\d{2}\.\d{2}\.\d{4}" placeholder="ДД.ММ.ГГГГ" required>
+      <input
+        type="date"
+        id="openDate"
+        name="openDate"
+        pattern="\d{2}\.\d{2}\.\d{4}"
+        placeholder="ДД.ММ.ГГГГ"
+        class="input"
+        required
+      >
     </div>
-    <br>
 
-    <button type="submit">Подтвердить</button>
-    <br>
+    <button
+      type="submit"
+      class="button-submit"
+    >Подтвердить</button>
   </form>
-</div>
+</section>
 </body>
 </html>

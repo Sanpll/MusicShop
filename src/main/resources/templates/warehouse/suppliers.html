@@ -1,26 +1,81 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  lang="en"
+>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <link
+    rel="stylesheet"
+    href="../../styles/styles.css"
+  >
 </head>
 <body>
-<h3>Список поставщиков</h3>
-<a href="/warehouse-manager/add/supplier">Добавить поставщика</a>
-<a href="/warehouse-manager/add/product">Добавить товар</a>
-<table th:bgcolor="black">
-    <tr th:bgcolor="lightgrey">
-        <th>Название</th>
-        <th>Страна</th>
-        <th>Дата начала контракта</th>
-        <th>Дата окончания контракта</th>
-    </tr>
-    <tr th:each="supplier : ${suppliers}" th:bgcolor="lightgrey">
-        <td th:text="${supplier.name}">
-        <td th:text="${supplier.country}">
-        <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}">
-        <td th:text="${#temporals.format(supplier.contractEnd, 'dd.MM.yyyy')}">
-    </tr>
-</table>
+<section class="section container">
+  <h1 class="h2">Список поставщиков</h1>
+  <div class="link__wrapper">
+    <a
+      class="link"
+      href="/warehouse-manager/add/supplier"
+    >Добавить поставщика
+    </a>
+    <a
+      class="link"
+      href="/warehouse-manager/add/product"
+    >Добавить товар
+    </a>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Название</th>
+        <th scope="col">Страна</th>
+        <th scope="col">Дата начала контракта</th>
+        <th scope="col">Дата окончания контракта</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="supplier : ${suppliers}">
+        <td th:text="${supplier.name}">Sumsung</td>
+        <td th:text="${supplier.country}">Korea</td>
+        <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}">18.05.2022</td>
+        <td th:text="${#temporals.format(supplier.contractEnd, 'dd.MM.yyyy')}">23.08.2028</td>
+      </tr>
+      <tr th:each="supplier : ${suppliers}">
+        <td th:text="${supplier.name}">Sumsung</td>
+        <td th:text="${supplier.country}">Korea</td>
+        <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}">18.05.2022</td>
+        <td th:text="${#temporals.format(supplier.contractEnd, 'dd.MM.yyyy')}">23.08.2028</td>
+      </tr>
+      <tr th:each="supplier : ${suppliers}">
+        <td th:text="${supplier.name}">Sumsung</td>
+        <td th:text="${supplier.country}">Korea</td>
+        <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}">18.05.2022</td>
+        <td th:text="${#temporals.format(supplier.contractEnd, 'dd.MM.yyyy')}">23.08.2028</td>
+      </tr>
+      <tr th:each="supplier : ${suppliers}">
+        <td th:text="${supplier.name}">Sumsung</td>
+        <td th:text="${supplier.country}">Korea</td>
+        <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}">18.05.2022</td>
+        <td th:text="${#temporals.format(supplier.contractEnd, 'dd.MM.yyyy')}">23.08.2028</td>
+      </tr>
+      <tr th:each="supplier : ${suppliers}">
+        <td th:text="${supplier.name}">Sumsung</td>
+        <td th:text="${supplier.country}">Korea</td>
+        <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}">18.05.2022</td>
+        <td th:text="${#temporals.format(supplier.contractEnd, 'dd.MM.yyyy')}">23.08.2028</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
 </body>
 </html>

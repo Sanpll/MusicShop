@@ -2,42 +2,86 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Новый поставщик</title>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <link
+    rel="stylesheet"
+    href="../../styles/styles.css"
+  >
 </head>
 
-<body>
-<div>
-    <h2>Добавление нового поставщика</h2>
-    <form method="post" action="/warehouse-manager/add/supplier">
+<body class="body">
+<section class="section container">
+  <h1 class="h2">Добавление нового поставщика</h1>
 
-        <div>
-            <label for="name">Название:</label>
-            <input type="text" id="name" name="name" maxlength="32" required>
-        </div>
-        <br>
+  <form
+    method="post"
+    action="/warehouse-manager/add/supplier"
+    class="form"
+  >
+    <div class="field">
+      <label for="name">Название:</label>
+      <input
+        type="text"
+        class="input"
+        id="name"
+        name="name"
+        maxlength="32"
+        required
+      >
+    </div>
 
-        <div>
-            <label for="country">Страна:</label>
-            <input type="text" id="country" name="country" maxlength="32" required>
-        </div>
-        <br>
+    <div class="field">
+      <label for="country">Страна:</label>
+      <input
+        type="text"
+        class="input"
+        id="country"
+        name="country"
+        maxlength="32"
+        required
+      >
+    </div>
 
-        <div>
-            <label for="contract_start">Начало контракта:</label>
-            <input type="date" id="contract_start" name="contractStart" pattern="\d{2}\.\d{2}\.\d{4}" placeholder="ДД.ММ.ГГГГ" required>
-        </div>
-        <br>
+    <div class="field">
+      <label for="contract_start">Начало контракта:</label>
+      <input
+        type="date"
+        class="input"
+        id="contract_start"
+        name="contractStart"
+        pattern="\d{2}\.\d{2}\.\d{4}"
+        placeholder="ДД.ММ.ГГГГ"
+        required
+      >
+    </div>
 
-        <div>
-            <label for="contractEnd">Окончание контракта:</label>
-            <input type="date" id="contractEnd" name="contractEnd" pattern="\d{2}\.\d{2}\.\d{4}" placeholder="ДД.ММ.ГГГГ" required>
-        </div>
-        <br>
+    <div class="field">
+      <label for="contractEnd">Окончание контракта:</label>
+      <input
+        type="date"
+        class="input"
+        id="contractEnd"
+        name="contractEnd"
+        pattern="\d{2}\.\d{2}\.\d{4}"
+        placeholder="ДД.ММ.ГГГГ"
+        required
+      >
+    </div>
 
-        <button type="submit">Подтвердить</button>
-        <br>
-    </form>
-</div>
+    <button
+      type="submit"
+      class="button-submit"
+    >Подтвердить</button>
+  </form>
+</section>
 </body>
 </html>

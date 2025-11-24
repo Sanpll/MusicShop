@@ -1,0 +1,8 @@
+@use '../helpers/index' as *;
+
+.section {
+  @include flex-center;
+  flex-direction: column;
+  gap: 12px;
+  @include fluid-text(22, 16);
+}
