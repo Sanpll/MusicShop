@@ -1,7 +1,10 @@
 package ru.randomplay.musicshop.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.randomplay.musicshop.model.CustomerStatus;
 
 import java.util.HashSet;
@@ -9,7 +12,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -34,5 +36,13 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private Set<Order> orders = new HashSet<>();
+
+
+    public static Customer create(User user, Cart cart) {
+        Customer customer = new Customer();
+        customer.setUser(user);
+        customer.setCart(cart);
+        return customer;
+    }
 
 }

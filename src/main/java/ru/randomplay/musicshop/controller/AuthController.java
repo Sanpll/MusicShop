@@ -1,6 +1,7 @@
 package ru.randomplay.musicshop.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.randomplay.musicshop.dto.CustomerCreateRequest;
+import ru.randomplay.musicshop.dto.create.CustomerCreateRequest;
 import ru.randomplay.musicshop.service.CustomerService;
 
 @Controller
@@ -27,11 +28,14 @@ public class AuthController {
     public String redirectByRole(Authentication authentication) {
         String userRole = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
-                .findFirst().orElse("ROLE_CUSTOMER");
+                .findFirst().orElseThrow(() -> new AccessDeniedException("Unable to determine user role"));
 
         return switch (userRole) {
+            //noinspection SpringMVCViewInspection
             case "ROLE_EMPLOYEE" -> "redirect:/employee/products";
+            //noinspection SpringMVCViewInspection
             case "ROLE_WAREHOUSE_MANAGER" -> "redirect:/warehouse/suppliers";
+            //noinspection SpringMVCViewInspection
             case "ROLE_ADMIN" -> "redirect:/admin/dashboard";
             default -> "redirect:/home";
         };

@@ -2,8 +2,9 @@ package ru.randomplay.musicshop.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.randomplay.musicshop.dto.SupplierCreateRequest;
-import ru.randomplay.musicshop.dto.SupplierResponse;
+import org.springframework.transaction.annotation.Transactional;
+import ru.randomplay.musicshop.dto.create.SupplierCreateRequest;
+import ru.randomplay.musicshop.dto.response.SupplierResponse;
 import ru.randomplay.musicshop.entity.Supplier;
 import ru.randomplay.musicshop.mapper.SupplierMapper;
 import ru.randomplay.musicshop.repository.SupplierRepository;
@@ -23,6 +24,7 @@ public class SupplierServiceImpl  implements SupplierService {
     }
 
     @Override
+    @Transactional
     public void save(SupplierCreateRequest supplierCreateRequest) {
         if (supplierRepository.findByName(supplierCreateRequest.getName()).isPresent()) {
             throw new IllegalArgumentException("Supplier with this name already exists");

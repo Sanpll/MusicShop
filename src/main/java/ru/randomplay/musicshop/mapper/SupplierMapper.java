@@ -3,8 +3,8 @@ package ru.randomplay.musicshop.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
-import ru.randomplay.musicshop.dto.SupplierCreateRequest;
-import ru.randomplay.musicshop.dto.SupplierResponse;
+import ru.randomplay.musicshop.dto.create.SupplierCreateRequest;
+import ru.randomplay.musicshop.dto.response.SupplierResponse;
 import ru.randomplay.musicshop.entity.Supplier;
 
 import java.util.List;

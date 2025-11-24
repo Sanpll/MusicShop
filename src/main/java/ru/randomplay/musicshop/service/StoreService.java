@@ -1,7 +1,7 @@
 package ru.randomplay.musicshop.service;
 
-import ru.randomplay.musicshop.dto.StoreCreateRequest;
-import ru.randomplay.musicshop.dto.StoreResponse;
+import ru.randomplay.musicshop.dto.create.StoreCreateRequest;
+import ru.randomplay.musicshop.dto.response.StoreResponse;
 
 import java.util.List;
 

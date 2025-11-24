@@ -1,4 +1,4 @@
-package ru.randomplay.musicshop.dto;
+package ru.randomplay.musicshop.dto.create;
 
 import lombok.Getter;
 import lombok.Setter;

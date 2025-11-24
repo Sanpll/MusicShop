@@ -1,7 +1,10 @@
 package ru.randomplay.musicshop.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.randomplay.musicshop.model.StoreStatus;
 
 import java.time.LocalDate;
@@ -10,7 +13,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

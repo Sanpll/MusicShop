@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<a href="/warehouse/suppliers/add">Добавить поставщика</a>
-<br>
-<h2>Список поставщиков</h2>
-<table>
-    <tr>
+<h3>Список поставщиков</h3>
+<a href="/warehouse-manager/add/supplier">Добавить поставщика</a>
+<a href="/warehouse-manager/add/product">Добавить товар</a>
+<table th:bgcolor="black">
+    <tr th:bgcolor="lightgrey">
         <th>Название</th>
         <th>Страна</th>
         <th>Дата начала контракта</th>
         <th>Дата окончания контракта</th>
     </tr>
-    <tr th:each="supplier : ${suppliers}">
-        <td th:text="${supplier.name}"></td>
-        <td th:text="${supplier.country}"></td>
-        <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}"></td>
-        <td th:text="${#temporals.format(supplier.contractEnd, 'dd.MM.yyyy')}"></td>
+    <tr th:each="supplier : ${suppliers}" th:bgcolor="lightgrey">
+        <td th:text="${supplier.name}">
+        <td th:text="${supplier.country}">
+        <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}">
+        <td th:text="${#temporals.format(supplier.contractEnd, 'dd.MM.yyyy')}">
     </tr>
 </table>
 </body>

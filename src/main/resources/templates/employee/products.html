@@ -7,33 +7,30 @@
 </head>
 
 <body>
-<h2>Список товаров</h2>
+
+<h3>Список Товаров</h3>
 <table th:bgcolor="black">
     <tr th:bgcolor="lightgrey">
-        <th th:width="50">ID</th>
-        <th th:width="150">Имя</th>
-        <th th:width="150">Фамилия</th>
-        <th th:width="100">Факультет</th>
-        <th th:width="100">Статус</th>
-        <th th:width="140">Год зачисления</th>
-        <th th:width="140">Год выпуска</th>
+        <th>ID</th>
+        <th>Почта</th>
+        <th>Активность</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Номер телефона</th>
+        <th>Дата регистрации</th>
+        <th>Магазин</th>
+        <th>Статус</th>
     </tr>
-    <tr th:bgcolor="azure" th:each="student : ${students}">
-        <td>
-            <a th:if="${changeStudentUrl}" th:href="@{${changeStudentUrl} + ${student.id}}" th:text="${student.id}"></a>
-            <span th:unless="${changeStudentUrl}" th:text="${student.id}"></span>
-        </td>
-        <td th:text="${student.userStudent.firstName}"></td>
-        <td th:text="${student.userStudent.lastName}"></td>
-        <td th:text="${student.userStudent.faculty}"></td>
-        <td>
-            <span th:if="${student.status.name() == 'ACTIVE'}">Обучается</span>
-            <span th:if="${student.status.name() == 'ACADEMIC_LEAVE'}">Академ</span>
-            <span th:if="${student.status.name() == 'GRADUATED'}">Выпустился</span>
-            <span th:if="${student.status.name() == 'EXPELLED'}">Отчислен</span>
-        </td>
-        <td th:text="${student.yearOfAdmission}"></td>
-        <td th:text="${student.yearOfGraduation} ?: '-'"></td>
+    <tr th:each="warehouseManager : ${warehouseManagers}" th:bgcolor="lightgrey">
+        <td th:text="${warehouseManager.id}">
+        <td th:text="${warehouseManager.email}">
+        <td th:text="${warehouseManager.activity}">
+        <td th:text="${warehouseManager.firstName}">
+        <td th:text="${warehouseManager.lastName}">
+        <td th:text="${warehouseManager.phone}">
+        <td th:text="${#temporals.format(warehouseManager.registeredAt, 'dd.MM.yyyy')}">
+        <td th:text="${warehouseManager.storeLocation}">
+        <td th:text="${warehouseManager.status}">
     </tr>
 </table>
 </body>

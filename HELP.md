@@ -5,6 +5,8 @@ Spring Security: https://www.geeksforgeeks.org/advance-java/implementing-databas
 
 @Data = @Getter + @Setter + @RequiredArgsConstructor + @EqualsAndHashCode + @ToString
 
-Тестовый пользователь: 
-email=aa@aa.a
-password=aaa
+Тестовые пользователи: 
+CUSTOMER - aa@aa.a aaa
+EMPLOYEE - employee@empl.oyee employee
+WAREHOUSE_MANAGER - warehouse@manager.com warehousemanager
+ADMIN - admin@admin.ad admin

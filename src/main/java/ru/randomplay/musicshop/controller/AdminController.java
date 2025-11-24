@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.randomplay.musicshop.dto.AdminCreateRequest;
-import ru.randomplay.musicshop.dto.EmployeeCreateRequest;
-import ru.randomplay.musicshop.dto.StoreCreateRequest;
+import ru.randomplay.musicshop.dto.create.AdminCreateRequest;
+import ru.randomplay.musicshop.dto.create.EmployeeCreateRequest;
+import ru.randomplay.musicshop.dto.create.StoreCreateRequest;
+import ru.randomplay.musicshop.dto.create.WarehouseManagerCreateRequest;
 import ru.randomplay.musicshop.service.AdminService;
 import ru.randomplay.musicshop.service.EmployeeService;
 import ru.randomplay.musicshop.service.StoreService;
+import ru.randomplay.musicshop.service.WarehouseManagerService;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,10 +24,15 @@ import ru.randomplay.musicshop.service.StoreService;
 public class AdminController {
     private final AdminService adminService;
     private final EmployeeService employeeService;
+    private final WarehouseManagerService warehouseManagerService;
     private final StoreService storeService;
 
     @GetMapping("/dashboard")
-    public String dashboard() {
+    public String dashboard(Model model) {
+        model.addAttribute("admins", adminService.getAll());
+        model.addAttribute("employees", employeeService.getAll());
+        model.addAttribute("warehouseManagers", warehouseManagerService.getAll());
+        model.addAttribute("stores", storeService.getAll());
         return "admin/dashboard";
     }
 
@@ -38,6 +45,12 @@ public class AdminController {
     public String addEmployeePage(Model model) {
         model.addAttribute("stores", storeService.getAll());
         return "admin/newEmployee";
+    }
+
+    @GetMapping("/add/warehouse-manager")
+    public String addWarehouseManagerPage(Model model) {
+        model.addAttribute("stores", storeService.getAll());
+        return "admin/newWarehouseManager";
     }
 
     @GetMapping("/add/store")
@@ -54,6 +67,12 @@ public class AdminController {
     @PostMapping("/add/employee")
     public String addEmployee(@ModelAttribute EmployeeCreateRequest employeeCreateRequest) {
         employeeService.save(employeeCreateRequest);
+        return "redirect:/admin/dashboard";
+    }
+
+    @PostMapping("/add/warehouse-manager")
+    public String addWarehouseManager(@ModelAttribute WarehouseManagerCreateRequest warehouseManagerCreateRequest) {
+        warehouseManagerService.save(warehouseManagerCreateRequest);
         return "redirect:/admin/dashboard";
     }
 

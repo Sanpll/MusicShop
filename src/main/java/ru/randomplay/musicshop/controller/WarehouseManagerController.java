@@ -8,29 +8,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.randomplay.musicshop.dto.SupplierCreateRequest;
-import ru.randomplay.musicshop.dto.SupplierResponse;
+import ru.randomplay.musicshop.dto.create.SupplierCreateRequest;
 import ru.randomplay.musicshop.service.SupplierService;
 
-import java.util.List;
-
 @Controller
-@RequestMapping("/warehouse")
+@RequestMapping("/warehouse-manager")
 @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
 @RequiredArgsConstructor
-public class WarehouseController {
+public class WarehouseManagerController {
     private final SupplierService supplierService;
 
     @GetMapping("/suppliers")
     public String suppliersPage(Model model) {
-        List<SupplierResponse> suppliers = supplierService.getAll();
-        model.addAttribute("suppliers", suppliers);
+        model.addAttribute("suppliers", supplierService.getAll());
         return "warehouse/suppliers";
     }
 
     @GetMapping("/add/supplier")
     public String newSupplierPage() {
         return "warehouse/newSupplier";
+    }
+
+    @GetMapping("/add/product")
+    public String newProductPage() {
+        return "warehouse/newProduct";
     }
 
     @PostMapping("/add/supplier")
