@@ -1,3 +1,5 @@
+@use 'helpers/index' as *;
+
 :root {
   --bg-dark: oklch(25% 0.01 250deg);
   --bg: oklch(28% 0.01 250deg);

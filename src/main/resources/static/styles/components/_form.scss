@@ -45,6 +45,43 @@
     outline: none;
     background-color: var(--bg);
   }
+
+  &--wide {
+    --input-width: 320px;
+  }
+
+  &[type="file"] {
+    --input-wide-width: 320px;
+
+    padding: 6px;
+    width: var(--input-wide-width);
+
+    @include hover {
+      background-color: var(--bg-light);
+      border: var(--border);
+    }
+
+    &::file-selector-button {
+      border: var(--border);
+      border-radius: var(--border-radius);
+      padding: 6px;
+      background-color: var(--bg);
+      color: var(--text);
+      margin-right: 6px;
+      transition-duration: var(--transition-duration);
+
+      @include hover {
+        background-color: var(--primary);
+        color: var(--bg);
+        transition-duration: var(--transition-duration);
+      }
+
+      &:active {
+        transition-duration: var(--transition-duration);
+        transform: translateY(2px);
+      }
+    }
+  }
 }
 
 .button-submit {
@@ -133,6 +170,64 @@
     transition-duration: var(--transition-duration);
     transform: translateY(2px);
   }
+}
+
+.fieldset {
+  --fieldset-width: 320px;
+
+  border: var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  background-color: var(--bg-light);
+  color: var(--text);
+  width: var(--fieldset-width);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--bg);
+    border: var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    gap: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+
+    @include hover {
+      background-color: var(--bg-light);
+      transition-duration: var(--transition-duration);
+    }
+  }
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  appearance: none;
+  -webkit-appearance: none;
+
+  &:checked + .checkbox__box {
+    background-color: var(--primary);
+    transition: background-color var(--transition-duration);
+  }
+  
+  &__box {
+    display: inline-block;
+    @include square(24px);
+    border-radius: var(--border-radius);
+    background-color: var(--text-muted);
+  }
+}
+
+.label__category {
+  align-self: flex-start;
 }
 
 @keyframes shake {

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  lang="en"
+>
 
 <head>
   <meta charset="UTF-8">
@@ -14,38 +17,39 @@
   >
   <link
     rel="stylesheet"
-    href="/styles/styles.css"
+    href="../../static/styles/styles.css"
   >
+  <!--href="/styles/styles.css"-->
 </head>
 
 <body>
 <section class="section container">
   <h1 class="h2">Добавление нового товара</h1>
   <form
-          method="post"
-          action="/warehouse-manager/add/product"
-          enctype="multipart/form-data"
-          class="form"
+    method="post"
+    action="/warehouse-manager/add/product"
+    enctype="multipart/form-data"
+    class="form"
   >
 
     <div class="field">
       <label for="supplierId">Поставщик:</label>
       <select
-              id="supplierId"
-              name="supplierId"
-              class="input select"
-              required
+        id="supplierId"
+        name="supplierId"
+        class="input input--wide select"
+        required
       >
         <option
-                value=""
-                disabled
-                selected
+          value=""
+          disabled
+          selected
         >Выберите поставщика
         </option>
         <th:block th:each="supplier : ${suppliers}">
           <option
-                  th:value="${supplier.id}"
-                  th:text="${supplier.name}"
+            th:value="${supplier.id}"
+            th:text="${supplier.name}"
           >
           </option>
         </th:block>
@@ -55,48 +59,48 @@
     <div class="field">
       <label for="name">Наименование:</label>
       <input
-              type="text"
-              id="name"
-              name="name"
-              minlength="2"
-              maxlength="32"
-              class="input"
-              required
+        type="text"
+        id="name"
+        name="name"
+        minlength="2"
+        maxlength="32"
+        class="input input--wide"
+        required
       >
     </div>
 
     <div class="field">
       <label for="price">Стоимость:</label>
       <input
-              type="number"
-              id="price"
-              name="price"
-              step="0.01"
-              class="input"
-              required
+        type="number"
+        id="price"
+        name="price"
+        step="0.01"
+        class="input input--wide"
+        required
       >
     </div>
 
     <div class="field">
       <label for="quantity">Количество:</label>
       <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              min="0"
-              max="100000"
-              class="input"
-              required
+        type="number"
+        id="quantity"
+        name="quantity"
+        min="0"
+        max="100000"
+        class="input input--wide"
+        required
       >
     </div>
 
-    <div class="field--right">
+    <div class="field">
       <label for="status">Статус товара:</label>
       <select
-              id="status"
-              name="status"
-              class="input select"
-              required
+        id="status"
+        name="status"
+        class="input input--wide select"
+        required
       >
         <option value="ACTIVE">Доступен для продажи</option>
         <option value="OUT_OF_STOCK">Нет в наличии</option>
@@ -105,44 +109,46 @@
       </select>
     </div>
 
-<!--    <div class="field">-->
-<!--      <label for="storeId">Магазин:</label>-->
-<!--      <select-->
-<!--              id="storeId"-->
-<!--              name="storeId"-->
-<!--              class="input select"-->
-<!--              required-->
-<!--      >-->
-<!--        <option-->
-<!--                value=""-->
-<!--                disabled-->
-<!--                selected-->
-<!--        >Выберите магазин-->
-<!--        </option>-->
-<!--        <th:block th:each="store : ${stores}">-->
-<!--          <option-->
-<!--                  th:value="${store.id}"-->
-<!--                  th:text="${store.location}"-->
-<!--          >-->
-<!--          </option>-->
-<!--        </th:block>-->
-<!--      </select>-->
-<!--    </div>-->
-
     <div class="field">
       <label>Изображение:</label>
       <input
-              type="file"
-              name="image"
-              accept="image/*"
-              class="input"
+        type="file"
+        name="image"
+        accept="image/png, image/jpeg, image/jpg"
+        class="input"
       >
     </div>
 
+    <div class="field">
+      <label
+        for="categoryIds"
+        class="label__category"
+      >Категории:</label>
+      <fieldset
+        id="categoryIds"
+        class="fieldset"
+      >
+        <th:block th:each="category : ${categories}">
+          <label>
+            <input
+              type="checkbox"
+              name="categoryIds"
+              class="checkbox"
+              th:value="${category.id}"
+              required
+            >
+            <span class="checkbox__box"></span>
+            <span th:text="${category.name}">Гитара</span>
+          </label>
+        </th:block>
+      </fieldset>
+    </div>
+
     <button
-            type="submit"
-            class="button-submit"
-    >Подтвердить</button>
+      type="submit"
+      class="button-submit"
+    >Подтвердить
+    </button>
   </form>
 </section>
 </body>
