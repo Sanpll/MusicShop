@@ -1,5 +1,6 @@
 package ru.randomplay.musicshop.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
@@ -47,7 +48,7 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute CustomerCreateRequest customerCreateRequest) {
+    public String registration(@Valid @ModelAttribute CustomerCreateRequest customerCreateRequest) {
         customerService.save(customerCreateRequest);
         return "redirect:/home";
     }

@@ -1,5 +1,6 @@
 package ru.randomplay.musicshop.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -59,25 +60,25 @@ public class AdminController {
     }
 
     @PostMapping("/add")
-    public String addAdmin(@ModelAttribute AdminCreateRequest adminCreateRequest) {
+    public String addAdmin(@Valid @ModelAttribute AdminCreateRequest adminCreateRequest) {
         adminService.save(adminCreateRequest);
         return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/add/employee")
-    public String addEmployee(@ModelAttribute EmployeeCreateRequest employeeCreateRequest) {
+    public String addEmployee(@Valid @ModelAttribute EmployeeCreateRequest employeeCreateRequest) {
         employeeService.save(employeeCreateRequest);
         return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/add/warehouse-manager")
-    public String addWarehouseManager(@ModelAttribute WarehouseManagerCreateRequest warehouseManagerCreateRequest) {
+    public String addWarehouseManager(@Valid @ModelAttribute WarehouseManagerCreateRequest warehouseManagerCreateRequest) {
         warehouseManagerService.save(warehouseManagerCreateRequest);
         return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/add/store")
-    public String addStore(@ModelAttribute StoreCreateRequest storeCreateRequest) {
+    public String addStore(@Valid @ModelAttribute StoreCreateRequest storeCreateRequest) {
         storeService.save(storeCreateRequest);
         return "redirect:/admin/dashboard";
     }
