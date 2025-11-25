@@ -23,7 +23,7 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/registration", "/home").permitAll()
                         .requestMatchers("/styles/**").permitAll()
                         .requestMatchers("/employee/**").hasRole("EMPLOYEE")
-                        .requestMatchers("/warehouse/**").hasRole("WAREHOUSE_MANAGER")
+                        .requestMatchers("/warehouse-manager/**").hasRole("WAREHOUSE_MANAGER")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         // Все остальные эндпоинты требуют аутентификации
                         .anyRequest().authenticated())

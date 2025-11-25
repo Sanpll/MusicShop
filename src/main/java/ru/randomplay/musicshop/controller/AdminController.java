@@ -9,14 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.randomplay.musicshop.dto.create.AdminCreateRequest;
-import ru.randomplay.musicshop.dto.create.EmployeeCreateRequest;
-import ru.randomplay.musicshop.dto.create.StoreCreateRequest;
-import ru.randomplay.musicshop.dto.create.WarehouseManagerCreateRequest;
-import ru.randomplay.musicshop.service.AdminService;
-import ru.randomplay.musicshop.service.EmployeeService;
-import ru.randomplay.musicshop.service.StoreService;
-import ru.randomplay.musicshop.service.WarehouseManagerService;
+import ru.randomplay.musicshop.dto.create.*;
+import ru.randomplay.musicshop.service.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,6 +21,7 @@ public class AdminController {
     private final EmployeeService employeeService;
     private final WarehouseManagerService warehouseManagerService;
     private final StoreService storeService;
+    private final CategoryService categoryService;
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
@@ -59,6 +54,11 @@ public class AdminController {
         return "admin/newStore";
     }
 
+    @GetMapping("/add/category")
+    public String addCategoryPage() {
+        return "admin/newCategory";
+    }
+
     @PostMapping("/add")
     public String addAdmin(@Valid @ModelAttribute AdminCreateRequest adminCreateRequest) {
         adminService.save(adminCreateRequest);
@@ -80,6 +80,12 @@ public class AdminController {
     @PostMapping("/add/store")
     public String addStore(@Valid @ModelAttribute StoreCreateRequest storeCreateRequest) {
         storeService.save(storeCreateRequest);
+        return "redirect:/admin/dashboard";
+    }
+
+    @PostMapping("/add/category")
+    public String addCategory(@Valid @ModelAttribute CategoryCreateRequest categoryCreateRequest) {
+        categoryService.save(categoryCreateRequest);
         return "redirect:/admin/dashboard";
     }
 

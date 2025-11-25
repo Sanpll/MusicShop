@@ -2,6 +2,7 @@ package ru.randomplay.musicshop.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.randomplay.musicshop.dto.create.ProductCreateRequest;
 import ru.randomplay.musicshop.dto.create.SupplierCreateRequest;
+import ru.randomplay.musicshop.service.CategoryService;
 import ru.randomplay.musicshop.service.ProductService;
 import ru.randomplay.musicshop.service.SupplierService;
 
@@ -24,6 +26,10 @@ import java.util.UUID;
 public class WarehouseManagerController {
     private final SupplierService supplierService;
     private final ProductService productService;
+    private final CategoryService categoryService;
+
+    @Value("${app.image.upload-dir}")
+    private String uploadDir;
 
     @GetMapping("/suppliers")
     public String suppliersPage(Model model) {
@@ -37,8 +43,10 @@ public class WarehouseManagerController {
     }
 
     @GetMapping("/add/product")
-    public String newProductPage(Model model) {
+    public String newProductPage(Model model, @RequestParam(required = false) String error) {
+        model.addAttribute("error", error);
         model.addAttribute("suppliers", supplierService.getAll());
+        model.addAttribute("categories", categoryService.getAll());
         return "warehouse/newProduct";
     }
 
@@ -51,30 +59,29 @@ public class WarehouseManagerController {
     @PostMapping("/add/product")
     public String newProduct(@Valid @ModelAttribute ProductCreateRequest productCreateRequest,
                              @RequestParam("image") MultipartFile image) {
-        String directoryName = "/musicshop/images/products/";
-        String originalFilename = image.getOriginalFilename();
+        if (productCreateRequest.getCategoryIds() == null) {
+            return "redirect:/warehouse-manager/add/product?error=true";
+        }
+
         String fileName = null;
-        System.out.println(directoryName);
-        System.out.println(originalFilename);
 
         // можно сохранить товар без фотки
-        if (originalFilename != null) {
+        if (!image.isEmpty()) {
             if (!Objects.requireNonNull(image.getContentType()).startsWith("image/")) {
                 throw new IllegalArgumentException("File must be an image");
             }
-            String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            fileName = productCreateRequest.getName() + "_" + UUID.randomUUID() + fileExtension;
-            System.out.println(fileExtension);
-            System.out.println(fileName);
+
+            String originalFilename = image.getOriginalFilename();
+            String extension = originalFilename != null ? originalFilename.substring(originalFilename.lastIndexOf(".")) : ".jpg";
+            fileName = UUID.randomUUID() + extension;
 
             try {
-                image.transferTo(new File(directoryName + fileName));
+                image.transferTo(new File(uploadDir + File.separator + fileName));
             } catch (IOException e) {
                 throw new RuntimeException("Failed to save image", e);
             }
         }
 
-        // т.к. все наименования товаров уникальны, то фотка будет называться также
         productCreateRequest.setImageFilename(fileName);
         productService.save(productCreateRequest);
         return "redirect:/warehouse-manager/suppliers";

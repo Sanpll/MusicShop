@@ -31,7 +31,6 @@ public class ProductCreateRequest {
     @NotNull
     private ProductStatus status;
 
-    @NotEmpty
     private List<Long> categoryIds;
 
     private String imageFilename;

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление категории</title>
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    >
+    <meta
+            http-equiv="X-UA-Compatible"
+            content="ie=edge"
+    >
+    <link
+            rel="stylesheet"
+            href="/styles/styles.css"
+    >
+</head>
+
+<body>
+<section class="section container">
+    <h1 class="h2">Добавление новой категории</h1>
+    <form
+            method="post"
+            action="/admin/add/category"
+            class="form"
+    >
+
+        <div class="field--right">
+            <label for="name">Название:</label>
+            <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    minlength="3"
+                    maxlength="32"
+                    class="input"
+                    required
+            >
+        </div>
+
+        <div class="field--right">
+            <label for="description">Описание:</label>
+            <input
+                    type="text"
+                    id="description"
+                    name="description"
+                    minlength="4"
+                    maxlength="256"
+                    class="input"
+            >
+        </div>
+
+        <button
+                type="submit"
+                class="button-submit"
+        >Подтвердить
+        </button>
+    </form>
+</section>
+</body>
+</html>
