@@ -33,4 +33,6 @@ public class ProductCreateRequest {
 
     @NotEmpty
     private List<Long> categoryIds;
+
+    private String imageFilename;
 }

@@ -40,8 +40,11 @@ public class Product {
     @Column(name = "status", nullable = false)
     private ProductStatus status;
 
+    @Column(name = "image_filename")
+    private String imageFilename;
 
-    // Используем HashSet, чтобы был поиск со скоростью O(1)
+
+    // Используем HashSet, чтобы был поиск со сложностью O(1)
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ProductCategoryLink> categoryLinks = new HashSet<>();
 
