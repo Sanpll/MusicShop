@@ -3,7 +3,7 @@ package ru.randomplay.musicshop.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
-import ru.randomplay.musicshop.dto.create.EmployeeCreateRequest;
+import ru.randomplay.musicshop.dto.request.EmployeeRequest;
 import ru.randomplay.musicshop.dto.response.EmployeeResponse;
 import ru.randomplay.musicshop.entity.Employee;
 import ru.randomplay.musicshop.entity.Store;
@@ -18,7 +18,7 @@ public interface EmployeeMapper {
     @Mapping(target = "activity", constant = "ACTIVE")
     @Mapping(target = "registeredAt", ignore = true)
     @Mapping(target = "authorities", ignore = true)
-    User toUser(EmployeeCreateRequest employeeCreateRequest);
+    User toUser(EmployeeRequest employeeRequest);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", source = "user")

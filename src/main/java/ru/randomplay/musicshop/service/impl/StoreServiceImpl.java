@@ -3,7 +3,7 @@ package ru.randomplay.musicshop.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.randomplay.musicshop.dto.create.StoreCreateRequest;
+import ru.randomplay.musicshop.dto.request.StoreRequest;
 import ru.randomplay.musicshop.dto.response.StoreResponse;
 import ru.randomplay.musicshop.entity.Store;
 import ru.randomplay.musicshop.mapper.StoreMapper;
@@ -25,12 +25,12 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     @Transactional
-    public void save(StoreCreateRequest storeCreateRequest) {
-        if (storeRepository.findByLocation(storeCreateRequest.getLocation()).isPresent()) {
+    public void save(StoreRequest storeRequest) {
+        if (storeRepository.findByLocation(storeRequest.getLocation()).isPresent()) {
             throw new IllegalArgumentException("Store with this location already exists");
         }
 
-        Store createdStore = storeMapper.toStore(storeCreateRequest);
+        Store createdStore = storeMapper.toStore(storeRequest);
         storeRepository.save(createdStore);
     }
 }

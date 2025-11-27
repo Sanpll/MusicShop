@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.randomplay.musicshop.dto.create.CustomerCreateRequest;
+import ru.randomplay.musicshop.dto.request.CustomerRequest;
 import ru.randomplay.musicshop.service.CustomerService;
 
 @Controller
@@ -48,8 +48,8 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public String registration(@Valid @ModelAttribute CustomerCreateRequest customerCreateRequest) {
-        customerService.save(customerCreateRequest);
+    public String registration(@Valid @ModelAttribute CustomerRequest customerRequest) {
+        customerService.save(customerRequest);
         return "redirect:/home";
     }
 

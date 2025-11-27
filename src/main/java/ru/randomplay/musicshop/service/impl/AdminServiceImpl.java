@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.randomplay.musicshop.dto.create.AdminCreateRequest;
+import ru.randomplay.musicshop.dto.request.AdminRequest;
 import ru.randomplay.musicshop.dto.response.AdminResponse;
 import ru.randomplay.musicshop.entity.User;
 import ru.randomplay.musicshop.mapper.AdminMapper;
@@ -28,13 +28,13 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
-    public void save(AdminCreateRequest adminCreateRequest) {
-        if (userRepository.findByEmail(adminCreateRequest.getEmail()).isPresent()) {
+    public void save(AdminRequest adminRequest) {
+        if (userRepository.findByEmail(adminRequest.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User with this email already exists");
         }
 
-        User createdUser = adminMapper.toUser(adminCreateRequest);
-        createdUser.setPassword(passwordEncoder.encode(adminCreateRequest.getPassword()));
+        User createdUser = adminMapper.toUser(adminRequest);
+        createdUser.setPassword(passwordEncoder.encode(adminRequest.getPassword()));
         userRepository.save(createdUser);
     }
 }

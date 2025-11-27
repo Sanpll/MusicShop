@@ -1,4 +1,4 @@
-package ru.randomplay.musicshop.dto.create;
+package ru.randomplay.musicshop.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CategoryCreateRequest {
+public class CategoryRequest {
     @NotBlank
     private String name;
 

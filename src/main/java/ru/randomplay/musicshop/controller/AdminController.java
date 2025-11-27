@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.randomplay.musicshop.dto.create.*;
+import ru.randomplay.musicshop.dto.request.*;
 import ru.randomplay.musicshop.service.*;
 
 @Controller
@@ -60,32 +60,32 @@ public class AdminController {
     }
 
     @PostMapping("/add")
-    public String addAdmin(@Valid @ModelAttribute AdminCreateRequest adminCreateRequest) {
-        adminService.save(adminCreateRequest);
+    public String addAdmin(@Valid @ModelAttribute AdminRequest adminRequest) {
+        adminService.save(adminRequest);
         return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/add/employee")
-    public String addEmployee(@Valid @ModelAttribute EmployeeCreateRequest employeeCreateRequest) {
-        employeeService.save(employeeCreateRequest);
+    public String addEmployee(@Valid @ModelAttribute EmployeeRequest employeeRequest) {
+        employeeService.save(employeeRequest);
         return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/add/warehouse-manager")
-    public String addWarehouseManager(@Valid @ModelAttribute WarehouseManagerCreateRequest warehouseManagerCreateRequest) {
-        warehouseManagerService.save(warehouseManagerCreateRequest);
+    public String addWarehouseManager(@Valid @ModelAttribute WarehouseManagerRequest warehouseManagerRequest) {
+        warehouseManagerService.save(warehouseManagerRequest);
         return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/add/store")
-    public String addStore(@Valid @ModelAttribute StoreCreateRequest storeCreateRequest) {
-        storeService.save(storeCreateRequest);
+    public String addStore(@Valid @ModelAttribute StoreRequest storeRequest) {
+        storeService.save(storeRequest);
         return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/add/category")
-    public String addCategory(@Valid @ModelAttribute CategoryCreateRequest categoryCreateRequest) {
-        categoryService.save(categoryCreateRequest);
+    public String addCategory(@Valid @ModelAttribute CategoryRequest categoryRequest) {
+        categoryService.save(categoryRequest);
         return "redirect:/admin/dashboard";
     }
 

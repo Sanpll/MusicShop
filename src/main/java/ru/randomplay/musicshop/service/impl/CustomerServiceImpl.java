@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.randomplay.musicshop.dto.create.CustomerCreateRequest;
+import ru.randomplay.musicshop.dto.request.CustomerRequest;
 import ru.randomplay.musicshop.entity.Cart;
 import ru.randomplay.musicshop.entity.Customer;
 import ru.randomplay.musicshop.entity.User;
@@ -23,13 +23,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public void save(CustomerCreateRequest customerCreateRequest) {
-        if (userRepository.findByEmail(customerCreateRequest.getEmail()).isPresent()) {
+    public void save(CustomerRequest customerRequest) {
+        if (userRepository.findByEmail(customerRequest.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User with this email already exists");
         }
 
-        User createdUser = customerMapper.toUser(customerCreateRequest);
-        createdUser.setPassword(passwordEncoder.encode(customerCreateRequest.getPassword()));
+        User createdUser = customerMapper.toUser(customerRequest);
+        createdUser.setPassword(passwordEncoder.encode(customerRequest.getPassword()));
 
         Cart createdCart = new Cart();
         Customer createdCustomer = Customer.create(createdUser, createdCart);

@@ -1,4 +1,4 @@
-package ru.randomplay.musicshop.dto.create;
+package ru.randomplay.musicshop.dto.request;
 
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class SupplierCreateRequest {
+public class SupplierRequest {
     @NotBlank
     @Size(min = 4, max = 32)
     private String name;
