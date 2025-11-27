@@ -46,7 +46,9 @@
     </thead>
     <tbody>
       <tr th:each="supplier : ${suppliers}">
-        <td th:text="${supplier.id}"></td>
+        <td>
+          <a th:href="@{/warehouse-manager/update/supplier/{id}(id=${supplier.id})}" th:text="${supplier.id}"></a>
+        </td>
         <td th:text="${supplier.name}"></td>
         <td th:text="${supplier.country}"></td>
         <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}"></td>

@@ -39,4 +39,20 @@ public class SupplierServiceImpl implements SupplierService {
         Supplier createdSupplier = supplierMapper.toSupplier(supplierCreateRequest);
         supplierRepository.save(createdSupplier);
     }
+
+    @Override
+    @Transactional
+    public void update(Long id, SupplierCreateRequest supplierCreateRequest) {
+        Supplier updatedSupplier = supplierRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Supplier with this ID doesn't exist"));
+
+        // проверка на то, что новое имя не будет совпадать с уже существующими
+        if (!updatedSupplier.getName().equals(supplierCreateRequest.getName()) &&
+                supplierRepository.findByName(supplierCreateRequest.getName()).isPresent()) {
+            throw new IllegalArgumentException("Supplier with this name already exists");
+        }
+
+        supplierMapper.updateSupplier(updatedSupplier, supplierCreateRequest);
+        supplierRepository.save(updatedSupplier);
+    }
 }

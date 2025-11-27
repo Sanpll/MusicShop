@@ -11,4 +11,6 @@ public interface SupplierService {
     List<SupplierResponse> getAll();
 
     void save(SupplierCreateRequest supplierCreateRequest);
+
+    void update(Long id, SupplierCreateRequest supplierCreateRequest);
 }

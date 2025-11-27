@@ -92,4 +92,10 @@ public class WarehouseManagerController {
         productService.save(productCreateRequest);
         return "redirect:/warehouse-manager/suppliers";
     }
+
+    @PostMapping("/update/supplier/{id}")
+    public String updateSupplier(@PathVariable Long id, @Valid @ModelAttribute SupplierCreateRequest supplierCreateRequest) {
+        supplierService.update(id, supplierCreateRequest);
+        return "redirect:/warehouse-manager/suppliers";
+    }
 }

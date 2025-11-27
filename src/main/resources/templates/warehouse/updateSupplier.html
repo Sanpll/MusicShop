@@ -24,7 +24,7 @@
 
     <form
             method="post"
-            action="/warehouse-manager/update/supplier"
+            th:action="@{/warehouse-manager/update/supplier/{id}(id=${supplier.id})}"
             class="form"
     >
         <div class="field">
@@ -36,7 +36,7 @@
                     name="name"
                     minlength="3"
                     maxlength="32"
-                    th:placeholder="${supplier.name}"
+                    th:value="${supplier.name}"
                     required
             >
         </div>
@@ -49,7 +49,7 @@
                     id="country"
                     name="country"
                     maxlength="32"
-                    th:placeholder="${supplier.country}"
+                    th:value="${supplier.country}"
                     required
             >
         </div>
@@ -62,7 +62,7 @@
                     id="contract_start"
                     name="contractStart"
                     pattern="\d{2}\.\d{2}\.\d{4}"
-                    th:placeholder="${supplier.contractStart}"
+                    th:value="${supplier.contractStart}"
                     required
             >
         </div>
@@ -75,7 +75,7 @@
                     id="contractEnd"
                     name="contractEnd"
                     pattern="\d{2}\.\d{2}\.\d{4}"
-                    th:placeholder="${supplier.contractEnd}"
+                    th:value="${supplier.contractEnd}"
                     required
             >
         </div>
