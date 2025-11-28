@@ -52,3 +52,15 @@
     }
   }
 }
+
+.td__image {
+  @include flex-center;
+  flex-direction: column;
+
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+  }
+}

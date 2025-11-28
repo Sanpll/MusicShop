@@ -665,4 +665,17 @@ a[class] {
   text-align: center;
 }
 
+.td__image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.td__image img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  object-position: center;
+}
+
 /*# sourceMappingURL=styles.css.map */
