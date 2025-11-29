@@ -10,3 +10,14 @@ CUSTOMER - aa@aa.a aaa
 EMPLOYEE - employee@empl.oyee employee
 WAREHOUSE_MANAGER - warehouse@manager.com warehousemanager
 ADMIN - admin@admin.ad admin
+
+Задачи:
+В updateAdmin первая строчка намного длиннее остальных
+Исправить плашку с выбором категорий, если их нет
+Сделать /home
+Как лучше всего делать ссылки на update строчки
+Имеет ли смысл объединить html файлы для добавления и обновления записи
+Как в updateProduct.html сделать вывод картинки и автоматический выбор исходных категорий
+Сделать в newCategory большое поле для ввода текста (textarea)
+Сделать показ изображения при добавлении и изменении товара
+Сделать в admin/dashboard большее расстояние между таблицами

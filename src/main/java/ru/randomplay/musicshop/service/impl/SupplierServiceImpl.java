@@ -3,8 +3,9 @@ package ru.randomplay.musicshop.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.randomplay.musicshop.dto.request.SupplierRequest;
+import ru.randomplay.musicshop.dto.create.SupplierCreateRequest;
 import ru.randomplay.musicshop.dto.response.SupplierResponse;
+import ru.randomplay.musicshop.dto.update.SupplierUpdateRequest;
 import ru.randomplay.musicshop.entity.Supplier;
 import ru.randomplay.musicshop.mapper.SupplierMapper;
 import ru.randomplay.musicshop.repository.SupplierRepository;
@@ -31,28 +32,28 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     @Transactional
-    public void save(SupplierRequest supplierRequest) {
-        if (supplierRepository.findByName(supplierRequest.getName()).isPresent()) {
+    public void save(SupplierCreateRequest supplierCreateRequest) {
+        if (supplierRepository.findByName(supplierCreateRequest.getName()).isPresent()) {
             throw new IllegalArgumentException("Supplier with this name already exists");
         }
 
-        Supplier createdSupplier = supplierMapper.toSupplier(supplierRequest);
+        Supplier createdSupplier = supplierMapper.toSupplier(supplierCreateRequest);
         supplierRepository.save(createdSupplier);
     }
 
     @Override
     @Transactional
-    public void update(Long id, SupplierRequest supplierRequest) {
+    public void update(Long id, SupplierUpdateRequest supplierUpdateRequest) {
         Supplier updatedSupplier = supplierRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Supplier with this ID doesn't exist"));
 
         // проверка на то, что новое имя не будет совпадать с уже существующими
-        if (!updatedSupplier.getName().equals(supplierRequest.getName()) &&
-                supplierRepository.findByName(supplierRequest.getName()).isPresent()) {
+        if (!updatedSupplier.getName().equals(supplierUpdateRequest.getName()) &&
+                supplierRepository.findByName(supplierUpdateRequest.getName()).isPresent()) {
             throw new IllegalArgumentException("Supplier with this name already exists");
         }
 
-        supplierMapper.updateSupplier(updatedSupplier, supplierRequest);
+        supplierMapper.updateSupplier(updatedSupplier, supplierUpdateRequest);
         supplierRepository.save(updatedSupplier);
     }
 }

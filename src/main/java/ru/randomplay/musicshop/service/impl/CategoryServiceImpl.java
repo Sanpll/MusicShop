@@ -2,7 +2,7 @@ package ru.randomplay.musicshop.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.randomplay.musicshop.dto.request.CategoryRequest;
+import ru.randomplay.musicshop.dto.create.CategoryCreateRequest;
 import ru.randomplay.musicshop.dto.response.CategoryResponse;
 import ru.randomplay.musicshop.entity.Category;
 import ru.randomplay.musicshop.mapper.CategoryMapper;
@@ -23,12 +23,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void save(CategoryRequest categoryRequest) {
-        if (categoryRepository.findByName(categoryRequest.getName()).isPresent()) {
+    public void save(CategoryCreateRequest categoryCreateRequest) {
+        if (categoryRepository.findByName(categoryCreateRequest.getName()).isPresent()) {
             throw new IllegalArgumentException("Category with this name already exists");
         }
 
-        Category createdCategory = categoryMapper.toCategory(categoryRequest);
+        Category createdCategory = categoryMapper.toCategory(categoryCreateRequest);
         categoryRepository.save(createdCategory);
     }
 }

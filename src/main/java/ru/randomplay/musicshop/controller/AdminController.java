@@ -5,11 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ru.randomplay.musicshop.dto.request.*;
+import org.springframework.web.bind.annotation.*;
+import ru.randomplay.musicshop.dto.create.*;
+import ru.randomplay.musicshop.dto.update.AdminUpdateRequest;
 import ru.randomplay.musicshop.service.*;
 
 @Controller
@@ -59,34 +57,47 @@ public class AdminController {
         return "admin/newCategory";
     }
 
+    @GetMapping("/update/{id}")
+    public String updateAdminPage(Model model,
+                                  @PathVariable Long id) {
+        model.addAttribute("admin", adminService.get(id));
+        return "admin/updateAdmin";
+    }
+
     @PostMapping("/add")
-    public String addAdmin(@Valid @ModelAttribute AdminRequest adminRequest) {
-        adminService.save(adminRequest);
+    public String addAdmin(@Valid @ModelAttribute AdminCreateRequest adminCreateRequest) {
+        adminService.save(adminCreateRequest);
         return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/add/employee")
-    public String addEmployee(@Valid @ModelAttribute EmployeeRequest employeeRequest) {
-        employeeService.save(employeeRequest);
+    public String addEmployee(@Valid @ModelAttribute EmployeeCreateRequest employeeCreateRequest) {
+        employeeService.save(employeeCreateRequest);
         return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/add/warehouse-manager")
-    public String addWarehouseManager(@Valid @ModelAttribute WarehouseManagerRequest warehouseManagerRequest) {
-        warehouseManagerService.save(warehouseManagerRequest);
+    public String addWarehouseManager(@Valid @ModelAttribute WarehouseManagerCreateRequest warehouseManagerCreateRequest) {
+        warehouseManagerService.save(warehouseManagerCreateRequest);
         return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/add/store")
-    public String addStore(@Valid @ModelAttribute StoreRequest storeRequest) {
-        storeService.save(storeRequest);
+    public String addStore(@Valid @ModelAttribute StoreCreateRequest storeCreateRequest) {
+        storeService.save(storeCreateRequest);
         return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/add/category")
-    public String addCategory(@Valid @ModelAttribute CategoryRequest categoryRequest) {
-        categoryService.save(categoryRequest);
+    public String addCategory(@Valid @ModelAttribute CategoryCreateRequest categoryCreateRequest) {
+        categoryService.save(categoryCreateRequest);
         return "redirect:/admin/dashboard";
     }
 
+    @PostMapping("/update/{id}")
+    public String updateAdmin(@PathVariable Long id,
+                              @Valid @ModelAttribute AdminUpdateRequest adminUpdateRequest) {
+        adminService.update(id, adminUpdateRequest);
+        return "redirect:/admin/dashboard";
+    }
 }

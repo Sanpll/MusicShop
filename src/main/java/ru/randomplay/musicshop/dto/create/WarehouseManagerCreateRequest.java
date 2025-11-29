@@ -1,4 +1,4 @@
-package ru.randomplay.musicshop.dto.request;
+package ru.randomplay.musicshop.dto.create;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EmployeeRequest {
+public class WarehouseManagerCreateRequest {
     @NotBlank
     @Email
     private String email;

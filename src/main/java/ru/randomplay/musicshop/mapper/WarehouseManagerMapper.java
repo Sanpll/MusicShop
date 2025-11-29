@@ -3,7 +3,7 @@ package ru.randomplay.musicshop.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
-import ru.randomplay.musicshop.dto.request.WarehouseManagerRequest;
+import ru.randomplay.musicshop.dto.create.WarehouseManagerCreateRequest;
 import ru.randomplay.musicshop.dto.response.WarehouseManagerResponse;
 import ru.randomplay.musicshop.entity.Store;
 import ru.randomplay.musicshop.entity.User;
@@ -18,7 +18,7 @@ public interface WarehouseManagerMapper {
     @Mapping(target = "activity", constant = "ACTIVE")
     @Mapping(target = "registeredAt", ignore = true)
     @Mapping(target = "authorities", ignore = true)
-    User toUser(WarehouseManagerRequest warehouseManagerRequest);
+    User toUser(WarehouseManagerCreateRequest warehouseManagerCreateRequest);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", source = "user")

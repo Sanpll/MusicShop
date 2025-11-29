@@ -3,7 +3,7 @@ package ru.randomplay.musicshop.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.randomplay.musicshop.dto.request.ProductRequest;
+import ru.randomplay.musicshop.dto.create.ProductCreateRequest;
 import ru.randomplay.musicshop.dto.response.ProductResponse;
 import ru.randomplay.musicshop.entity.Category;
 import ru.randomplay.musicshop.entity.Product;
@@ -39,25 +39,25 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void save(ProductRequest productRequest) {
-        if (productRepository.findByName(productRequest.getName()).isPresent()) {
+    public void save(ProductCreateRequest productCreateRequest) {
+        if (productRepository.findByName(productCreateRequest.getName()).isPresent()) {
             throw new IllegalArgumentException("Product with this name already exists");
         }
 
         // Находим поставщика по его id
         Supplier supplier = supplierRepository
-                .findById(productRequest.getSupplierId())
+                .findById(productCreateRequest.getSupplierId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid supplier id"));
 
         // Получаем список категорий по их id
         List<Category> categoryList = new ArrayList<>(
-                categoryRepository.findAllById(productRequest.getCategoryIds())
+                categoryRepository.findAllById(productCreateRequest.getCategoryIds())
         );
-        if (categoryList.size() != productRequest.getCategoryIds().size()) {
+        if (categoryList.size() != productCreateRequest.getCategoryIds().size()) {
             throw new IllegalArgumentException("Invalid categories id");
         }
 
-        Product createdProduct = productMapper.toProduct(productRequest, supplier);
+        Product createdProduct = productMapper.toProduct(productCreateRequest, supplier);
 
         // Прописываем связи между Product и Category
         for (Category category : categoryList) {

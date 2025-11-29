@@ -1,7 +1,8 @@
 package ru.randomplay.musicshop.service;
 
-import ru.randomplay.musicshop.dto.request.SupplierRequest;
+import ru.randomplay.musicshop.dto.create.SupplierCreateRequest;
 import ru.randomplay.musicshop.dto.response.SupplierResponse;
+import ru.randomplay.musicshop.dto.update.SupplierUpdateRequest;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface SupplierService {
 
     List<SupplierResponse> getAll();
 
-    void save(SupplierRequest supplierRequest);
+    void save(SupplierCreateRequest supplierCreateRequest);
 
-    void update(Long id, SupplierRequest supplierRequest);
+    void update(Long id, SupplierUpdateRequest supplierUpdateRequest);
 }

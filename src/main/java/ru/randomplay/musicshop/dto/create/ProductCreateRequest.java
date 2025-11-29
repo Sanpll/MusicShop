@@ -1,4 +1,4 @@
-package ru.randomplay.musicshop.dto.request;
+package ru.randomplay.musicshop.dto.create;
 
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ProductRequest {
+public class ProductCreateRequest {
     @NotNull
     private Long supplierId;
 

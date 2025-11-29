@@ -1,14 +1,15 @@
-package ru.randomplay.musicshop.dto.request;
+package ru.randomplay.musicshop.dto.create;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CustomerRequest {
+public class EmployeeCreateRequest {
     @NotBlank
     @Email
     private String email;
@@ -26,4 +27,7 @@ public class CustomerRequest {
     private String lastName;
 
     private String phone;
+
+    @NotNull
+    private Long storeId;
 }

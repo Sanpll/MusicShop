@@ -136,18 +136,20 @@
                     id="categoryIds"
                     class="fieldset"
             >
-                <th:block th:each="category : ${categories}">
-                    <label>
-                        <input
-                                type="checkbox"
-                                name="categoryIds"
-                                class="checkbox"
-                                th:value="${category.id}"
-                        >
-                        <span class="checkbox__box"></span>
-                        <span th:text="${category.name}"></span>
-                    </label>
-                </th:block>
+                <label th:if="${categories != null}" th:each="category : ${categories}">
+                    <input
+                            type="checkbox"
+                            name="categoryIds"
+                            class="checkbox"
+                            th:value="${category.id}"
+                            th:checked="${product.categoryNames.contains(category.name)} != null"
+                    >
+                    <span class="checkbox__box"></span>
+                    <span th:text="${category.name}"></span>
+                </label>
+                <label th:if="${categories == null}">
+                    Категорий не найдено
+                </label>
             </fieldset>
         </div>
 

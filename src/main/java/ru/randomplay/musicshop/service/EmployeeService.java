@@ -1,6 +1,6 @@
 package ru.randomplay.musicshop.service;
 
-import ru.randomplay.musicshop.dto.request.EmployeeRequest;
+import ru.randomplay.musicshop.dto.create.EmployeeCreateRequest;
 import ru.randomplay.musicshop.dto.response.EmployeeResponse;
 
 import java.util.List;
@@ -8,5 +8,5 @@ import java.util.List;
 public interface EmployeeService {
     List<EmployeeResponse> getAll();
 
-    void save(EmployeeRequest employeeRequest);
+    void save(EmployeeCreateRequest employeeCreateRequest);
 }

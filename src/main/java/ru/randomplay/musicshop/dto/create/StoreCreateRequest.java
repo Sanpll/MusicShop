@@ -1,4 +1,4 @@
-package ru.randomplay.musicshop.dto.request;
+package ru.randomplay.musicshop.dto.create;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class StoreRequest {
+public class StoreCreateRequest {
     @NotNull
     private StoreStatus status;
 

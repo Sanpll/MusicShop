@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.randomplay.musicshop.dto.request.EmployeeRequest;
+import ru.randomplay.musicshop.dto.create.EmployeeCreateRequest;
 import ru.randomplay.musicshop.dto.response.EmployeeResponse;
 import ru.randomplay.musicshop.entity.Employee;
 import ru.randomplay.musicshop.entity.Store;
@@ -33,15 +33,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public void save(EmployeeRequest employeeRequest) {
-        if (userRepository.findByEmail(employeeRequest.getEmail()).isPresent()) {
+    public void save(EmployeeCreateRequest employeeCreateRequest) {
+        if (userRepository.findByEmail(employeeCreateRequest.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User with this email already exists");
         }
 
-        User createdUser = employeeMapper.toUser(employeeRequest);
-        createdUser.setPassword(passwordEncoder.encode(employeeRequest.getPassword()));
+        User createdUser = employeeMapper.toUser(employeeCreateRequest);
+        createdUser.setPassword(passwordEncoder.encode(employeeCreateRequest.getPassword()));
 
-        Store store = storeRepository.findById(employeeRequest
+        Store store = storeRepository.findById(employeeCreateRequest
                 .getStoreId()).orElseThrow(() -> new IllegalArgumentException("This store doesn't exist"));
 
         Employee createdEmployee = employeeMapper.toEmployee(createdUser, store);

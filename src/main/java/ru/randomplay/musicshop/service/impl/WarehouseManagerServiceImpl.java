@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.randomplay.musicshop.dto.request.WarehouseManagerRequest;
+import ru.randomplay.musicshop.dto.create.WarehouseManagerCreateRequest;
 import ru.randomplay.musicshop.dto.response.WarehouseManagerResponse;
 import ru.randomplay.musicshop.entity.Store;
 import ru.randomplay.musicshop.entity.User;
@@ -33,15 +33,15 @@ public class WarehouseManagerServiceImpl implements WarehouseManagerService {
 
     @Override
     @Transactional
-    public void save(WarehouseManagerRequest warehouseManagerRequest) {
-        if (userRepository.findByEmail(warehouseManagerRequest.getEmail()).isPresent()) {
+    public void save(WarehouseManagerCreateRequest warehouseManagerCreateRequest) {
+        if (userRepository.findByEmail(warehouseManagerCreateRequest.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User with this email already exists");
         }
 
-        User createdUser = warehouseManagerMapper.toUser(warehouseManagerRequest);
-        createdUser.setPassword(passwordEncoder.encode(warehouseManagerRequest.getPassword()));
+        User createdUser = warehouseManagerMapper.toUser(warehouseManagerCreateRequest);
+        createdUser.setPassword(passwordEncoder.encode(warehouseManagerCreateRequest.getPassword()));
 
-        Store store = storeRepository.findById(warehouseManagerRequest
+        Store store = storeRepository.findById(warehouseManagerCreateRequest
                 .getStoreId()).orElseThrow(() -> new IllegalArgumentException("This store doesn't exist"));
 
         WarehouseManager createdWarehouseManager = warehouseManagerMapper.toWarehouseManager(createdUser, store);

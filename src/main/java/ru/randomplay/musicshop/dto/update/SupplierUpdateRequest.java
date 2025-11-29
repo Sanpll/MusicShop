@@ -1,4 +1,4 @@
-package ru.randomplay.musicshop.dto.request;
+package ru.randomplay.musicshop.dto.update;
 
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -8,9 +8,9 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class SupplierRequest {
+public class SupplierUpdateRequest {
     @NotBlank
-    @Size(min = 4, max = 32)
+    @Size(min = 3, max = 32)
     private String name;
 
     @NotBlank
@@ -25,3 +25,4 @@ public class SupplierRequest {
     @Future
     private LocalDate contractEnd;
 }
+

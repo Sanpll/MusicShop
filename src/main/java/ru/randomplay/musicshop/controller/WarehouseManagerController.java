@@ -8,8 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.randomplay.musicshop.dto.request.ProductRequest;
-import ru.randomplay.musicshop.dto.request.SupplierRequest;
+import ru.randomplay.musicshop.dto.create.ProductCreateRequest;
+import ru.randomplay.musicshop.dto.create.SupplierCreateRequest;
+import ru.randomplay.musicshop.dto.update.SupplierUpdateRequest;
 import ru.randomplay.musicshop.service.CategoryService;
 import ru.randomplay.musicshop.service.ProductService;
 import ru.randomplay.musicshop.service.SupplierService;
@@ -70,15 +71,15 @@ public class WarehouseManagerController {
     }
 
     @PostMapping("/add/supplier")
-    public String newSupplier(@Valid @ModelAttribute SupplierRequest supplierRequest) {
-        supplierService.save(supplierRequest);
+    public String newSupplier(@Valid @ModelAttribute SupplierCreateRequest supplierCreateRequest) {
+        supplierService.save(supplierCreateRequest);
         return "redirect:/warehouse-manager/suppliers";
     }
 
     @PostMapping("/add/product")
-    public String newProduct(@Valid @ModelAttribute ProductRequest productRequest,
+    public String newProduct(@Valid @ModelAttribute ProductCreateRequest productCreateRequest,
                              @RequestParam("image") MultipartFile image) {
-        if (productRequest.getCategoryIds() == null) {
+        if (productCreateRequest.getCategoryIds() == null) {
             return "redirect:/warehouse-manager/add/product?error=true";
         }
 
@@ -101,15 +102,15 @@ public class WarehouseManagerController {
             }
         }
 
-        productRequest.setImageFilename(fileName);
-        productService.save(productRequest);
+        productCreateRequest.setImageFilename(fileName);
+        productService.save(productCreateRequest);
         return "redirect:/warehouse-manager/suppliers";
     }
 
     @PostMapping("/update/supplier/{id}")
     public String updateSupplier(@PathVariable Long id,
-                                 @Valid @ModelAttribute SupplierRequest supplierRequest) {
-        supplierService.update(id, supplierRequest);
+                                 @Valid @ModelAttribute SupplierUpdateRequest supplierUpdateRequest) {
+        supplierService.update(id, supplierUpdateRequest);
         return "redirect:/warehouse-manager/suppliers";
     }
 }
