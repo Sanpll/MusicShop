@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Добавление магазина</title>
+    <title>Обновление магазина</title>
     <meta
             name="viewport"
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
@@ -20,10 +20,11 @@
 
 <body>
 <section class="section container">
-    <h1 class="h2">Добавление нового магазина</h1>
+    <h1 class="h2">Изменение информации о магазине</h1>
+
     <form
             method="post"
-            action="/admin/add/store"
+            th:action="@{/admin/update/store/{id}(id=${store.id})}"
             class="form"
     >
         <div class="field--right">
@@ -32,10 +33,23 @@
                     id="status"
                     name="status"
                     class="input select"
+                    required
             >
-                <option value="ACTIVE">Работает</option>
-                <option value="CLOSED">Закрыт навсегда</option>
-                <option value="INACTIVE">Временно закрыт</option>
+                <option
+                        value="ACTIVE"
+                        th:selected="${store.status.name() == 'ACTIVE'}"
+                >Работает
+                </option>
+                <option
+                        value="CLOSED"
+                        th:selected="${store.status.name() == 'CLOSED'}"
+                >Закрыт навсегда
+                </option>
+                <option
+                        value="INACTIVE"
+                        th:selected="${store.status.name() == 'INACTIVE'}"
+                >Временно закрыт
+                </option>
             </select>
         </div>
 
@@ -49,6 +63,7 @@
                     maxlength="64"
                     placeholder="г. Москва, ул. Декабрьская Б., д. 3, стр. 1"
                     class="input"
+                    th:value="${store.location}"
                     required
             >
         </div>
@@ -63,6 +78,7 @@
                     maxlength="32"
                     placeholder="Пн-Пт 8:00-20:00"
                     class="input"
+                    th:value="${store.workingHours}"
                     required
             >
         </div>
@@ -76,6 +92,7 @@
                     pattern="\d{2}\.\d{2}\.\d{4}"
                     placeholder="ДД.ММ.ГГГГ"
                     class="input"
+                    th:value="${store.openDate}"
                     required
             >
         </div>

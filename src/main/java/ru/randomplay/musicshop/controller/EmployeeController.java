@@ -15,9 +15,9 @@ import ru.randomplay.musicshop.service.ProductService;
 public class EmployeeController {
     private final ProductService productService;
 
-    @GetMapping("/products")
+    @GetMapping("/dashboard")
     public String productsPage(Model model) {
         model.addAttribute("products", productService.getAll());
-        return "employee/products";
+        return "employee/dashboard";
     }
 }

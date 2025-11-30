@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
-        lang="en"
->
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Добавление сотрудника</title>
+    <title>Обновление сотрудника</title>
     <meta
             name="viewport"
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
@@ -23,38 +20,12 @@
 
 <body>
 <section class="section container">
-    <h1 class="h2">Добавление нового сотрудника</h1>
+    <h1 class="h2">Изменение информации о сотруднике</h1>
     <form
             method="post"
-            action="/admin/add/employee"
+            th:action="@{/admin/update/employee/{id}(id=${employee.id})}"
             class="form"
     >
-
-        <div class="field--right">
-            <label for="email">Почта:</label>
-            <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="ivanovivan@email.com"
-                    class="input"
-                    required
-            >
-        </div>
-
-        <div class="field--right">
-            <label for="password">Пароль:</label>
-            <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    minlength="6"
-                    maxlength="32"
-                    class="input"
-                    required
-            >
-        </div>
-
         <div class="field--right">
             <label for="firstName">Имя:</label>
             <input
@@ -64,6 +35,7 @@
                     minlength="3"
                     maxlength="32"
                     class="input"
+                    th:value="${employee.firstName}"
                     required
             >
         </div>
@@ -77,6 +49,7 @@
                     minlength="3"
                     maxlength="32"
                     class="input"
+                    th:value="${employee.lastName}"
                     required
             >
         </div>
@@ -88,8 +61,56 @@
                     id="phone"
                     name="phone"
                     placeholder="+71234567890"
+                    th:value="${employee.phone}"
                     class="input"
             >
+        </div>
+
+        <div class="field--right">
+            <label for="activity">Активность:</label>
+            <select
+                    id="activity"
+                    name="activity"
+                    class="input input--wide select"
+                    required
+            >
+                <option
+                        value="ACTIVE"
+                        th:selected="${employee.activity.name() == 'ACTIVE'}"
+                >Активен
+                </option>
+                <option
+                        value="BLOCKED"
+                        th:selected="${employee.activity.name() == 'BLOCKED'}"
+                >Заблокирован администратором
+                </option>
+            </select>
+        </div>
+
+        <div class="field--right">
+            <label for="status">Статус:</label>
+            <select
+                    id="status"
+                    name="status"
+                    class="input input--wide select"
+                    required
+            >
+                <option
+                        value="ACTIVE"
+                        th:selected="${employee.status.name() == 'ACTIVE'}"
+                >Работает
+                </option>
+                <option
+                        value="ON_LEAVE"
+                        th:selected="${employee.status.name() == 'ON_LEAVE'}"
+                >В отпуске
+                </option>
+                <option
+                        value="FIRED"
+                        th:selected="${employee.status.name() == 'FIRED'}"
+                >Уволен
+                </option>
+            </select>
         </div>
 
         <div class="field--right">
@@ -98,19 +119,14 @@
                     id="storeId"
                     name="storeId"
                     class="input select"
+                    required
             >
-                <option
-                        value=""
-                        disabled
-                        selected
-                >Выберите магазин
-                </option>
                 <th:block th:each="store : ${stores}">
                     <option
                             th:value="${store.id}"
                             th:text="${store.location}"
-                    >
-                    </option>
+                            th:selected="${employee.storeLocation == store.location}"
+                    ></option>
                 </th:block>
             </select>
         </div>

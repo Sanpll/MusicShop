@@ -1,76 +1,77 @@
 <!DOCTYPE html>
 <html
-  xmlns:th="http://www.thymeleaf.org"
-  lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        lang="en"
 >
 
 <head>
-  <meta charset="UTF-8">
-  <title>Вход</title>
-  <meta
-    name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-  >
-  <meta
-    http-equiv="X-UA-Compatible"
-    content="ie=edge"
-  >
-  <link
-    rel="stylesheet"
-    href="/styles/styles.css"
-  >
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    >
+    <meta
+            http-equiv="X-UA-Compatible"
+            content="ie=edge"
+    >
+    <link
+            rel="stylesheet"
+            href="/styles/styles.css"
+    >
 </head>
 
 <body>
 
 <section class="section container section--auth">
-  <h1 class="h2">Вход в аккаунт</h1>
-  <form
-    method="post"
-    action="/login"
-    class="form form--auth"
-  >
-    <div
-      th:if="${error}"
-      class="auth__error"
+    <h1 class="h2">Вход в аккаунт</h1>
+    <form
+            method="post"
+            action="/login"
+            class="form form--auth"
     >
-      Неправильная почта или пароль!
+        <div
+                th:if="${error}"
+                class="auth__error"
+        >
+            Неправильная почта или пароль!
+        </div>
+
+        <div class="field">
+            <label for="email">Почта:</label>
+            <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="ivanovivan@email.com"
+                    class="input"
+                    required
+            >
+        </div>
+
+        <div class="field">
+            <label for="password">Пароль:</label>
+            <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    maxlength="32"
+                    class="input"
+                    required
+            >
+        </div>
+
+        <button
+                type="submit"
+                class="button-submit"
+        >Подтвердить
+        </button>
+    </form>
+
+    <div class="auth__help">
+        <a href="registration">Регистрация</a>
+        <a href="">Забыли пароль?</a>
     </div>
-
-    <div class="field">
-      <label for="email">Почта:</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="ivanovivan@email.com"
-        class="input"
-        required
-      >
-    </div>
-
-    <div class="field">
-      <label for="password">Пароль:</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        maxlength="32"
-        class="input"
-        required
-      >
-    </div>
-
-    <button
-      type="submit"
-      class="button-submit"
-    >Подтвердить</button>
-  </form>
-
-  <div class="auth__help">
-    <a href="registration">Регистрация</a>
-    <a href="">Забыли пароль?</a>
-  </div>
 </section>
 
 

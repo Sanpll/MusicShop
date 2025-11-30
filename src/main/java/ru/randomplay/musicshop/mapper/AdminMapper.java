@@ -29,5 +29,6 @@ public interface AdminMapper {
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "role", ignore = true)
     @Mapping(target = "registeredAt", ignore = true)
+    @Mapping(target = "authorities", ignore = true)
     void updateUser(@MappingTarget User user, AdminUpdateRequest adminUpdateRequest);
 }

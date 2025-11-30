@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.randomplay.musicshop.dto.create.EmployeeCreateRequest;
 import ru.randomplay.musicshop.dto.response.EmployeeResponse;
+import ru.randomplay.musicshop.dto.update.EmployeeUpdateRequest;
 import ru.randomplay.musicshop.entity.Employee;
 import ru.randomplay.musicshop.entity.Store;
 import ru.randomplay.musicshop.entity.User;
@@ -27,6 +28,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    public EmployeeResponse get(Long id) {
+        return employeeMapper.toEmployeeResponse(employeeRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Employee with this ID doesn't exist")));
+    }
+
+    @Override
     public List<EmployeeResponse> getAll() {
         return employeeMapper.toEmployeeResponseList(employeeRepository.findAll());
     }
@@ -42,9 +49,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         createdUser.setPassword(passwordEncoder.encode(employeeCreateRequest.getPassword()));
 
         Store store = storeRepository.findById(employeeCreateRequest
-                .getStoreId()).orElseThrow(() -> new IllegalArgumentException("This store doesn't exist"));
+                .getStoreId()).orElseThrow(() -> new IllegalArgumentException("Store with this ID doesn't exist"));
 
         Employee createdEmployee = employeeMapper.toEmployee(createdUser, store);
         employeeRepository.save(createdEmployee);
+    }
+
+    @Transactional
+    @Override
+    public void update(Long id, EmployeeUpdateRequest employeeUpdateRequest) {
+        Employee updatedEmployee = employeeRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Employee with this ID doesn't exist"));
+        Store employeeStore = storeRepository.findById(employeeUpdateRequest.getStoreId())
+                .orElseThrow(() -> new IllegalArgumentException("Store with this ID doesn't exist"));
+
+        employeeMapper.updateEmployee(updatedEmployee, employeeUpdateRequest, employeeStore);
+        employeeRepository.save(updatedEmployee);
     }
 }

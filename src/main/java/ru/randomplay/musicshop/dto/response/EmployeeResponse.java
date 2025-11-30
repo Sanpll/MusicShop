@@ -1,6 +1,7 @@
 package ru.randomplay.musicshop.dto.response;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.randomplay.musicshop.model.UserActivity;
 import ru.randomplay.musicshop.model.WorkerStatus;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class EmployeeResponse {
     private Long id;
     private String email;

@@ -34,9 +34,9 @@ public class AuthController {
 
         return switch (userRole) {
             //noinspection SpringMVCViewInspection
-            case "ROLE_EMPLOYEE" -> "redirect:/employee/products";
+            case "ROLE_EMPLOYEE" -> "redirect:/employee/dashboard";
             //noinspection SpringMVCViewInspection
-            case "ROLE_WAREHOUSE_MANAGER" -> "redirect:/warehouse-manager/suppliers";
+            case "ROLE_WAREHOUSE_MANAGER" -> "redirect:/warehouse-manager/dashboard";
             //noinspection SpringMVCViewInspection
             case "ROLE_ADMIN" -> "redirect:/admin/dashboard";
             default -> "redirect:/home";

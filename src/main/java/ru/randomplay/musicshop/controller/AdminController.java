@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.randomplay.musicshop.dto.create.*;
-import ru.randomplay.musicshop.dto.update.AdminUpdateRequest;
+import ru.randomplay.musicshop.dto.update.*;
 import ru.randomplay.musicshop.service.*;
 
 @Controller
@@ -27,6 +27,7 @@ public class AdminController {
         model.addAttribute("employees", employeeService.getAll());
         model.addAttribute("warehouseManagers", warehouseManagerService.getAll());
         model.addAttribute("stores", storeService.getAll());
+        model.addAttribute("categories", categoryService.getAll());
         return "admin/dashboard";
     }
 
@@ -64,6 +65,36 @@ public class AdminController {
         return "admin/updateAdmin";
     }
 
+    @GetMapping("/update/employee/{id}")
+    public String updateEmployeePage(Model model,
+                                     @PathVariable Long id) {
+        model.addAttribute("employee", employeeService.get(id));
+        model.addAttribute("stores", storeService.getAll());
+        return "admin/updateEmployee";
+    }
+
+    @GetMapping("/update/warehouse-manager/{id}")
+    public String updateWarehouseManagerPage(Model model,
+                                             @PathVariable Long id) {
+        model.addAttribute("warehouseManager", warehouseManagerService.get(id));
+        model.addAttribute("stores", storeService.getAll());
+        return "admin/updateWarehouseManager";
+    }
+
+    @GetMapping("/update/store/{id}")
+    public String updateStorePage(Model model,
+                                  @PathVariable Long id) {
+        model.addAttribute("store", storeService.get(id));
+        return "admin/updateStore";
+    }
+
+    @GetMapping("/update/category/{id}")
+    public String updateCategoryPage(Model model,
+                                     @PathVariable Long id) {
+        model.addAttribute("category", categoryService.get(id));
+        return "admin/updateCategory";
+    }
+
     @PostMapping("/add")
     public String addAdmin(@Valid @ModelAttribute AdminCreateRequest adminCreateRequest) {
         adminService.save(adminCreateRequest);
@@ -98,6 +129,34 @@ public class AdminController {
     public String updateAdmin(@PathVariable Long id,
                               @Valid @ModelAttribute AdminUpdateRequest adminUpdateRequest) {
         adminService.update(id, adminUpdateRequest);
+        return "redirect:/admin/dashboard";
+    }
+
+    @PostMapping("/update/employee/{id}")
+    public String updateEmployee(@PathVariable Long id,
+                                 @Valid @ModelAttribute EmployeeUpdateRequest employeeUpdateRequest) {
+        employeeService.update(id, employeeUpdateRequest);
+        return "redirect:/admin/dashboard";
+    }
+
+    @PostMapping("/update/warehouse-manager/{id}")
+    public String updateWarehouseManager(@PathVariable Long id,
+                                         @Valid @ModelAttribute WarehouseManagerUpdateRequest warehouseManagerUpdateRequest) {
+        warehouseManagerService.update(id, warehouseManagerUpdateRequest);
+        return "redirect:/admin/dashboard";
+    }
+
+    @PostMapping("/update/category/{id}")
+    public String updateCategory(@PathVariable Long id,
+                                 @Valid @ModelAttribute CategoryUpdateRequest categoryUpdateRequest) {
+        categoryService.update(id, categoryUpdateRequest);
+        return "redirect:/admin/dashboard";
+    }
+
+    @PostMapping("/update/store/{id}")
+    public String updateStore(@PathVariable Long id,
+                              @Valid @ModelAttribute StoreUpdateRequest storeUpdateRequest) {
+        storeService.update(id, storeUpdateRequest);
         return "redirect:/admin/dashboard";
     }
 }

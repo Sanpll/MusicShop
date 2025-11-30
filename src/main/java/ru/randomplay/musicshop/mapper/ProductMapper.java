@@ -23,6 +23,7 @@ public interface ProductMapper {
     @Mapping(target = "categoryNames", expression = "java(product.getCategoryLinks().stream()" +
             ".map(link -> link.getCategory().getName())" +
             ".collect(Collectors.toList()))")
+    @Mapping(target = "imageFilename", source = "imageFilename")
     ProductResponse toProductResponse(Product product);
 
     List<ProductResponse> toProductResponseList(List<Product> products);

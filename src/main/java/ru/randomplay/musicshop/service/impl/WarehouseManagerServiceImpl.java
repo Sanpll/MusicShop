@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.randomplay.musicshop.dto.create.WarehouseManagerCreateRequest;
 import ru.randomplay.musicshop.dto.response.WarehouseManagerResponse;
+import ru.randomplay.musicshop.dto.update.WarehouseManagerUpdateRequest;
 import ru.randomplay.musicshop.entity.Store;
 import ru.randomplay.musicshop.entity.User;
 import ru.randomplay.musicshop.entity.WarehouseManager;
@@ -27,6 +28,12 @@ public class WarehouseManagerServiceImpl implements WarehouseManagerService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    public WarehouseManagerResponse get(Long id) {
+        return warehouseManagerMapper.toWarehouseManagerResponse(warehouseManagerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Warehouse manager with this ID doesn't exist")));
+    }
+
+    @Override
     public List<WarehouseManagerResponse> getAll() {
         return warehouseManagerMapper.toWarehouseManagerResponseList(warehouseManagerRepository.findAll());
     }
@@ -46,5 +53,17 @@ public class WarehouseManagerServiceImpl implements WarehouseManagerService {
 
         WarehouseManager createdWarehouseManager = warehouseManagerMapper.toWarehouseManager(createdUser, store);
         warehouseManagerRepository.save(createdWarehouseManager);
+    }
+
+    @Transactional
+    @Override
+    public void update(Long id, WarehouseManagerUpdateRequest warehouseManagerUpdateRequest) {
+        WarehouseManager updatedWarehouseManager = warehouseManagerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Employee with this ID doesn't exist"));
+        Store warehouseManagerStore = storeRepository.findById(warehouseManagerUpdateRequest.getStoreId())
+                .orElseThrow(() -> new IllegalArgumentException("Store with this ID doesn't exist"));
+
+        warehouseManagerMapper.updateWarehouseManager(updatedWarehouseManager, warehouseManagerUpdateRequest, warehouseManagerStore);
+        warehouseManagerRepository.save(updatedWarehouseManager);
     }
 }

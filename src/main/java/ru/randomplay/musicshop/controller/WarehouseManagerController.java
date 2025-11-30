@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.randomplay.musicshop.dto.create.ProductCreateRequest;
 import ru.randomplay.musicshop.dto.create.SupplierCreateRequest;
+import ru.randomplay.musicshop.dto.update.ProductUpdateRequest;
 import ru.randomplay.musicshop.dto.update.SupplierUpdateRequest;
 import ru.randomplay.musicshop.service.CategoryService;
 import ru.randomplay.musicshop.service.ProductService;
@@ -32,10 +33,11 @@ public class WarehouseManagerController {
     @Value("${app.image.upload-dir}")
     private String uploadDir;
 
-    @GetMapping("/suppliers")
-    public String suppliersPage(Model model) {
+    @GetMapping("/dashboard")
+    public String dashboard(Model model) {
         model.addAttribute("suppliers", supplierService.getAll());
-        return "warehouse/suppliers";
+        model.addAttribute("products", productService.getAll());
+        return "warehouse/dashboard";
     }
 
     @GetMapping("/add/supplier")
@@ -73,7 +75,7 @@ public class WarehouseManagerController {
     @PostMapping("/add/supplier")
     public String newSupplier(@Valid @ModelAttribute SupplierCreateRequest supplierCreateRequest) {
         supplierService.save(supplierCreateRequest);
-        return "redirect:/warehouse-manager/suppliers";
+        return "redirect:/warehouse-manager/dashboard";
     }
 
     @PostMapping("/add/product")
@@ -104,13 +106,21 @@ public class WarehouseManagerController {
 
         productCreateRequest.setImageFilename(fileName);
         productService.save(productCreateRequest);
-        return "redirect:/warehouse-manager/suppliers";
+        return "redirect:/warehouse-manager/dashboard";
     }
 
     @PostMapping("/update/supplier/{id}")
     public String updateSupplier(@PathVariable Long id,
                                  @Valid @ModelAttribute SupplierUpdateRequest supplierUpdateRequest) {
         supplierService.update(id, supplierUpdateRequest);
-        return "redirect:/warehouse-manager/suppliers";
+        return "redirect:/warehouse-manager/dashboard";
+    }
+
+    @PostMapping("/update/product/{id}")
+    public String updateProduct(@PathVariable Long id,
+                                @Valid @ModelAttribute ProductUpdateRequest productUpdateRequest,
+                                @RequestParam("image") MultipartFile image) {
+        //productService.update(id, productUpdateRequest);
+        return "redirect:/warehouse-manager/dashboard";
     }
 }

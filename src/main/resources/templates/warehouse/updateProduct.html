@@ -34,21 +34,14 @@
                     id="supplierId"
                     name="supplierId"
                     class="input input--wide select"
-                    th:value="${product.supplierName}"
                     required
             >
-                <option
-                        value=""
-                        disabled
-                        selected
-                >Выберите поставщика
-                </option>
                 <th:block th:each="supplier : ${suppliers}">
                     <option
                             th:value="${supplier.id}"
                             th:text="${supplier.name}"
-                    >
-                    </option>
+                            th:selected="${product.supplierName == supplier.name}"
+                    ></option>
                 </th:block>
             </select>
         </div>
@@ -100,13 +93,28 @@
                     id="status"
                     name="status"
                     class="input input--wide select"
-                    th:value="${product.status}"
                     required
             >
-                <option value="ACTIVE">Доступен для продажи</option>
-                <option value="OUT_OF_STOCK">Нет в наличии</option>
-                <option value="DISCONTINUED">Снят с продаж</option>
-                <option value="INACTIVE">Временно недоступен для продажи</option>
+                <option
+                        value="ACTIVE"
+                        th:selected="${product.status.name() == 'ACTIVE'}"
+                >Доступен для продажи
+                </option>
+                <option
+                        value="OUT_OF_STOCK"
+                        th:selected="${product.status.name() == 'OUT_OF_STOCK'}"
+                >Нет в наличии
+                </option>
+                <option
+                        value="DISCONTINUED"
+                        th:selected="${product.status.name() == 'DISCONTINUED'}"
+                >Снят с продаж
+                </option>
+                <option
+                        value="INACTIVE"
+                        th:selected="${product.status.name() == 'INACTIVE'}"
+                >Временно недоступен для продажи
+                </option>
             </select>
         </div>
 
@@ -142,7 +150,7 @@
                             name="categoryIds"
                             class="checkbox"
                             th:value="${category.id}"
-                            th:checked="${product.categoryNames.contains(category.name)} != null"
+                            th:checked="${#arrays.contains(product.categoryNames, category.name)}"
                     >
                     <span class="checkbox__box"></span>
                     <span th:text="${category.name}"></span>

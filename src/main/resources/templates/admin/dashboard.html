@@ -48,7 +48,7 @@
             <td th:text="${admin.activity}"></td>
             <td th:text="${admin.firstName}"></td>
             <td th:text="${admin.lastName}"></td>
-            <td  th:text="${#strings.isEmpty(admin.phone)} ? '-' : ${admin.phone}"></td>
+            <td th:text="${#strings.isEmpty(admin.phone)} ? '-' : ${admin.phone}"></td>
             <td th:text="${#temporals.format(admin.registeredAt, 'dd.MM.yyyy')}"></td>
         </tr>
         </tbody>
@@ -73,12 +73,14 @@
 
         <tbody>
         <tr th:each="employee : ${employees}">
-            <td th:text="${employee.id}"></td>
+            <td>
+                <a th:href="@{/admin/update/employee/{id}(id=${employee.id})}" th:text="${employee.id}"></a>
+            </td>
             <td th:text="${employee.email}"></td>
             <td th:text="${employee.activity}"></td>
             <td th:text="${employee.firstName}"></td>
             <td th:text="${employee.lastName}"></td>
-            <td  th:text="${#strings.isEmpty(employee.phone)} ? '-' : ${employee.phone}"></td>
+            <td th:text="${#strings.isEmpty(employee.phone)} ? '-' : ${employee.phone}"></td>
             <td th:text="${#temporals.format(employee.registeredAt, 'dd.MM.yyyy')}"></td>
             <td th:text="${employee.storeLocation}"></td>
             <td th:text="${employee.status}"></td>
@@ -105,12 +107,15 @@
 
         <tbody>
         <tr th:each="warehouseManager : ${warehouseManagers}">
-            <td th:text="${warehouseManager.id}"></td>
+            <td>
+                <a th:href="@{/admin/update/warehouse-manager/{id}(id=${warehouseManager.id})}"
+                   th:text="${warehouseManager.id}"></a>
+            </td>
             <td th:text="${warehouseManager.email}"></td>
             <td th:text="${warehouseManager.activity}"></td>
             <td th:text="${warehouseManager.firstName}"></td>
             <td th:text="${warehouseManager.lastName}"></td>
-            <td  th:text="${#strings.isEmpty(warehouseManager.phone)} ? '-' : ${warehouseManager.phone}"></td>
+            <td th:text="${#strings.isEmpty(warehouseManager.phone)} ? '-' : ${warehouseManager.phone}"></td>
             <td th:text="${#temporals.format(warehouseManager.registeredAt, 'dd.MM.yyyy')}"></td>
             <td th:text="${warehouseManager.storeLocation}"></td>
             <td th:text="${warehouseManager.status}"></td>
@@ -133,11 +138,35 @@
 
         <tbody>
         <tr th:each="store : ${stores}">
-            <td th:text="${store.id}"></td>
+            <td>
+                <a th:href="@{/admin/update/store/{id}(id=${store.id})}" th:text="${store.id}"></a>
+            </td>
             <td th:text="${store.status}"></td>
             <td th:text="${store.location}"></td>
             <td th:text="${store.workingHours}"></td>
             <td th:text="${#temporals.format(store.openDate, 'dd.MM.yyyy')}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h1 class="h2">Список категорий</h1>
+    <a class="link" href="/admin/add/category">Добавить категорию</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Название</th>
+            <th scope="col">Описание</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="category : ${categories}">
+            <td>
+                <a th:href="@{/admin/update/category/{id}(id=${category.id})}" th:text="${category.id}"></a>
+            </td>
+            <td th:text="${category.name}"></td>
+            <td th:text="${#strings.isEmpty(category.description)} ? 'Нет описания' : ${category.description}"></td>
         </tr>
         </tbody>
     </table>
