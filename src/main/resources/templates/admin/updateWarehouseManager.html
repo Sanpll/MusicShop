@@ -16,6 +16,7 @@
             rel="stylesheet"
             href="/styles/styles.css"
     >
+    <script src="/scripts/tags.js"></script>
 </head>
 
 <body>
@@ -114,22 +115,35 @@
         </div>
 
         <div class="field--right">
-            <label for="storeId">Магазин:</label>
-            <select
-                    id="storeId"
-                    name="storeId"
-                    class="input select"
-                    required
-            >
-                <th:block th:each="store : ${stores}">
-                    <option
-                            th:value="${store.id}"
-                            th:text="${store.location}"
-                            th:selected="${warehouseManager.storeLocation == store.location}"
-                    >
-                    </option>
-                </th:block>
-            </select>
+            <label for="storeSearch">Магазин:</label>
+            <div class="custom-select-wrapper">
+                <input
+                        type="text"
+                        id="storeSearch"
+                        class="input custom-select-search"
+                        placeholder="Поиск магазина..."
+                        autocomplete="off"
+                        th:value="${warehouseManager.storeLocation}"
+                >
+                <input
+                        type="hidden"
+                        id="storeId"
+                        name="storeId"
+                        th:value="${warehouseManager.storeId}"
+                >
+                <div class="custom-select-dropdown" id="storeDropdown">
+                    <th:block th:each="store : ${stores}">
+                        <div
+                                class="custom-select-option"
+                                th:data-value="${store.id}"
+                                th:text="${store.location}"
+                        ></div>
+                    </th:block>
+                    <div class="custom-select-option custom-select-option--empty-message empty-message">Ничего не
+                        найдено
+                    </div>
+                </div>
+            </div>
         </div>
 
         <button

@@ -16,6 +16,7 @@
             rel="stylesheet"
             href="/styles/styles.css"
     >
+    <script src="/scripts/tags.js"></script>
 </head>
 
 <body>
@@ -26,7 +27,7 @@
             th:action="@{/admin/update/employee/{id}(id=${employee.id})}"
             class="form"
     >
-        <div class="field--right">
+        <div class="field">
             <label for="firstName">Имя:</label>
             <input
                     type="text"
@@ -40,7 +41,7 @@
             >
         </div>
 
-        <div class="field--right">
+        <div class="field">
             <label for="lastName">Фамилия:</label>
             <input
                     type="text"
@@ -54,7 +55,7 @@
             >
         </div>
 
-        <div class="field--right">
+        <div class="field">
             <label for="phone">Телефон:</label>
             <input
                     type="tel"
@@ -66,12 +67,12 @@
             >
         </div>
 
-        <div class="field--right">
+        <div class="field">
             <label for="activity">Активность:</label>
             <select
                     id="activity"
                     name="activity"
-                    class="input input--wide select"
+                    class="input select"
                     required
             >
                 <option
@@ -87,12 +88,12 @@
             </select>
         </div>
 
-        <div class="field--right">
+        <div class="field">
             <label for="status">Статус:</label>
             <select
                     id="status"
                     name="status"
-                    class="input input--wide select"
+                    class="input select"
                     required
             >
                 <option
@@ -113,22 +114,36 @@
             </select>
         </div>
 
-        <div class="field--right">
-            <label for="storeId">Магазин:</label>
-            <select
-                    id="storeId"
-                    name="storeId"
-                    class="input select"
-                    required
-            >
-                <th:block th:each="store : ${stores}">
-                    <option
-                            th:value="${store.id}"
-                            th:text="${store.location}"
-                            th:selected="${employee.storeLocation == store.location}"
-                    ></option>
-                </th:block>
-            </select>
+        <div class="field">
+            <label for="storeSearch">Магазин:</label>
+            <div class="custom-select-wrapper">
+                <input
+                        type="text"
+                        id="storeSearch"
+                        class="input custom-select-search"
+                        placeholder="Поиск магазина..."
+                        autocomplete="off"
+                        th:value="${employee.storeLocation}"
+                >
+                <input
+                        type="hidden"
+                        id="storeId"
+                        name="storeId"
+                        th:value="${employee.storeId}"
+                >
+                <div class="custom-select-dropdown" id="storeDropdown">
+                    <th:block th:each="store : ${stores}">
+                        <div
+                                class="custom-select-option"
+                                th:data-value="${store.id}"
+                                th:text="${store.location}"
+                        ></div>
+                    </th:block>
+                    <div class="custom-select-option custom-select-option--empty-message empty-message">Ничего не
+                        найдено
+                    </div>
+                </div>
+            </div>
         </div>
 
         <button

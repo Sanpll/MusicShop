@@ -27,29 +27,29 @@
 
     <div class="tables tables__controls">
         <a
-                href="/admin/dashboard?showTable=admins"
+                href="/admin/dashboard?table=admins"
                 class="link tables__controls-button"
         >Список администраторов</a>
         <a
-                href="/admin/dashboard?showTable=employees"
+                href="/admin/dashboard?table=employees"
                 class="link tables__controls-button"
         >Список сотрудников</a>
         <a
-                href="/admin/dashboard?showTable=warehouseManagers"
+                href="/admin/dashboard?table=warehouseManagers"
                 class="link tables__controls-button"
         >Список заведующих складом</a>
         <a
-                href="/admin/dashboard?showTable=stores"
+                href="/admin/dashboard?table=stores"
                 class="link tables__controls-button"
         >Список магазинов</a>
         <a
-                href="/admin/dashboard?showTable=categories"
+                href="/admin/dashboard?table=categories"
                 class="link tables__controls-button"
         >Список категорий</a>
     </div>
 
     <div class="tables tables__wrapper">
-        <div th:if="${admins}">
+        <div th:remove="${admins} ? 'tag' : 'all'">
             <h2 class="h2">Список администраторов</h2>
             <a
                     class="link"
@@ -89,7 +89,7 @@
             </table>
         </div>
 
-        <div th:if="${employees}">
+        <div th:remove="${employees} ? 'tag' : 'all'">
             <h2 class="h2">Список сотрудников</h2>
             <a
                     class="link"
@@ -132,7 +132,7 @@
             </table>
         </div>
 
-        <div th:if="${warehouseManagers}">
+        <div th:remove="${warehouseManagers} ? 'tag' : 'all'">
             <h2 class="h2">Список заведующих складом</h2>
             <a
                     class="link"
@@ -175,7 +175,7 @@
             </table>
         </div>
 
-        <div th:if="${stores}">
+        <div th:remove="${stores} ? 'tag' : 'all'">
             <h2 class="h2">Список магазинов</h2>
             <a
                     class="link"
@@ -210,7 +210,7 @@
             </table>
         </div>
 
-        <div th:if="${categories}">
+        <div th:remove="${categories} ? 'tag' : 'all'">
             <h2 class="h2">Список категорий</h2>
             <a
                     class="link"

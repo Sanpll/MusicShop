@@ -33,6 +33,7 @@ public interface WarehouseManagerMapper {
     @Mapping(target = "lastName", source = "user.lastName")
     @Mapping(target = "phone", source = "user.phone")
     @Mapping(target = "registeredAt", source = "user.registeredAt")
+    @Mapping(target = "storeId", source = "store.id")
     @Mapping(target = "storeLocation", source = "store.location")
     WarehouseManagerResponse toWarehouseManagerResponse(WarehouseManager warehouseManager);
 

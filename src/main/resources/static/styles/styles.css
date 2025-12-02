@@ -624,6 +624,7 @@ a[class] {
   left: 0;
   right: 0;
   max-height: 0;
+  min-width: 350px;
   overflow-y: auto;
   background-color: var(--bg-light);
   border: var(--border);
@@ -636,7 +637,7 @@ a[class] {
   transition-duration: var(--transition-duration);
 }
 .custom-select-dropdown.show {
-  max-height: 200px;
+  max-height: 400px;
   opacity: 1;
   visibility: visible;
 }

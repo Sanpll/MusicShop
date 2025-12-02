@@ -2,98 +2,98 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Обновление администратора</title>
-  <meta
-    name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-  >
-  <meta
-    http-equiv="X-UA-Compatible"
-    content="ie=edge"
-  >
-  <link
-    rel="stylesheet"
-    href="../../static/styles/styles.css"
-  >
+    <meta charset="UTF-8">
+    <title>Обновление администратора</title>
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    >
+    <meta
+            http-equiv="X-UA-Compatible"
+            content="ie=edge"
+    >
+    <link
+            rel="stylesheet"
+            href="/styles/styles.css"
+    >
 </head>
 
 <body>
 <section class="section container">
-  <h1 class="h2">Изменение информации об администраторе</h1>
+    <h1 class="h2">Изменение информации об администраторе</h1>
 
-  <form
-    method="post"
-    th:action="@{/admin/update/{id}(id=${admin.id})}"
-    class="form"
-  >
-    <div class="field">
-      <label for="activity">Активность:</label>
-      <select
-        id="activity"
-        name="activity"
-        class="input select"
-        required
-      >
-        <option
-          value="ACTIVE"
-          th:selected="${admin.activity == 'ACTIVE'}"
-        >Активен
-        </option>
-        <option
-          value="BLOCKED"
-          th:selected="${admin.activity == 'BLOCKED'}"
-        >Заблокирован администратором
-        </option>
-      </select>
-    </div>
+    <form
+            method="post"
+            th:action="@{/admin/update/{id}(id=${admin.id})}"
+            class="form"
+    >
+        <div class="field">
+            <label for="activity">Активность:</label>
+            <select
+                    id="activity"
+                    name="activity"
+                    class="input select"
+                    required
+            >
+                <option
+                        value="ACTIVE"
+                        th:selected="${admin.activity == 'ACTIVE'}"
+                >Активен
+                </option>
+                <option
+                        value="BLOCKED"
+                        th:selected="${admin.activity == 'BLOCKED'}"
+                >Заблокирован администратором
+                </option>
+            </select>
+        </div>
 
-    <div class="field">
-      <label for="firstName">Имя:</label>
-      <input
-        type="text"
-        id="firstName"
-        name="firstName"
-        minlength="3"
-        maxlength="32"
-        class="input"
-        th:value="${admin.firstName}"
-        required
-      >
-    </div>
+        <div class="field">
+            <label for="firstName">Имя:</label>
+            <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    minlength="3"
+                    maxlength="32"
+                    class="input"
+                    th:value="${admin.firstName}"
+                    required
+            >
+        </div>
 
-    <div class="field">
-      <label for="lastName">Фамилия:</label>
-      <input
-        type="text"
-        id="lastName"
-        name="lastName"
-        minlength="3"
-        maxlength="32"
-        class="input"
-        th:value="${admin.lastName}"
-        required
-      >
-    </div>
+        <div class="field">
+            <label for="lastName">Фамилия:</label>
+            <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    minlength="3"
+                    maxlength="32"
+                    class="input"
+                    th:value="${admin.lastName}"
+                    required
+            >
+        </div>
 
-    <div class="field">
-      <label for="phone">Телефон:</label>
-      <input
-        type="tel"
-        id="phone"
-        name="phone"
-        placeholder="+71234567890"
-        th:value="${admin.phone}"
-        class="input"
-      >
-    </div>
+        <div class="field">
+            <label for="phone">Телефон:</label>
+            <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="+71234567890"
+                    th:value="${admin.phone}"
+                    class="input"
+            >
+        </div>
 
-    <button
-      type="submit"
-      class="button-submit"
-    >Подтвердить
-    </button>
-  </form>
+        <button
+                type="submit"
+                class="button-submit"
+        >Подтвердить
+        </button>
+    </form>
 </section>
 </body>
 </html>

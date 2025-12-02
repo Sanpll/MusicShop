@@ -19,6 +19,7 @@ public class EmployeeResponse {
     private String lastName;
     private String phone;
     private LocalDateTime registeredAt;
+    private Long storeId;
     private String storeLocation;
     private WorkerStatus status;
 }

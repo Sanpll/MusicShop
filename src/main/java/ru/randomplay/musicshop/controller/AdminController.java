@@ -23,11 +23,11 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model,
-                            @RequestParam(required = false) String showTable) {
-        if (showTable == null) {
+                            @RequestParam(required = false) String table) {
+        if (table == null) {
             model.addAttribute("admins", adminService.getAll());
         } else {
-            switch (showTable) {
+            switch (table) {
                 case "employees":
                     model.addAttribute("employees", employeeService.getAll());
                     break;
@@ -121,25 +121,25 @@ public class AdminController {
     @PostMapping("/add/employee")
     public String addEmployee(@Valid @ModelAttribute EmployeeCreateRequest employeeCreateRequest) {
         employeeService.save(employeeCreateRequest);
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/dashboard?table=employees";
     }
 
     @PostMapping("/add/warehouse-manager")
     public String addWarehouseManager(@Valid @ModelAttribute WarehouseManagerCreateRequest warehouseManagerCreateRequest) {
         warehouseManagerService.save(warehouseManagerCreateRequest);
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/dashboard?table=warehouseManagers";
     }
 
     @PostMapping("/add/store")
     public String addStore(@Valid @ModelAttribute StoreCreateRequest storeCreateRequest) {
         storeService.save(storeCreateRequest);
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/dashboard?table=stores";
     }
 
     @PostMapping("/add/category")
     public String addCategory(@Valid @ModelAttribute CategoryCreateRequest categoryCreateRequest) {
         categoryService.save(categoryCreateRequest);
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/dashboard?table=categories";
     }
 
     @PostMapping("/update/{id}")
@@ -153,27 +153,27 @@ public class AdminController {
     public String updateEmployee(@PathVariable Long id,
                                  @Valid @ModelAttribute EmployeeUpdateRequest employeeUpdateRequest) {
         employeeService.update(id, employeeUpdateRequest);
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/dashboard?table=employees";
     }
 
     @PostMapping("/update/warehouse-manager/{id}")
     public String updateWarehouseManager(@PathVariable Long id,
                                          @Valid @ModelAttribute WarehouseManagerUpdateRequest warehouseManagerUpdateRequest) {
         warehouseManagerService.update(id, warehouseManagerUpdateRequest);
-        return "redirect:/admin/dashboard";
-    }
-
-    @PostMapping("/update/category/{id}")
-    public String updateCategory(@PathVariable Long id,
-                                 @Valid @ModelAttribute CategoryUpdateRequest categoryUpdateRequest) {
-        categoryService.update(id, categoryUpdateRequest);
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/dashboard?table=warehouseManagers";
     }
 
     @PostMapping("/update/store/{id}")
     public String updateStore(@PathVariable Long id,
                               @Valid @ModelAttribute StoreUpdateRequest storeUpdateRequest) {
         storeService.update(id, storeUpdateRequest);
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/dashboard?table=stores";
+    }
+
+    @PostMapping("/update/category/{id}")
+    public String updateCategory(@PathVariable Long id,
+                                 @Valid @ModelAttribute CategoryUpdateRequest categoryUpdateRequest) {
+        categoryService.update(id, categoryUpdateRequest);
+        return "redirect:/admin/dashboard?table=categories";
     }
 }
