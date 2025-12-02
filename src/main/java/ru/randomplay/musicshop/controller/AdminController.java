@@ -22,12 +22,29 @@ public class AdminController {
     private final CategoryService categoryService;
 
     @GetMapping("/dashboard")
-    public String dashboard(Model model) {
-        model.addAttribute("admins", adminService.getAll());
-        model.addAttribute("employees", employeeService.getAll());
-        model.addAttribute("warehouseManagers", warehouseManagerService.getAll());
-        model.addAttribute("stores", storeService.getAll());
-        model.addAttribute("categories", categoryService.getAll());
+    public String dashboard(Model model,
+                            @RequestParam(required = false) String showTable) {
+        if (showTable == null) {
+            model.addAttribute("admins", adminService.getAll());
+        } else {
+            switch (showTable) {
+                case "employees":
+                    model.addAttribute("employees", employeeService.getAll());
+                    break;
+                case "warehouseManagers":
+                    model.addAttribute("warehouseManagers", warehouseManagerService.getAll());
+                    break;
+                case "stores":
+                    model.addAttribute("stores", storeService.getAll());
+                    break;
+                case "categories":
+                    model.addAttribute("categories", categoryService.getAll());
+                    break;
+                default:
+                    model.addAttribute("admins", adminService.getAll());
+                    break;
+            }
+        }
         return "admin/dashboard";
     }
 
