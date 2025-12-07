@@ -12,6 +12,7 @@ import ru.randomplay.musicshop.repository.CartRepository;
 import ru.randomplay.musicshop.repository.ProductRepository;
 import ru.randomplay.musicshop.service.CartService;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,17 @@ public class CartServiceImpl implements CartService {
     public List<CartItemResponse> getAll(Cart cart) {
         List<CartItem> cartItemList = new ArrayList<>(cart.getCartItems());
         return cartItemMapper.toCartItemResponseList(cartItemList);
+    }
+
+    @Override
+    public BigDecimal getTotalPrice(Cart cart) {
+        return cart.getCartItems().stream()
+                .map(item -> {
+                    BigDecimal price = item.getProduct().getPrice();
+                    Integer quantity = item.getQuantity();
+                    return price.multiply(BigDecimal.valueOf(quantity));
+                })
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     @Override
@@ -59,6 +71,18 @@ public class CartServiceImpl implements CartService {
             cart.getCartItems().add(newItem);
         }
 
+        cartRepository.save(cart);
+    }
+
+    @Override
+    @Transactional
+    public void deleteProduct(Cart cart, Long productId) {
+        CartItem existingItem = cart.getCartItems().stream()
+                .filter(item -> item.getProduct().getId().equals(productId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Product with id " + productId + " isn't in cart"));
+
+        cart.getCartItems().remove(existingItem);
         cartRepository.save(cart);
     }
 }

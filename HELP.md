@@ -12,9 +12,13 @@ WAREHOUSE_MANAGER - warehouse@manager.com warehousemanager
 ADMIN - admin@admin.ad admin
 
 Задачи:
-1. Сделать customer/home, customer/product, customer/cart
+1. Стилизовать customer/home, customer/product, customer/cart
 2. Стилизовать удаление категории в employee/updateCategory (и возможно переместить кнопку в более удобное место)
 3. Проверить в каждом файле какой класс должен быть у section
 4. Сделать показ изображения при изменении товара (проверить как сделал я) (+ нормальное отображение пнг) (не надо показывать фотку при добавлении)
 5. В admin/dashboard при переключении между таблицами менюшка слева скачет
 6. В customer/cart сделать изменение количества товаров через кнопки +-1 и отдельное поле (указать сразу 10 например)
+7. Сломался minlength для пароля в auth/registration
+8. в CustomerController добавление и удаление товара из корзины происходит по-разному (не забыть исправить)
+9. Исправить N+1 при переходе на эндпоинт /cart
+10. Задуматься о header (хотя бы для customer)

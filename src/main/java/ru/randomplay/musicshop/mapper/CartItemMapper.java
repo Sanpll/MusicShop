@@ -12,6 +12,7 @@ import java.util.List;
 public interface CartItemMapper {
     @Mapping(target = "productId", source = "product.id")
     @Mapping(target = "productName", source = "product.name")
+    @Mapping(target = "productPrice", source = "product.price")
     @Mapping(target = "productImageFilename", source = "product.imageFilename")
     CartItemResponse toCartItemResponse(CartItem cartItem);
 

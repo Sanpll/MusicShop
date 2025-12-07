@@ -118,7 +118,7 @@
             </select>
         </div>
 
-        <div class="td__image" th:if="${product.imageFilename == null}">
+        <div class="td__image" th:if="${product.imageFilename != null}">
             <span>Предыдущее изображение</span>
             <img
                     th:src="@{/images/products/{fileName}(fileName=${product.imageFilename})}"

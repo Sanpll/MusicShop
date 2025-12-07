@@ -44,11 +44,35 @@ public class CustomerController {
         return "customer/cart";
     }
 
+    @GetMapping("/check-order")
+    public String checkOrderPage(Model model,
+                                 @AuthenticationPrincipal User user) {
+        Customer customer = customerService.findByUserEmail(user.getEmail());
+        model.addAttribute("cartItems", cartService.getAll(customer.getCart()));
+        model.addAttribute("totalPrice", cartService.getTotalPrice(customer.getCart()));
+        return "/customer/checkOrder";
+    }
+
     @PostMapping("/add/product")
-    public String addProductToCustomerCart(@RequestParam Long productId,
-                                           @AuthenticationPrincipal User user) {
+    public String addProductToCart(@RequestParam Long productId,
+                                   @AuthenticationPrincipal User user) {
         Customer customer = customerService.findByUserEmail(user.getEmail());
         cartService.addProduct(customer.getCart(), productId, 1);
         return "redirect:/home";
+    }
+
+    @PostMapping("/delete/product")
+    public String deleteProductFromCart(@RequestParam Long productId,
+                                        @AuthenticationPrincipal User user) {
+        Customer customer = customerService.findByUserEmail(user.getEmail());
+        cartService.deleteProduct(customer.getCart(), productId);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/create/order")
+    public String createOrder(@AuthenticationPrincipal User user) {
+        Customer customer = customerService.findByUserEmail(user.getEmail());
+
+        return "";
     }
 }

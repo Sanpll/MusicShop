@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Каталог</title>
+    <title>Корзина</title>
     <meta
             name="viewport"
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
@@ -24,9 +24,10 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Товар</th>
+            <th scope="col">Наименование</th>
             <th scope="col">Изображение</th>
             <th scope="col">Количество</th>
+            <th scope="col">Удалить?</th>
         </tr>
         </thead>
 
@@ -50,9 +51,30 @@
                 <span th:if="${cartItem.productImageFilename == null}">Нет изображения</span>
             </td>
             <td th:text="${cartItem.quantity}"></td>
+            <td>
+                <form
+                        method="post"
+                        action="/delete/product"
+                        class="form"
+                >
+                    <input type="hidden" name="productId" th:value="${cartItem.productId}">
+                    <button
+                            type="submit"
+                            class="button-submit"
+                    >Подтвердить
+                    </button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
+
+    <div class="link__wrapper">
+        <a
+                class="link"
+                href="/check-order"
+        >Оформить заказ</a>
+    </div>
 </section>
 </body>
 </html>
