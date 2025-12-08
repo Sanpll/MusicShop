@@ -89,7 +89,7 @@
   }
 }
 
-.button-submit {
+.button {
   height: var(--input-height);
   width: 60%;
   background-color: var(--primary);
@@ -110,6 +110,11 @@
   &:active {
     transition-duration: var(--transition-duration);
     transform: translateY(2px);
+  }
+
+  &--cart,
+  &--info {
+    width: 100%;
   }
 }
 
@@ -250,6 +255,7 @@
   left: 0;
   right: 0;
   max-height: 0;
+  min-width: 350px;
   overflow-y: auto;
   background-color: var(--bg-light);
   border: var(--border);
@@ -262,7 +268,7 @@
   transition-duration: var(--transition-duration);
 
   &.show {
-    max-height: 200px;
+    max-height: 300px;
     opacity: 1;
     visibility: visible;
   }
@@ -304,6 +310,24 @@
 
     &.show {
       display: block;
+    }
+  }
+}
+
+.button__wrapper {
+  @include flex-center;
+  gap: 24px;
+  width: 30%;
+
+  button {
+    width: 60%;
+  }
+
+  form {
+    width: 60%;
+
+    button {
+      width: 100%;
     }
   }
 }

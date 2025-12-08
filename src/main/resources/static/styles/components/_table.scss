@@ -53,14 +53,28 @@
   }
 }
 
-.td__image {
-  @include flex-center;
-  flex-direction: column;
+.td {
+  &__image {
+    @include flex-center;
+    flex-direction: column;
 
-  img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    object-position: center;
+    img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+}
+
+.choose-quantity {
+  @include flex-center;
+  gap: 16px;
+}
+
+.button {
+  &--decrement,
+  &--increment {
+    width: var(--input-height);
   }
 }

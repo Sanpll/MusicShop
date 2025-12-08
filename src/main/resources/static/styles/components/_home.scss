@@ -1,0 +1,44 @@
+@use '../helpers/index' as *;
+
+.home {
+  flex-direction: row;
+  align-items: start;
+  justify-content: space-around;
+  gap: 56px;
+
+  &__controls {
+    @include flex-center();
+    width: 30%;
+    position: sticky;
+    top: 20px;
+  }
+
+  &__products {
+    width: 70%;
+
+    &-title {
+      text-align: center;
+    }
+  }
+
+  &__field {
+    flex-direction: column;
+  }
+
+  &__fieldset {
+    --fieldset-width: 250px;
+  }
+
+  &__products-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    justify-items: stretch;
+    align-items: center;
+    padding: 24px;
+  }
+}
+
+.list__item {
+  max-width: 350px;
+}
