@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.randomplay.musicshop.entity.Customer;
 import ru.randomplay.musicshop.entity.User;
+import ru.randomplay.musicshop.model.ProductStatus;
 import ru.randomplay.musicshop.service.CartService;
+import ru.randomplay.musicshop.service.CategoryService;
 import ru.randomplay.musicshop.service.CustomerService;
 import ru.randomplay.musicshop.service.ProductService;
 
@@ -20,12 +22,14 @@ import ru.randomplay.musicshop.service.ProductService;
 @RequiredArgsConstructor
 public class CustomerController {
     private final ProductService productService;
+    private final CategoryService categoryService;
     private final CustomerService customerService;
     private final CartService cartService;
 
     @GetMapping("/home")
     public String home(Model model) {
-        model.addAttribute("products", productService.getAll());
+        model.addAttribute("products", productService.getAllByStatus(ProductStatus.ACTIVE));
+        model.addAttribute("categories", categoryService.getAll());
         return "customer/home";
     }
 
@@ -39,7 +43,7 @@ public class CustomerController {
     @GetMapping("/cart")
     public String cartPage(Model model,
                            @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByUserEmail(user.getEmail());
+        Customer customer = customerService.findWithCartByEmail(user.getEmail());
         model.addAttribute("cartItems", cartService.getAll(customer.getCart()));
         return "customer/cart";
     }
@@ -47,7 +51,7 @@ public class CustomerController {
     @GetMapping("/check-order")
     public String checkOrderPage(Model model,
                                  @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByUserEmail(user.getEmail());
+        Customer customer = customerService.findByEmail(user.getEmail());
         model.addAttribute("cartItems", cartService.getAll(customer.getCart()));
         model.addAttribute("totalPrice", cartService.getTotalPrice(customer.getCart()));
         return "/customer/checkOrder";
@@ -56,7 +60,7 @@ public class CustomerController {
     @PostMapping("/add/product")
     public String addProductToCart(@RequestParam Long productId,
                                    @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByUserEmail(user.getEmail());
+        Customer customer = customerService.findByEmail(user.getEmail());
         cartService.addProduct(customer.getCart(), productId, 1);
         return "redirect:/home";
     }
@@ -64,14 +68,30 @@ public class CustomerController {
     @PostMapping("/delete/product")
     public String deleteProductFromCart(@RequestParam Long productId,
                                         @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByUserEmail(user.getEmail());
+        Customer customer = customerService.findByEmail(user.getEmail());
         cartService.deleteProduct(customer.getCart(), productId);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/cart/increment-product/{id}")
+    public String incrementProduct(@PathVariable Long id,
+                                   @AuthenticationPrincipal User user) {
+        Customer customer = customerService.findByEmail(user.getEmail());
+        cartService.addProduct(customer.getCart(), id, 1);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/cart/decrement-product/{id}")
+    public String decrementProduct(@PathVariable Long id,
+                                   @AuthenticationPrincipal User user) {
+        Customer customer = customerService.findByEmail(user.getEmail());
+        cartService.addProduct(customer.getCart(), id, -1);
         return "redirect:/cart";
     }
 
     @PostMapping("/create/order")
     public String createOrder(@AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByUserEmail(user.getEmail());
+        Customer customer = customerService.findByEmail(user.getEmail());
 
         return "";
     }

@@ -3,8 +3,10 @@ package ru.randomplay.musicshop.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 import ru.randomplay.musicshop.dto.create.ProductCreateRequest;
 import ru.randomplay.musicshop.dto.response.ProductResponse;
+import ru.randomplay.musicshop.dto.update.ProductUpdateRequest;
 import ru.randomplay.musicshop.entity.Product;
 import ru.randomplay.musicshop.entity.Supplier;
 
@@ -27,4 +29,11 @@ public interface ProductMapper {
     ProductResponse toProductResponse(Product product);
 
     List<ProductResponse> toProductResponseList(List<Product> products);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "supplier", ignore = true)
+    @Mapping(target = "quantity", ignore = true)
+    @Mapping(target = "imageFilename", ignore = true)
+    @Mapping(target = "categoryLinks", ignore = true)
+    void updateProduct(@MappingTarget Product product, ProductUpdateRequest productUpdateRequest);
 }

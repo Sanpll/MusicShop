@@ -24,7 +24,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public AdminResponse get(Long id) {
         return adminMapper.toAdminResponse(userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Admin with this ID doesn't exist")));
+                .orElseThrow(() -> new IllegalArgumentException("Admin with ID " + id + " doesn't exist")));
     }
 
     @Override
@@ -35,7 +35,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void save(AdminCreateRequest adminCreateRequest) {
         if (userRepository.findByEmail(adminCreateRequest.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("User with this email already exists");
+            throw new IllegalArgumentException("User with email " + adminCreateRequest.getEmail() + " already exists");
         }
 
         User createdUser = adminMapper.toUser(adminCreateRequest);
@@ -46,7 +46,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void update(Long id, AdminUpdateRequest adminUpdateRequest) {
         User updatedUser = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Admin with this ID doesn't exist"));
+                .orElseThrow(() -> new IllegalArgumentException("Admin with ID " + id + " doesn't exist"));
 
         adminMapper.updateUser(updatedUser, adminUpdateRequest);
         userRepository.save(updatedUser);

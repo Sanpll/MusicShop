@@ -12,7 +12,14 @@ import java.util.Optional;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     @Query("SELECT c FROM Customer c " +
             "JOIN FETCH c.user u " +
-            "JOIN FETCH c.cart " +
             "WHERE u.email = :email")
     Optional<Customer> findByUserEmail(@Param("email") String email);
+
+    @Query("SELECT cs FROM Customer cs " +
+            "JOIN FETCH cs.user u " +
+            "JOIN FETCH cs.cart cr " +
+            "JOIN FETCH cr.cartItems ci " +
+            "JOIN FETCH ci.product " +
+            "WHERE u.email = :email")
+    Optional<Customer> findWithCartAndProductsByUserEmail(@Param("email") String email);
 }

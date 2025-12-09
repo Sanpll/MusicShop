@@ -1,6 +1,5 @@
 package ru.randomplay.musicshop.service;
 
-import org.springframework.transaction.annotation.Transactional;
 import ru.randomplay.musicshop.dto.response.CartItemResponse;
 import ru.randomplay.musicshop.entity.Cart;
 
@@ -14,6 +13,5 @@ public interface CartService {
 
     void addProduct(Cart cart, Long productId, Integer quantity);
 
-    @Transactional
     void deleteProduct(Cart cart, Long productId);
 }

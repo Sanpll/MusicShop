@@ -30,26 +30,26 @@ public class WarehouseManagerServiceImpl implements WarehouseManagerService {
     @Override
     public WarehouseManagerResponse get(Long id) {
         return warehouseManagerMapper.toWarehouseManagerResponse(warehouseManagerRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Warehouse manager with this ID doesn't exist")));
+                .orElseThrow(() -> new IllegalArgumentException("Warehouse manager with ID " + id + " doesn't exist")));
     }
 
     @Override
     public List<WarehouseManagerResponse> getAll() {
-        return warehouseManagerMapper.toWarehouseManagerResponseList(warehouseManagerRepository.findAll());
+        return warehouseManagerMapper.toWarehouseManagerResponseList(warehouseManagerRepository.findAllWithUserAndStore());
     }
 
     @Override
     @Transactional
     public void save(WarehouseManagerCreateRequest warehouseManagerCreateRequest) {
         if (userRepository.findByEmail(warehouseManagerCreateRequest.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("User with this email already exists");
+            throw new IllegalArgumentException("User with email " + warehouseManagerCreateRequest.getEmail() + " already exists");
         }
 
         User createdUser = warehouseManagerMapper.toUser(warehouseManagerCreateRequest);
         createdUser.setPassword(passwordEncoder.encode(warehouseManagerCreateRequest.getPassword()));
 
-        Store store = storeRepository.findById(warehouseManagerCreateRequest
-                .getStoreId()).orElseThrow(() -> new IllegalArgumentException("This store doesn't exist"));
+        Store store = storeRepository.findById(warehouseManagerCreateRequest.getStoreId())
+                .orElseThrow(() -> new IllegalArgumentException("Store with ID " + warehouseManagerCreateRequest.getStoreId() + " doesn't exist"));
 
         WarehouseManager createdWarehouseManager = warehouseManagerMapper.toWarehouseManager(createdUser, store);
         warehouseManagerRepository.save(createdWarehouseManager);
@@ -59,9 +59,9 @@ public class WarehouseManagerServiceImpl implements WarehouseManagerService {
     @Override
     public void update(Long id, WarehouseManagerUpdateRequest warehouseManagerUpdateRequest) {
         WarehouseManager updatedWarehouseManager = warehouseManagerRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Employee with this ID doesn't exist"));
+                .orElseThrow(() -> new IllegalArgumentException("Employee with ID " + id + " doesn't exist"));
         Store warehouseManagerStore = storeRepository.findById(warehouseManagerUpdateRequest.getStoreId())
-                .orElseThrow(() -> new IllegalArgumentException("Store with this ID doesn't exist"));
+                .orElseThrow(() -> new IllegalArgumentException("Store with ID " + warehouseManagerUpdateRequest.getStoreId() + " doesn't exist"));
 
         warehouseManagerMapper.updateWarehouseManager(updatedWarehouseManager, warehouseManagerUpdateRequest, warehouseManagerStore);
         warehouseManagerRepository.save(updatedWarehouseManager);

@@ -811,9 +811,13 @@ a[class] {
   padding-top: calc(var(--container-padding-x) * 5);
 }
 .tables__controls-button {
+  width: 350px;
   flex: 0;
 }
-
+.tables__wrapper {
+  min-width: 1500px;
+  flex: 1;
+}
 .home {
   flex-direction: row;
   align-items: start;
@@ -867,8 +871,10 @@ a[class] {
   box-shadow: var(--shadow-l);
 }
 .product-card__image-wrapper {
-  width: 250px;
   border-radius: var(--border-radius);
+  max-width: 250px;
+  width: 100%;
+  aspect-ratio: 1;
 }
 .product-card__image {
   width: 100%;
@@ -884,6 +890,9 @@ a[class] {
 .product-card__title {
   width: 100%;
   text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .product-card__controls {
   display: flex;

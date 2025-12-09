@@ -6,5 +6,7 @@ import ru.randomplay.musicshop.entity.Customer;
 public interface CustomerService {
     void save(CustomerCreateRequest customerCreateRequest);
 
-    Customer findByUserEmail(String email);
+    Customer findByEmail(String email);
+
+    Customer findWithCartByEmail(String email);
 }

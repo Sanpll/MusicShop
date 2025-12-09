@@ -39,8 +39,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findByUserEmail(String email) {
+    public Customer findByEmail(String email) {
         return customerRepository.findByUserEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Customer with email '" + email + "' doesn't exist"));
+    }
+
+    @Override
+    public Customer findWithCartByEmail(String email) {
+        return customerRepository.findWithCartAndProductsByUserEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Customer with email '" + email + "' doesn't exist"));
     }
 }

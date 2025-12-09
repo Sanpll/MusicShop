@@ -6,6 +6,7 @@ import lombok.Setter;
 import ru.randomplay.musicshop.model.ProductStatus;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +22,8 @@ public class ProductUpdateRequest {
 
     @NotNull
     private ProductStatus status;
+
+    private List<Long> categoryIds;
+
+    private String imageFilename;
 }

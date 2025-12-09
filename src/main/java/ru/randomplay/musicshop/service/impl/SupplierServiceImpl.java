@@ -22,7 +22,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public SupplierResponse get(Long id) {
         return supplierMapper.toSupplierResponse(supplierRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Supplier with this ID doesn't exist")));
+                .orElseThrow(() -> new IllegalArgumentException("Supplier with ID " + id + " doesn't exist")));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Transactional
     public void save(SupplierCreateRequest supplierCreateRequest) {
         if (supplierRepository.findByName(supplierCreateRequest.getName()).isPresent()) {
-            throw new IllegalArgumentException("Supplier with this name already exists");
+            throw new IllegalArgumentException("Supplier with name " + supplierCreateRequest.getName() + " already exists");
         }
 
         Supplier createdSupplier = supplierMapper.toSupplier(supplierCreateRequest);
@@ -45,12 +45,12 @@ public class SupplierServiceImpl implements SupplierService {
     @Transactional
     public void update(Long id, SupplierUpdateRequest supplierUpdateRequest) {
         Supplier updatedSupplier = supplierRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Supplier with this ID doesn't exist"));
+                .orElseThrow(() -> new IllegalArgumentException("Supplier with ID " + id + " doesn't exist"));
 
         // проверка на то, что новое имя не будет совпадать с уже существующими
         if (!updatedSupplier.getName().equals(supplierUpdateRequest.getName()) &&
                 supplierRepository.findByName(supplierUpdateRequest.getName()).isPresent()) {
-            throw new IllegalArgumentException("Supplier with this name already exists");
+            throw new IllegalArgumentException("Supplier with name " + supplierUpdateRequest.getName() + " already exists");
         }
 
         supplierMapper.updateSupplier(updatedSupplier, supplierUpdateRequest);

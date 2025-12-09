@@ -26,14 +26,14 @@ public class EmployeeController {
             model.addAttribute("orders", null/*orderService.getAll()*/);
         } else {
             switch (table) {
-                case "orders":
-                    model.addAttribute("orders", null/*orderService.getAll()*/);
-                    break;
                 case "products":
                     model.addAttribute("products", productService.getAll());
                     break;
                 case "categories":
                     model.addAttribute("categories", categoryService.getAll());
+                    break;
+                default:
+                    model.addAttribute("orders", null/*orderService.getAll()*/);
                     break;
             }
         }

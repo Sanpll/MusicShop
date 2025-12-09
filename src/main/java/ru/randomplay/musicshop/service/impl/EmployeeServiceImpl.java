@@ -30,26 +30,26 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeResponse get(Long id) {
         return employeeMapper.toEmployeeResponse(employeeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Employee with this ID doesn't exist")));
+                .orElseThrow(() -> new IllegalArgumentException("Employee with ID " + id + " doesn't exist")));
     }
 
     @Override
     public List<EmployeeResponse> getAll() {
-        return employeeMapper.toEmployeeResponseList(employeeRepository.findAll());
+        return employeeMapper.toEmployeeResponseList(employeeRepository.findAllWithUserAndStore());
     }
 
     @Override
     @Transactional
     public void save(EmployeeCreateRequest employeeCreateRequest) {
         if (userRepository.findByEmail(employeeCreateRequest.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("User with this email already exists");
+            throw new IllegalArgumentException("User with email " + employeeCreateRequest.getEmail() + " already exists");
         }
 
         User createdUser = employeeMapper.toUser(employeeCreateRequest);
         createdUser.setPassword(passwordEncoder.encode(employeeCreateRequest.getPassword()));
 
         Store store = storeRepository.findById(employeeCreateRequest
-                .getStoreId()).orElseThrow(() -> new IllegalArgumentException("Store with this ID doesn't exist"));
+                .getStoreId()).orElseThrow(() -> new IllegalArgumentException("Store with ID " + employeeCreateRequest.getStoreId() + " doesn't exist"));
 
         Employee createdEmployee = employeeMapper.toEmployee(createdUser, store);
         employeeRepository.save(createdEmployee);
@@ -59,9 +59,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void update(Long id, EmployeeUpdateRequest employeeUpdateRequest) {
         Employee updatedEmployee = employeeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Employee with this ID doesn't exist"));
+                .orElseThrow(() -> new IllegalArgumentException("Employee with ID " + id + " doesn't exist"));
         Store employeeStore = storeRepository.findById(employeeUpdateRequest.getStoreId())
-                .orElseThrow(() -> new IllegalArgumentException("Store with this ID doesn't exist"));
+                .orElseThrow(() -> new IllegalArgumentException("Store with ID " + employeeUpdateRequest.getStoreId() + " doesn't exist"));
 
         employeeMapper.updateEmployee(updatedEmployee, employeeUpdateRequest, employeeStore);
         employeeRepository.save(updatedEmployee);

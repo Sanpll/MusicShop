@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.randomplay.musicshop.dto.create.ProductCreateRequest;
@@ -19,7 +20,9 @@ import ru.randomplay.musicshop.service.SupplierService;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/warehouse-manager")
@@ -34,9 +37,23 @@ public class WarehouseManagerController {
     private String uploadDir;
 
     @GetMapping("/dashboard")
-    public String dashboard(Model model) {
-        model.addAttribute("suppliers", supplierService.getAll());
-        model.addAttribute("products", productService.getAll());
+    public String dashboard(Model model,
+                            @RequestParam(required = false) String table) {
+        if (table == null) {
+            model.addAttribute("supplies", null/*supplyService.getAll()*/);
+        } else {
+            switch (table) {
+                case "suppliers":
+                    model.addAttribute("suppliers", supplierService.getAll());
+                    break;
+                case "products":
+                    model.addAttribute("products", productService.getAll());
+                    break;
+                default:
+                    model.addAttribute("supplies", null/*supplyService.getAll()*/);
+                    break;
+            }
+        }
         return "warehouse/dashboard";
     }
 
@@ -75,7 +92,38 @@ public class WarehouseManagerController {
     @PostMapping("/add/supplier")
     public String newSupplier(@Valid @ModelAttribute SupplierCreateRequest supplierCreateRequest) {
         supplierService.save(supplierCreateRequest);
-        return "redirect:/warehouse-manager/dashboard";
+        return "redirect:/warehouse-manager/dashboard?table=suppliers";
+    }
+
+    private String createFilename(MultipartFile image) {
+        String filename = null;
+        if (!image.isEmpty()) {
+            // проверка, чтобы файл имел необходимый формат (картинка)
+            if (!Objects.requireNonNull(image.getContentType()).startsWith("image/")) {
+                throw new IllegalArgumentException("File must be an image");
+            }
+
+            // получение оригинального имени
+            String originalName = Optional.ofNullable(image.getOriginalFilename())
+                    .map(StringUtils::cleanPath)
+                    .filter(name -> !name.isEmpty())
+                    .orElse("image");
+
+            // извлечение и валидация расширения
+            String extension = Stream.of(".jpg", ".jpeg", ".png")
+                    .filter(ext -> originalName.toLowerCase().endsWith(ext))
+                    .findFirst()
+                    .orElse(".jpg");
+
+            filename = UUID.randomUUID() + extension;
+
+            try {
+                image.transferTo(new File(uploadDir + File.separator + filename));
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to save image", e);
+            }
+        }
+        return filename;
     }
 
     @PostMapping("/add/product")
@@ -85,42 +133,28 @@ public class WarehouseManagerController {
             return "redirect:/warehouse-manager/add/product?error=true";
         }
 
-        String fileName = null;
-
-        // можно сохранить товар без фотки
-        if (!image.isEmpty()) {
-            if (!Objects.requireNonNull(image.getContentType()).startsWith("image/")) {
-                throw new IllegalArgumentException("File must be an image");
-            }
-
-            String originalFilename = image.getOriginalFilename();
-            String extension = originalFilename != null ? originalFilename.substring(originalFilename.lastIndexOf(".")) : ".jpg";
-            fileName = UUID.randomUUID() + extension;
-
-            try {
-                image.transferTo(new File(uploadDir + File.separator + fileName));
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to save image", e);
-            }
-        }
-
-        productCreateRequest.setImageFilename(fileName);
+        productCreateRequest.setImageFilename(createFilename(image));
         productService.save(productCreateRequest);
-        return "redirect:/warehouse-manager/dashboard";
+        return "redirect:/warehouse-manager/dashboard?table=products";
     }
 
     @PostMapping("/update/supplier/{id}")
     public String updateSupplier(@PathVariable Long id,
                                  @Valid @ModelAttribute SupplierUpdateRequest supplierUpdateRequest) {
         supplierService.update(id, supplierUpdateRequest);
-        return "redirect:/warehouse-manager/dashboard";
+        return "redirect:/warehouse-manager/dashboard?table=suppliers";
     }
 
     @PostMapping("/update/product/{id}")
     public String updateProduct(@PathVariable Long id,
                                 @Valid @ModelAttribute ProductUpdateRequest productUpdateRequest,
                                 @RequestParam("image") MultipartFile image) {
-        //productService.update(id, productUpdateRequest);
-        return "redirect:/warehouse-manager/dashboard";
+        if (productUpdateRequest.getCategoryIds() == null) {
+            return "redirect:/warehouse-manager/update/product/%d?error=true".formatted(id);
+        }
+
+        productUpdateRequest.setImageFilename(createFilename(image));
+        productService.update(id, productUpdateRequest);
+        return "redirect:/warehouse-manager/dashboard?table=products";
     }
 }

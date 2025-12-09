@@ -2,110 +2,109 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Корзина</title>
-  <meta
-    name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-  >
-  <meta
-    http-equiv="X-UA-Compatible"
-    content="ie=edge"
-  >
-  <link
-    rel="stylesheet"
-    href="../../static/styles/styles.css"
-  >
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    >
+    <meta
+            http-equiv="X-UA-Compatible"
+            content="ie=edge"
+    >
+    <link
+            rel="stylesheet"
+            href="/styles/styles.css"
+    >
 </head>
 
 <body>
 <section class="section container">
-  <h1 class="h2">Корзина</h1>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Наименование</th>
-        <th scope="col">Изображение</th>
-        <th scope="col">Количество</th>
-        <th scope="col">Удалить?</th>
-      </tr>
-    </thead>
+    <h1 class="h2">Корзина</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Наименование</th>
+            <th scope="col">Изображение</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Удалить?</th>
+        </tr>
+        </thead>
 
-    <tbody>
-      <tr th:each="cartItem : ${cartItems}">
-        <td>
-          <a
-            th:href="@{/product/{id}(id=${cartItem.productId})}"
-            th:text="${cartItem.productName}"
-          ></a>
-        </td>
-        <td class="td__image">
-          <img
-            th:if="${cartItem.productImageFilename != null}"
-            th:src="@{/images/products/{fileName}(fileName=${cartItem.productImageFilename})}"
-            alt="Изображение товара"
-            width="100"
-            height="100"
-            loading="lazy"
-          >
-          <span th:if="${cartItem.productImageFilename == null}">Нет изображения</span>
-        </td>
-        <td>
-          <div class="choose-quantity">
-            <form
-              method="post"
-              action="/"
-            >
-              <button
-                type="submit"
-                class="button button--decrement"
-              >
-                -
-              </button>
-            </form>
-            <div th:text="${cartItem.quantity}"></div>
-            <form
-              method="post"
-              action="/"
-            >
-              <button
-                type="submit"
-                class="button button--increment"
-              >
-                +
-              </button>
-            </form>
-          </div>
-        </td>
-        <td>
-          <form
-            method="post"
-            action="/delete/product"
-            class="form"
-          >
-            <input
-              type="hidden"
-              name="productId"
-              th:value="${cartItem.productId}"
-            >
-            <button
-              type="submit"
-              class="button button-submit"
-            >Подтвердить
-            </button>
-          </form>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        <tbody>
+        <tr th:each="cartItem : ${cartItems}">
+            <td>
+                <a
+                        th:href="@{/product/{id}(id=${cartItem.productId})}"
+                        th:text="${cartItem.productName}"
+                ></a>
+            </td>
+            <td class="td__image">
+                <img
+                        th:src="@{/images/products/__${cartItem.productImageFilename ?: 'no_image.png'}__}"
+                        alt="Изображение товара"
+                        width="100"
+                        height="100"
+                        loading="lazy"
+                        class="product-card__image"
+                />
+            </td>
+            <td>
+                <div class="choose-quantity">
+                    <form
+                            method="post"
+                            th:action="@{/cart/decrement-product/{id}(id=${cartItem.productId})}"
+                    >
+                        <button
+                                type="submit"
+                                class="button button--decrement"
+                        >
+                            -
+                        </button>
+                    </form>
+                    <div th:text="${cartItem.quantity}"></div>
+                    <form
+                            method="post"
+                            th:action="@{/cart/increment-product/{id}(id=${cartItem.productId})}"
+                    >
+                        <button
+                                type="submit"
+                                class="button button--increment"
+                        >
+                            +
+                        </button>
+                    </form>
+                </div>
+            </td>
+            <td>
+                <form
+                        method="post"
+                        action="/delete/product"
+                        class="form"
+                >
+                    <input
+                            type="hidden"
+                            name="productId"
+                            th:value="${cartItem.productId}"
+                    >
+                    <button
+                            type="submit"
+                            class="button button-submit"
+                    >Подтвердить
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-  <div class="link__wrapper">
-    <a
-      class="link"
-      href="/check-order"
-    >Оформить заказ
-    </a>
-  </div>
+    <div class="link__wrapper">
+        <a
+                class="link"
+                href="/check-order"
+        >Оформить заказ
+        </a>
+    </div>
 </section>
 </body>
 </html>

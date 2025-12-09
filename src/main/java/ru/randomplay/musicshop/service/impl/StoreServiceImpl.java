@@ -21,7 +21,7 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public StoreResponse get(Long id) {
         return storeMapper.toStoreResponse(storeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Store with this ID doesn't exist")));
+                .orElseThrow(() -> new IllegalArgumentException("Store with ID " + id + " doesn't exist")));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public void save(StoreCreateRequest storeCreateRequest) {
         if (storeRepository.findByLocation(storeCreateRequest.getLocation()).isPresent()) {
-            throw new IllegalArgumentException("Store with this location already exists");
+            throw new IllegalArgumentException("Store with location " + storeCreateRequest.getLocation() + " already exists");
         }
 
         Store createdStore = storeMapper.toStore(storeCreateRequest);
@@ -42,12 +42,12 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public void update(Long id, StoreUpdateRequest storeUpdateRequest) {
         Store updatedStore = storeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Store with this ID doesn't exist"));
+                .orElseThrow(() -> new IllegalArgumentException("Store with ID " + id + " doesn't exist"));
 
         // проверка на то, что новый адрес не будет совпадать с уже существующими
         if (!updatedStore.getLocation().equals(storeUpdateRequest.getLocation()) &&
                 storeRepository.findByLocation(storeUpdateRequest.getLocation()).isPresent()) {
-            throw new IllegalArgumentException("Store with this location already exists");
+            throw new IllegalArgumentException("Store with location " + storeUpdateRequest.getLocation() + " already exists");
         }
 
         storeMapper.updateStore(updatedStore, storeUpdateRequest);

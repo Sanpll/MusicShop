@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html
-        xmlns:th="http://www.thymeleaf.org"
-        lang="en"
->
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -42,11 +39,24 @@
 
     <div class="tables tables__wrapper">
         <div th:remove="${orders} ? 'tag' : 'all'">
+            <h1 class="h2">Список активных заказов</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <!--                    -->
+                </tr>
+                </thead>
 
+                <tbody>
+                <tr th:each="order : ${orders}">
+                    <!--                    -->
+                </tr>
+                </tbody>
+            </table>
         </div>
 
         <div th:remove="${products} ? 'tag' : 'all'">
-            <h1 class="h2">Список Товаров</h1>
+            <h1 class="h2">Список товаров</h1>
             <table class="table">
                 <thead>
                 <tr>
@@ -91,8 +101,7 @@
             <a
                     class="link"
                     href="/employee/add/category"
-            >Добавить категорию
-            </a>
+            >Добавить категорию</a>
             <table class="table">
                 <thead>
                 <tr>

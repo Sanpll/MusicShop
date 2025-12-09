@@ -13,7 +13,7 @@ import ru.randomplay.musicshop.repository.ProductRepository;
 import ru.randomplay.musicshop.service.CartService;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -24,12 +24,16 @@ public class CartServiceImpl implements CartService {
     private final CartItemMapper cartItemMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<CartItemResponse> getAll(Cart cart) {
-        List<CartItem> cartItemList = new ArrayList<>(cart.getCartItems());
+        List<CartItem> cartItemList = cart.getCartItems().stream()
+                .sorted(Comparator.comparing(item -> item.getProduct().getId()))
+                .toList();
         return cartItemMapper.toCartItemResponseList(cartItemList);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BigDecimal getTotalPrice(Cart cart) {
         return cart.getCartItems().stream()
                 .map(item -> {
@@ -58,6 +62,13 @@ public class CartServiceImpl implements CartService {
             throw new IllegalArgumentException("Not enough stock for product with id " + product.getId() +
                     ". Available: " + product.getQuantity() +
                     ", requested total: " + newQuantity);
+        }
+        if (newQuantity < 0) {
+            throw new IllegalArgumentException("You must choose a positive number of products with id " + product.getId());
+        }
+        if (existingItem != null && newQuantity == 0 && existingItem.getQuantity() == 1) {
+            deleteProduct(cart, productId);
+            return;
         }
 
         // Применяем изменения / сохраняем

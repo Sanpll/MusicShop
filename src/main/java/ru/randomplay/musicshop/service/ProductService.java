@@ -2,6 +2,8 @@ package ru.randomplay.musicshop.service;
 
 import ru.randomplay.musicshop.dto.create.ProductCreateRequest;
 import ru.randomplay.musicshop.dto.response.ProductResponse;
+import ru.randomplay.musicshop.dto.update.ProductUpdateRequest;
+import ru.randomplay.musicshop.model.ProductStatus;
 
 import java.util.List;
 
@@ -10,5 +12,9 @@ public interface ProductService {
 
     List<ProductResponse> getAll();
 
+    List<ProductResponse> getAllByStatus(ProductStatus status);
+
     void save(ProductCreateRequest productCreateRequest);
+
+    void update(Long id, ProductUpdateRequest productUpdateRequest);
 }

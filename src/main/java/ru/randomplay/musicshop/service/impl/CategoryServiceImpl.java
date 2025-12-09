@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryResponse get(Long id) {
         return categoryMapper.toCategoryResponse(categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Category with this ID doesn't exist")));
+                .orElseThrow(() -> new IllegalArgumentException("Category with ID " + id + " doesn't exist")));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void save(CategoryCreateRequest categoryCreateRequest) {
         if (categoryRepository.findByName(categoryCreateRequest.getName()).isPresent()) {
-            throw new IllegalArgumentException("Category with this name already exists");
+            throw new IllegalArgumentException("Category with name " + categoryCreateRequest.getName() + " already exists");
         }
 
         Category createdCategory = categoryMapper.toCategory(categoryCreateRequest);
@@ -42,12 +42,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void update(Long id, CategoryUpdateRequest categoryUpdateRequest) {
         Category updatedCategory = categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Category with this ID doesn't exist"));
+                .orElseThrow(() -> new IllegalArgumentException("Category with ID " + id + " doesn't exist"));
 
         // проверка на то, что новое имя не будет совпадать с уже существующими
         if (!updatedCategory.getName().equals(categoryUpdateRequest.getName()) &&
                 categoryRepository.findByName(categoryUpdateRequest.getName()).isPresent()) {
-            throw new IllegalArgumentException("Category with this name already exists");
+            throw new IllegalArgumentException("Category with name " + categoryUpdateRequest.getName() + " already exists");
         }
 
         categoryMapper.updateCategory(updatedCategory, categoryUpdateRequest);
@@ -57,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(Long id) {
         Category deleteCategory = categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Category with this ID doesn't exist"));
+                .orElseThrow(() -> new IllegalArgumentException("Category with ID " + id + " doesn't exist"));
 
         categoryRepository.delete(deleteCategory);
     }
