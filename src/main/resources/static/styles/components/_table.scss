@@ -67,11 +67,6 @@
   }
 }
 
-.choose-quantity {
-  @include flex-center;
-  gap: 16px;
-}
-
 .button {
   &--decrement,
   &--increment {

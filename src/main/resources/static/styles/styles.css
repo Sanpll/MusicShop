@@ -170,7 +170,7 @@ svg * {
   --text: oklch(84% 0.02 80deg);
   --text-muted: oklch(45% 0.01 250deg);
   --text-sub: oklch(33% 0.01 250deg);
-  --caret: oklch(65% 0.15 85deg);
+  --caret: oklch(60% 0.15 85deg);
   --primary: oklch(75% 0.15 85deg);
   --primary-hover: oklch(68% 0.15 85deg);
   --secondary: oklch(45% 0.01 250deg);
@@ -366,6 +366,9 @@ a[class] {
   justify-content: flex-end;
   gap: 12px;
 }
+.field--top {
+  align-items: start;
+}
 
 .input {
   --input-width: 250px;
@@ -400,6 +403,18 @@ a[class] {
 .input--textarea {
   resize: vertical;
   min-height: 150px;
+}
+@media (any-hover: hover) {
+  .input--image:hover {
+    background-color: var(--bg-light);
+    border: var(--border);
+  }
+}
+@media (any-hover: none) {
+  .input--image:active {
+    background-color: var(--bg-light);
+    border: var(--border);
+  }
 }
 .input[type=file] {
   --input-wide-width: 320px;
@@ -478,6 +493,37 @@ a[class] {
 }
 .button--cart, .button--info {
   width: 100%;
+  text-align: center;
+}
+.button--info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1px 6px;
+  cursor: pointer;
+}
+.button--delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(var(--input-height) * 2);
+}
+.button--cart-ready {
+  background-color: var(--caret);
+}
+@media (any-hover: hover) {
+  .button--cart-ready:hover {
+    background-color: var(--primary);
+  }
+}
+@media (any-hover: none) {
+  .button--cart-ready:active {
+    background-color: var(--primary);
+  }
+}
+.button--cart-ready:active {
+  transition-duration: var(--transition-duration);
+  transform: translateY(2px);
 }
 
 .select {
@@ -564,7 +610,7 @@ a[class] {
   align-items: center;
   gap: 8px;
 }
-.fieldset label {
+.fieldset label, .fieldset__link {
   display: inline-flex;
   align-items: center;
   background-color: var(--bg);
@@ -574,15 +620,16 @@ a[class] {
   gap: 8px;
   cursor: pointer;
   white-space: nowrap;
+  width: 100%;
 }
 @media (any-hover: hover) {
-  .fieldset label:hover {
+  .fieldset label:hover, .fieldset__link:hover {
     background-color: var(--bg-light);
     transition-duration: var(--transition-duration);
   }
 }
 @media (any-hover: none) {
-  .fieldset label:active {
+  .fieldset label:active, .fieldset__link:active {
     background-color: var(--bg-light);
     transition-duration: var(--transition-duration);
   }
@@ -787,13 +834,6 @@ a[class] {
   object-position: center;
 }
 
-.choose-quantity {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-}
-
 .button--decrement, .button--increment {
   width: var(--input-height);
 }
@@ -811,13 +851,9 @@ a[class] {
   padding-top: calc(var(--container-padding-x) * 5);
 }
 .tables__controls-button {
-  width: 350px;
   flex: 0;
 }
-.tables__wrapper {
-  min-width: 1500px;
-  flex: 1;
-}
+
 .home {
   flex-direction: row;
   align-items: start;
@@ -855,6 +891,9 @@ a[class] {
 
 .list__item {
   max-width: 350px;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .product-card {
@@ -871,10 +910,10 @@ a[class] {
   box-shadow: var(--shadow-l);
 }
 .product-card__image-wrapper {
-  border-radius: var(--border-radius);
   max-width: 250px;
   width: 100%;
   aspect-ratio: 1;
+  border-radius: var(--border-radius);
 }
 .product-card__image {
   width: 100%;
@@ -890,8 +929,8 @@ a[class] {
 .product-card__title {
   width: 100%;
   text-align: center;
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 .product-card__controls {
@@ -902,6 +941,132 @@ a[class] {
 }
 .product-card__form {
   width: 100%;
+}
+
+.product {
+  --image-width: 350px;
+}
+.product__card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: var(--image-width) 1fr;
+  grid-template-areas: "image content" "tags tags";
+  gap: 24px;
+  padding: 36px;
+}
+.product__image-wrapper {
+  grid-area: image;
+  max-width: var(--image-width);
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--border-radius);
+}
+.product__image {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+.product__content {
+  grid-area: content;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+}
+.product__title {
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.product__supplier, .product__description, .product__price, .product__quantity {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.product__supplier p, .product__description p, .product__price p, .product__quantity p {
+  margin: 0;
+}
+.product__cart {
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+.product__cart .button-submit {
+  width: auto;
+}
+.product__tags {
+  grid-area: tags;
+  width: 100%;
+  display: flex;
+  gap: 12px;
+}
+.product__fieldset {
+  width: 100%;
+}
+.product__fieldset label, .product__fieldset-link {
+  width: auto;
+}
+
+.cart {
+  --list-items-gap: 12px;
+}
+.cart__list-wrapper {
+  width: 100%;
+  border: var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  background-color: var(--bg-light);
+  color: var(--text);
+}
+.cart__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--list-items-gap);
+}
+.cart-card {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.cart-card__image-wrapper {
+  max-width: 250px;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--border-radius);
+}
+.cart-card__image {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+.cart-card__controls {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.cart-card__choose-quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.list__item {
+  max-width: 100%;
+}
+.list__item:not(:last-child)::after {
+  --string-transform: calc(var(--list-items-gap) / 2);
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px;
+  transform: translateY(var(--string-transform));
+  background-color: var(--border-color);
+  border-radius: var(--border-radius);
 }
 
 /*# sourceMappingURL=styles.css.map */

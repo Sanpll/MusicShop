@@ -23,6 +23,9 @@
     justify-content: flex-end;
     gap: 12px;
   }
+  &--top {
+    align-items: start;
+  }
 }
 
 .input {
@@ -53,6 +56,13 @@
   &--textarea {
     resize: vertical;
     min-height: 150px;
+  }
+
+  &--image {
+    @include hover() {
+      background-color: var(--bg-light);
+      border: var(--border);
+    }
   }
 
   &[type="file"] {
@@ -115,6 +125,33 @@
   &--cart,
   &--info {
     width: 100%;
+    text-align: center;
+  }
+
+  &--info {
+    @include flex-center();
+    padding: 1px 6px;
+    cursor: pointer;
+  }
+
+  &--delete {
+    @include flex-center();
+    width: calc(var(--input-height) * 2);
+  }
+
+  &--cart {
+    &-ready {
+      background-color: var(--caret);
+
+      @include hover {
+        background-color: var(--primary);
+      }
+
+      &:active {
+        transition-duration: var(--transition-duration);
+        transform: translateY(2px);
+      }
+    }
   }
 }
 
@@ -197,7 +234,8 @@
   align-items: center;
   gap: 8px;
 
-  label {
+  label,
+  &__link {
     display: inline-flex;
     align-items: center;
     background-color: var(--bg);
@@ -207,6 +245,7 @@
     gap: 8px;
     cursor: pointer;
     white-space: nowrap;
+    width: 100%;
 
     @include hover {
       background-color: var(--bg-light);
