@@ -29,6 +29,9 @@ public class Product {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @Column(name = "description")
+    private String description;
+
     // Используем BigDecimal для гарантированной точности
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;

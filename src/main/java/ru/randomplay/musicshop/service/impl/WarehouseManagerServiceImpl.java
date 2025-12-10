@@ -29,7 +29,7 @@ public class WarehouseManagerServiceImpl implements WarehouseManagerService {
 
     @Override
     public WarehouseManagerResponse get(Long id) {
-        return warehouseManagerMapper.toWarehouseManagerResponse(warehouseManagerRepository.findById(id)
+        return warehouseManagerMapper.toWarehouseManagerResponse(warehouseManagerRepository.findByIdWithUserAndStore(id)
                 .orElseThrow(() -> new IllegalArgumentException("Warehouse manager with ID " + id + " doesn't exist")));
     }
 

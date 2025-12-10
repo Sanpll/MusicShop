@@ -20,7 +20,7 @@
 
 <body>
 <section class="section container">
-    <h1 class="h2">Корзина</h1>
+    <h1 class="h2">Оформление заказа</h1>
     <table class="table">
         <thead>
         <tr>
@@ -47,7 +47,7 @@
 
     <form
             method="post"
-            action="/create/order"
+            th:action="@{/create-order}"
             onsubmit="return confirm('Вы уверены, что хотите оформить заказ?')"
     >
         <button

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.randomplay.musicshop.dto.response.CartItemResponse;
 import ru.randomplay.musicshop.entity.Customer;
 import ru.randomplay.musicshop.entity.User;
 import ru.randomplay.musicshop.model.ProductStatus;
@@ -16,6 +17,8 @@ import ru.randomplay.musicshop.service.CartService;
 import ru.randomplay.musicshop.service.CategoryService;
 import ru.randomplay.musicshop.service.CustomerService;
 import ru.randomplay.musicshop.service.ProductService;
+
+import java.util.stream.Collectors;
 
 @Controller
 @PreAuthorize("hasRole('CUSTOMER')")
@@ -27,7 +30,13 @@ public class CustomerController {
     private final CartService cartService;
 
     @GetMapping("/home")
-    public String home(Model model) {
+    public String home(Model model,
+                       @AuthenticationPrincipal User user) {
+        Customer customer = customerService.findByEmailWithCart(user.getEmail());
+
+        // Получаем словарь товаров в виде (ID товара, его кол-во)
+        model.addAttribute("cartItems", cartService.getAll(customer.getCart()).stream()
+                .collect(Collectors.toMap(CartItemResponse::getProductId, CartItemResponse::getQuantity)));
         model.addAttribute("products", productService.getAllByStatus(ProductStatus.ACTIVE));
         model.addAttribute("categories", categoryService.getAll());
         return "customer/home";
@@ -43,7 +52,7 @@ public class CustomerController {
     @GetMapping("/cart")
     public String cartPage(Model model,
                            @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findWithCartByEmail(user.getEmail());
+        Customer customer = customerService.findByEmailWithCart(user.getEmail());
         model.addAttribute("cartItems", cartService.getAll(customer.getCart()));
         return "customer/cart";
     }
@@ -51,7 +60,7 @@ public class CustomerController {
     @GetMapping("/check-order")
     public String checkOrderPage(Model model,
                                  @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByEmail(user.getEmail());
+        Customer customer = customerService.findByEmailWithCart(user.getEmail());
         model.addAttribute("cartItems", cartService.getAll(customer.getCart()));
         model.addAttribute("totalPrice", cartService.getTotalPrice(customer.getCart()));
         return "/customer/checkOrder";
@@ -89,7 +98,7 @@ public class CustomerController {
         return "redirect:/cart";
     }
 
-    @PostMapping("/create/order")
+    @PostMapping("/create-order")
     public String createOrder(@AuthenticationPrincipal User user) {
         Customer customer = customerService.findByEmail(user.getEmail());
 

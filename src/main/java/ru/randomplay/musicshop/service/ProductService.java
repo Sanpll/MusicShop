@@ -1,5 +1,6 @@
 package ru.randomplay.musicshop.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import ru.randomplay.musicshop.dto.create.ProductCreateRequest;
 import ru.randomplay.musicshop.dto.response.ProductResponse;
 import ru.randomplay.musicshop.dto.update.ProductUpdateRequest;
@@ -14,7 +15,7 @@ public interface ProductService {
 
     List<ProductResponse> getAllByStatus(ProductStatus status);
 
-    void save(ProductCreateRequest productCreateRequest);
+    void save(ProductCreateRequest productCreateRequest, MultipartFile image);
 
-    void update(Long id, ProductUpdateRequest productUpdateRequest);
+    void update(Long id, ProductUpdateRequest productUpdateRequest, MultipartFile image);
 }

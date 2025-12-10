@@ -11,15 +11,15 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     @Query("SELECT c FROM Customer c " +
-            "JOIN FETCH c.user u " +
+            "LEFT JOIN FETCH c.user u " +
             "WHERE u.email = :email")
     Optional<Customer> findByUserEmail(@Param("email") String email);
 
     @Query("SELECT cs FROM Customer cs " +
-            "JOIN FETCH cs.user u " +
-            "JOIN FETCH cs.cart cr " +
-            "JOIN FETCH cr.cartItems ci " +
-            "JOIN FETCH ci.product " +
+            "LEFT JOIN FETCH cs.user u " +
+            "LEFT JOIN FETCH cs.cart cr " +
+            "LEFT JOIN FETCH cr.cartItems ci " +
+            "LEFT JOIN FETCH ci.product " +
             "WHERE u.email = :email")
     Optional<Customer> findWithCartAndProductsByUserEmail(@Param("email") String email);
 }

@@ -1,8 +1,11 @@
 package ru.randomplay.musicshop.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import ru.randomplay.musicshop.dto.create.ProductCreateRequest;
 import ru.randomplay.musicshop.dto.response.ProductResponse;
 import ru.randomplay.musicshop.dto.update.ProductUpdateRequest;
@@ -17,8 +20,13 @@ import ru.randomplay.musicshop.repository.ProductRepository;
 import ru.randomplay.musicshop.repository.SupplierRepository;
 import ru.randomplay.musicshop.service.ProductService;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -28,9 +36,12 @@ public class ProductServiceImpl implements ProductService {
     private final SupplierRepository supplierRepository;
     private final ProductMapper productMapper;
 
+    @Value("${app.image.upload-dir}")
+    private String uploadDir;
+
     @Override
     public ProductResponse get(Long id) {
-        return productMapper.toProductResponse(productRepository.findById(id)
+        return productMapper.toProductResponse(productRepository.findByIdWithCategoriesAndSupplier(id)
                 .orElseThrow(() -> new IllegalArgumentException("Product with ID " + id + " doesn't exist")));
     }
 
@@ -44,25 +55,71 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.toProductResponseList(productRepository.findAllWithCategoriesAndSupplierByStatus(status));
     }
 
+    private String createFilename(MultipartFile image) {
+        String filename = null;
+        if (!image.isEmpty()) {
+            // проверка, чтобы файл имел необходимый формат (картинка)
+            if (!Objects.requireNonNull(image.getContentType()).startsWith("image/")) {
+                throw new IllegalArgumentException("File must be an image");
+            }
+
+            // получение оригинального имени
+            String originalName = Optional.ofNullable(image.getOriginalFilename())
+                    .map(StringUtils::cleanPath)
+                    .filter(name -> !name.isEmpty())
+                    .orElse("image");
+
+            // извлечение и валидация расширения
+            String extension = Stream.of(".jpg", ".jpeg", ".png")
+                    .filter(ext -> originalName.toLowerCase().endsWith(ext))
+                    .findFirst()
+                    .orElse(".jpg");
+
+            filename = UUID.randomUUID() + extension;
+
+            try {
+                image.transferTo(new File(uploadDir + File.separator + filename));
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to save image", e);
+            }
+        }
+        return filename;
+    }
+
+    private void deleteOldImage(String oldImageFilename) {
+        if (oldImageFilename != null && !oldImageFilename.isEmpty()) {
+            try {
+                Path oldImagePath = Paths.get(uploadDir, oldImageFilename);
+                if (Files.exists(oldImagePath)) {
+                    Files.delete(oldImagePath);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to delete previous image", e);
+            }
+        }
+    }
+
     @Override
     @Transactional
-    public void save(ProductCreateRequest productCreateRequest) {
+    public void save(ProductCreateRequest productCreateRequest, MultipartFile image) {
         if (productRepository.findByName(productCreateRequest.getName()).isPresent()) {
             throw new IllegalArgumentException("Product with name " + productCreateRequest.getName() + " already exists");
         }
-
-        // Находим поставщика по его id
-        Supplier supplier = supplierRepository.findById(productCreateRequest.getSupplierId())
-                .orElseThrow(() -> new IllegalArgumentException("Supplier with ID " + productCreateRequest.getSupplierId() + " doesn't exist"));
 
         // Получаем список категорий по их id
         List<Category> categoryList = new ArrayList<>(
                 categoryRepository.findAllById(productCreateRequest.getCategoryIds())
         );
+
+        // Ошибка возникает, если были переданы неизвестные ID категорий, которые не смогли быть получены
         if (categoryList.size() != productCreateRequest.getCategoryIds().size()) {
             throw new IllegalArgumentException("Invalid categories ID");
         }
 
+        // Находим поставщика по его id
+        Supplier supplier = supplierRepository.findById(productCreateRequest.getSupplierId())
+                .orElseThrow(() -> new IllegalArgumentException("Supplier with ID " + productCreateRequest.getSupplierId() + " doesn't exist"));
+        productCreateRequest.setImageFilename(createFilename(image));
         Product createdProduct = productMapper.toProduct(productCreateRequest, supplier);
 
         // Прописываем связи между Product и Category
@@ -79,7 +136,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public void update(Long id, ProductUpdateRequest productUpdateRequest) {
+    public void update(Long id, ProductUpdateRequest productUpdateRequest, MultipartFile image) {
         Product product = productRepository.findByIdWithCategories(id)
                 .orElseThrow(() -> new IllegalArgumentException("Product with id " + id + " doesn't exist"));
 
@@ -89,8 +146,10 @@ public class ProductServiceImpl implements ProductService {
             throw new IllegalArgumentException("Product with name " + productUpdateRequest.getName() + " already exists");
         }
 
-        if (productUpdateRequest.getImageFilename() != null) {
-            product.setImageFilename(productUpdateRequest.getImageFilename());
+        String newImageFilename = createFilename(image);
+        if (newImageFilename != null) {
+            deleteOldImage(product.getImageFilename());
+            product.setImageFilename(newImageFilename);
         }
 
         productMapper.updateProduct(product, productUpdateRequest);

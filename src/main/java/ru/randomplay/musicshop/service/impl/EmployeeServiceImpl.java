@@ -29,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeResponse get(Long id) {
-        return employeeMapper.toEmployeeResponse(employeeRepository.findById(id)
+        return employeeMapper.toEmployeeResponse(employeeRepository.findByIdWithUserAndStore(id)
                 .orElseThrow(() -> new IllegalArgumentException("Employee with ID " + id + " doesn't exist")));
     }
 

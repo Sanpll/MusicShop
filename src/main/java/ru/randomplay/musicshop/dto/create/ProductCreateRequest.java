@@ -18,6 +18,9 @@ public class ProductCreateRequest {
     @Size(min = 2, max = 32)
     private String name;
 
+    @Size(min = 4, max = 256)
+    private String description;
+
     @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer = 8, fraction = 2)

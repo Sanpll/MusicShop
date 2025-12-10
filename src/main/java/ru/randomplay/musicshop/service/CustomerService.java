@@ -8,5 +8,5 @@ public interface CustomerService {
 
     Customer findByEmail(String email);
 
-    Customer findWithCartByEmail(String email);
+    Customer findByEmailWithCart(String email);
 }

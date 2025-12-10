@@ -24,16 +24,15 @@ public class CartServiceImpl implements CartService {
     private final CartItemMapper cartItemMapper;
 
     @Override
-    @Transactional(readOnly = true)
     public List<CartItemResponse> getAll(Cart cart) {
         List<CartItem> cartItemList = cart.getCartItems().stream()
                 .sorted(Comparator.comparing(item -> item.getProduct().getId()))
                 .toList();
+
         return cartItemMapper.toCartItemResponseList(cartItemList);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public BigDecimal getTotalPrice(Cart cart) {
         return cart.getCartItems().stream()
                 .map(item -> {

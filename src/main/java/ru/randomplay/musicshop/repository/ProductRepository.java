@@ -20,6 +20,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "WHERE p.id = :id")
     Optional<Product> findByIdWithCategories(@Param("id") Long id);
 
+    @Query("SELECT p FROM Product p " +
+            "LEFT JOIN FETCH p.categoryLinks cl " +
+            "LEFT JOIN FETCH cl.category " +
+            "LEFT JOIN FETCH p.supplier " +
+            "WHERE p.id = :id")
+    Optional<Product> findByIdWithCategoriesAndSupplier(@Param("id") Long id);
+
     // делаем кастомный запрос, чтобы избиваться от N+1
     @Query("SELECT DISTINCT p FROM Product p " +
             "LEFT JOIN FETCH p.categoryLinks cl " +

@@ -2,158 +2,176 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Обновление товара</title>
-  <meta
-    name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-  >
-  <meta
-    http-equiv="X-UA-Compatible"
-    content="ie=edge"
-  >
-  <link
-    rel="stylesheet"
-    href="../../static/styles/styles.css"
-  >
+    <meta charset="UTF-8">
+    <title>Обновление товара</title>
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    >
+    <meta
+            http-equiv="X-UA-Compatible"
+            content="ie=edge"
+    >
+    <link
+            rel="stylesheet"
+            href="/styles/styles.css"
+    >
 </head>
 
 <body>
 <section class="section container">
-  <h1 class="h2">Изменение информации о товаре</h1>
-  <form
-    method="post"
-    th:action="@{/warehouse-manager/update/product/{id}(id=${product.id})}"
-    enctype="multipart/form-data"
-    class="form"
-  >
-
-    <div class="field">
-      <label for="name">Наименование:</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        minlength="2"
-        maxlength="32"
-        class="input input--wide"
-        th:value="${product.name}"
-        required
-      >
-    </div>
-
-    <div class="field">
-      <label for="price">Стоимость:</label>
-      <input
-        type="number"
-        id="price"
-        name="price"
-        step="0.01"
-        class="input input--wide"
-        th:value="${product.price}"
-        required
-      >
-    </div>
-
-    <div class="field">
-      <label for="status">Статус товара:</label>
-      <select
-        id="status"
-        name="status"
-        class="input input--wide select"
-        required
-      >
-        <option
-          value="ACTIVE"
-          th:selected="${product.status.name() == 'ACTIVE'}"
-        >Доступен для продажи
-        </option>
-        <option
-          value="OUT_OF_STOCK"
-          th:selected="${product.status.name() == 'OUT_OF_STOCK'}"
-        >Нет в наличии
-        </option>
-        <option
-          value="DISCONTINUED"
-          th:selected="${product.status.name() == 'DISCONTINUED'}"
-        >Снят с продаж
-        </option>
-        <option
-          value="INACTIVE"
-          th:selected="${product.status.name() == 'INACTIVE'}"
-        >Временно недоступен для продажи
-        </option>
-      </select>
-    </div>
-
-    <div
-      class="field field--top"
-      th:if="${product.imageFilename != null}"
+    <h1 class="h2">Изменение информации о товаре</h1>
+    <form
+            method="post"
+            th:action="@{/warehouse-manager/update/product/{id}(id=${product.id})}"
+            enctype="multipart/form-data"
+            class="form"
     >
-      <label>Предыдущее <br> изображение:</label>
-      <img
-        class="input input--wide input--image"
-        th:src="@{/images/products/{fileName}(fileName=${product.imageFilename})}"
-        alt="Изображение товара"
-        width="100"
-        height="100"
-        loading="lazy"
-      >
-    </div>
 
-    <div class="field">
-      <label>Изображение:</label>
-      <input
-        type="file"
-        name="image"
-        accept="image/png, image/jpeg, image/jpg"
-        class="input"
-      >
-    </div>
+        <div class="field">
+            <label for="name">Наименование:</label>
+            <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    minlength="2"
+                    maxlength="32"
+                    class="input input--wide"
+                    th:value="${product.name}"
+                    required
+            >
+        </div>
 
-    <div
-      th:if="${error}"
-      class="auth__error"
-    >
-      Выберите как минимум одну категорию!
-    </div>
+        <div class="field">
+            <label
+                    class="label__category"
+                    for="description"
+            >Описание:
+            </label>
+            <textarea
+                    type="text"
+                    id="description"
+                    name="description"
+                    minlength="4"
+                    maxlength="256"
+                    class="input input--wide input--textarea"
+                    th:text="${product.description}"
+                    th:value="${product.description}"
+            ></textarea>
+        </div>
 
-    <div class="field">
-      <label
-        for="categoryIds"
-        class="label__category"
-      >Категории:
-      </label>
-      <fieldset
-        id="categoryIds"
-        class="fieldset"
-      >
-        <label
-          th:if="${categories != null}"
-          th:each="category : ${categories}"
+        <div class="field">
+            <label for="price">Стоимость:</label>
+            <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    step="0.01"
+                    class="input input--wide"
+                    th:value="${product.price}"
+                    required
+            >
+        </div>
+
+        <div class="field">
+            <label for="status">Статус товара:</label>
+            <select
+                    id="status"
+                    name="status"
+                    class="input input--wide select"
+                    required
+            >
+                <option
+                        value="ACTIVE"
+                        th:selected="${product.status.name() == 'ACTIVE'}"
+                >Доступен для продажи
+                </option>
+                <option
+                        value="OUT_OF_STOCK"
+                        th:selected="${product.status.name() == 'OUT_OF_STOCK'}"
+                >Нет в наличии
+                </option>
+                <option
+                        value="DISCONTINUED"
+                        th:selected="${product.status.name() == 'DISCONTINUED'}"
+                >Снят с продаж
+                </option>
+                <option
+                        value="INACTIVE"
+                        th:selected="${product.status.name() == 'INACTIVE'}"
+                >Временно недоступен для продажи
+                </option>
+            </select>
+        </div>
+
+        <div
+                class="field field--top"
+                th:if="${product.imageFilename != null}"
         >
-          <input
-            type="checkbox"
-            name="categoryIds"
-            class="checkbox"
-            th:value="${category.id}"
-            th:checked="${#arrays.contains(product.categoryNames, category.name)}"
-          >
-          <span class="checkbox__box"></span>
-          <span th:text="${category.name}"></span>
-        </label>
-        <label th:if="${categories == null}">
-          Категорий не найдено
-        </label>
-      </fieldset>
-    </div>
+            <label>Предыдущее<br>изображение:</label>
+            <img
+                    class="input input--wide input--image"
+                    th:src="@{/images/products/{fileName}(fileName=${product.imageFilename})}"
+                    th:alt="@{/images/products/__${product.name ?: 'Нет изображения'}__}"
+                    width="100"
+                    height="100"
+                    loading="lazy"
+            >
+        </div>
 
-    <button
-      type="submit"
-      class="button button-submit"
-    >Подтвердить
-    </button>
-  </form>
+        <div class="field">
+            <label>Изображение:</label>
+            <input
+                    type="file"
+                    name="image"
+                    accept="image/png, image/jpeg, image/jpg"
+                    class="input"
+            >
+        </div>
+
+        <div
+                th:if="${error}"
+                class="auth__error"
+        >
+            Выберите как минимум одну категорию!
+        </div>
+
+        <div class="field">
+            <label
+                    for="categoryIds"
+                    class="label__category"
+            >Категории:
+            </label>
+            <fieldset
+                    id="categoryIds"
+                    class="fieldset"
+            >
+                <label
+                        th:if="${categories != null}"
+                        th:each="category : ${categories}"
+                >
+                    <input
+                            type="checkbox"
+                            name="categoryIds"
+                            class="checkbox"
+                            th:value="${category.id}"
+                            th:checked="${#arrays.contains(product.categoryNames, category.name)}"
+                    >
+                    <span class="checkbox__box"></span>
+                    <span th:text="${category.name}"></span>
+                </label>
+                <label th:if="${categories == null}">
+                    Категорий не найдено
+                </label>
+            </fieldset>
+        </div>
+
+        <button
+                type="submit"
+                class="button button-submit"
+        >Подтвердить
+        </button>
+    </form>
 </section>
 </body>
 </html>
