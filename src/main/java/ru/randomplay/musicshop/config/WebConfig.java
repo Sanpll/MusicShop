@@ -12,6 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${app.image.upload-dir}")
     private String uploadDir;
 
+    // Надо, чтобы браузер смог нормально получать файлы не из static
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/products/**")

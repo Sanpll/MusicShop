@@ -16,6 +16,8 @@ import java.util.Set;
 public abstract class OrderMapper {
     @Mapping(target = "customerLastName", source = "customer.user.lastName")
     @Mapping(target = "customerFirstName", source = "customer.user.firstName")
+    @Mapping(target = "employeeLastName", source = "employee.user.lastName")
+    @Mapping(target = "employeeFirstName", source = "employee.user.firstName")
     @Mapping(target = "products", expression = "java(mapCartItems(order.getCart().getCartItems()))")
     public abstract OrderResponse toOrderResponse(Order order);
 

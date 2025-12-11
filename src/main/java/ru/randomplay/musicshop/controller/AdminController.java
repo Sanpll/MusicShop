@@ -19,6 +19,7 @@ public class AdminController {
     private final EmployeeService employeeService;
     private final WarehouseManagerService warehouseManagerService;
     private final StoreService storeService;
+    private final OrderService orderService;
 
     @GetMapping("/dashboard")
     public String dashboard(Model model,
@@ -35,6 +36,9 @@ public class AdminController {
                     break;
                 case "stores":
                     model.addAttribute("stores", storeService.getAll());
+                    break;
+                case "orders":
+                    model.addAttribute("orders", orderService.getAll());
                     break;
                 default:
                     model.addAttribute("admins", adminService.getAll());

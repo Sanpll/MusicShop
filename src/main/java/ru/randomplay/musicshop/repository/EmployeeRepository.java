@@ -17,6 +17,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
             "WHERE e.id = :id")
     Optional<Employee> findByIdWithUserAndStore(@Param("id") Long id);
 
+    @Query("SELECT e FROM Employee e " +
+            "LEFT JOIN FETCH e.user u " +
+            "WHERE u.email = :email")
+    Optional<Employee> findByEmail(@Param("email") String email);
+
     @Query("SELECT DISTINCT e FROM Employee e " +
             "LEFT JOIN FETCH e.store " +
             "LEFT JOIN FETCH e.user")

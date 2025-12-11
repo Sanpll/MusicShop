@@ -14,4 +14,6 @@ public interface CartService {
     void addProduct(Cart cart, Long productId, Integer quantity);
 
     void deleteProduct(Cart cart, Long productId);
+
+    boolean checkProductQuantities(Cart cart);
 }

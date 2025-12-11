@@ -3,6 +3,7 @@ package ru.randomplay.musicshop.dto.response;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.randomplay.musicshop.model.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,7 +16,10 @@ public class OrderResponse {
     private Long id;
     private String customerLastName;
     private String customerFirstName;
+    private String employeeLastName;
+    private String employeeFirstName;
     private LocalDateTime createdAt;
     private Map<String, Integer> products;
     private BigDecimal totalPrice;
+    private PaymentStatus status;
 }

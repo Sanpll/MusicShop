@@ -69,8 +69,8 @@
                 <div class="product-card">
                     <div class="product-card__image-wrapper">
                         <img
-                                th:src="@{/images/products/__${product.imageFilename ?: 'no_image.png'}__}"
-                                th:alt="@{/images/products/__${product.name ?: 'Нет изображения'}__}"
+                                th:src="@{'/images/products/' + ${product.imageFilename ?: 'no_image.png'}}"
+                                th:alt="${product.imageFilename != null ? product.name : 'Нет изображения'}"
                                 width="100"
                                 height="100"
                                 loading="lazy"

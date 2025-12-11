@@ -39,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findByEmailWithCart(String email) {
+    public Customer getByEmailWithCart(String email) {
         return customerRepository.findWithCartAndProductsByUserEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Customer with email '" + email + "' doesn't exist"));
     }

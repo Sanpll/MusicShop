@@ -95,4 +95,18 @@ public class CartServiceImpl implements CartService {
         cart.getCartItems().remove(existingItem);
         cartRepository.save(cart);
     }
+
+    @Override
+    public boolean checkProductQuantities(Cart cart) {
+        boolean isCartQuantitiesChanged = false;
+        for (CartItem cartItem : cart.getCartItems()) {
+            int productQuantity = cartItem.getProduct().getQuantity();
+            if (cartItem.getQuantity() > productQuantity) {
+                cartItem.setQuantity(productQuantity);
+                isCartQuantitiesChanged = true;
+            }
+        }
+        cartRepository.save(cart);
+        return isCartQuantitiesChanged;
+    }
 }

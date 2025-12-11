@@ -24,6 +24,22 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
 
     @Override
+    public OrderResponse get(Long id) {
+        return orderMapper.toOrderResponse(orderRepository.findByIdWithUserAndProducts(id)
+                .orElseThrow(() -> new IllegalArgumentException("Order with ID " + id + " doesn't exist")));
+    }
+
+    @Override
+    public List<OrderResponse> getAll() {
+        return orderMapper.toOrderResponseList(orderRepository.findAllWithUserAndProducts());
+    }
+
+    @Override
+    public List<OrderResponse> getAllWithoutConfirm() {
+        return orderMapper.toOrderResponseList(orderRepository.findAllWithUserAndProductsAndNullEmployee());
+    }
+
+    @Override
     @Transactional
     public void create(Customer customer, BigDecimal totalPrice) {
         Cart cart = customer.getCart();
@@ -65,7 +81,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderResponse> getAll() {
-        return orderMapper.toOrderResponseList(orderRepository.findAllWithUserAndProducts());
+    public void confirmOrder(Employee employee, Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order with ID " + orderId + " doesn't exist"));
+        order.setEmployee(employee);
+        orderRepository.save(order);
     }
 }

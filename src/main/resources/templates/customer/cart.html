@@ -21,15 +21,20 @@
 <body>
 <section class="section container cart">
     <h1 class="h2">Корзина</h1>
+    <div
+            th:if="${improvedQuantities == true}"
+    >
+        Количество некоторых товаров скорректировано с учётом оставшегося количества на складе.
+    </div>
     <div class="cart__list-wrapper">
-        <ul th:if="${cartItems}" class="cart__list">
+        <ul th:if="${not #lists.isEmpty(cartItems)}" class="cart__list">
             <li class="list__item" th:each="cartItem : ${cartItems}">
                 <div class="cart-card">
                     <div class="cart-card__image-wrapper">
                         <img
                                 class="cart-card__image"
-                                th:src="@{/images/products/__${cartItem.productImageFilename ?: 'no_image.png'}__}"
-                                th:alt="@{/images/products/__${cartItem.productName ?: 'Нет изображения'}__}"
+                                th:src="@{'/images/products/' + ${cartItem.productImageFilename ?: 'no_image.png'}}"
+                                th:alt="${cartItem.productImageFilename != null ? cartItem.productName : 'Нет изображения'}"
                                 width="250px"
                                 height=""
                                 loading="lazy"
@@ -101,6 +106,7 @@
                 </div>
             </li>
         </ul>
+        <div th:if="${#lists.isEmpty(cartItems)}">Корзина пустая :(</div>
     </div>
 
     <div class="link__wrapper">

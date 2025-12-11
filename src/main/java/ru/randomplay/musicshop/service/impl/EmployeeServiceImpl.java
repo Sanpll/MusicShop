@@ -28,6 +28,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    public Employee getByEmail(String email) {
+        return employeeRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Employee with email '" + email + "' doesn't exist"));
+    }
+
+    @Override
     public EmployeeResponse get(Long id) {
         return employeeMapper.toEmployeeResponse(employeeRepository.findByIdWithUserAndStore(id)
                 .orElseThrow(() -> new IllegalArgumentException("Employee with ID " + id + " doesn't exist")));

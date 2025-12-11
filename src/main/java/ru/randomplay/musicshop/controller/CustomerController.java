@@ -31,7 +31,7 @@ public class CustomerController {
     @GetMapping("/home")
     public String home(Model model,
                        @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByEmailWithCart(user.getEmail());
+        Customer customer = customerService.getByEmailWithCart(user.getEmail());
 
         // Получаем словарь товаров в виде (ID товара, его кол-во)
         model.addAttribute("cartItems", cartService.getAll(customer.getCart()).stream()
@@ -51,7 +51,10 @@ public class CustomerController {
     @GetMapping("/cart")
     public String cartPage(Model model,
                            @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByEmailWithCart(user.getEmail());
+        Customer customer = customerService.getByEmailWithCart(user.getEmail());
+        if (cartService.checkProductQuantities(customer.getCart())) {
+            model.addAttribute("improvedQuantities", true);
+        }
         model.addAttribute("cartItems", cartService.getAll(customer.getCart()));
         return "customer/cart";
     }
@@ -59,7 +62,7 @@ public class CustomerController {
     @GetMapping("/check-order")
     public String checkOrderPage(Model model,
                                  @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByEmailWithCart(user.getEmail());
+        Customer customer = customerService.getByEmailWithCart(user.getEmail());
         model.addAttribute("cartItems", cartService.getAll(customer.getCart()));
         model.addAttribute("totalPrice", cartService.getTotalPrice(customer.getCart()));
         return "/customer/checkOrder";
@@ -68,7 +71,7 @@ public class CustomerController {
     @PostMapping("/add/product")
     public String addProductToCart(@RequestParam Long productId,
                                    @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByEmailWithCart(user.getEmail());
+        Customer customer = customerService.getByEmailWithCart(user.getEmail());
         cartService.addProduct(customer.getCart(), productId, 1);
         return "redirect:/home";
     }
@@ -76,7 +79,7 @@ public class CustomerController {
     @PostMapping("/delete/product")
     public String deleteProductFromCart(@RequestParam Long productId,
                                         @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByEmailWithCart(user.getEmail());
+        Customer customer = customerService.getByEmailWithCart(user.getEmail());
         cartService.deleteProduct(customer.getCart(), productId);
         return "redirect:/cart";
     }
@@ -84,7 +87,7 @@ public class CustomerController {
     @PostMapping("/cart/increment-product/{id}")
     public String incrementProduct(@PathVariable Long id,
                                    @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByEmailWithCart(user.getEmail());
+        Customer customer = customerService.getByEmailWithCart(user.getEmail());
         cartService.addProduct(customer.getCart(), id, 1);
         return "redirect:/cart";
     }
@@ -92,14 +95,14 @@ public class CustomerController {
     @PostMapping("/cart/decrement-product/{id}")
     public String decrementProduct(@PathVariable Long id,
                                    @AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByEmailWithCart(user.getEmail());
+        Customer customer = customerService.getByEmailWithCart(user.getEmail());
         cartService.addProduct(customer.getCart(), id, -1);
         return "redirect:/cart";
     }
 
     @PostMapping("/create-order")
     public String createOrder(@AuthenticationPrincipal User user) {
-        Customer customer = customerService.findByEmailWithCart(user.getEmail());
+        Customer customer = customerService.getByEmailWithCart(user.getEmail());
         BigDecimal totalPrice = cartService.getTotalPrice(customer.getCart());
         orderService.create(customer, totalPrice);
         return "redirect:/home";

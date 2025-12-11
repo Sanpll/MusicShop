@@ -25,8 +25,8 @@
         <div class="product__image-wrapper">
             <img
                     class="product__image"
-                    src="/images/products/no_image.png"
-                    th:alt="${product.name}"
+                    th:src="@{'/images/products/' + ${product.imageFilename ?: 'no_image.png'}}"
+                    th:alt="${product.imageFilename != null ? product.name : 'Нет изображения'}"
                     width="350"
                     height=""
                     loading="lazy"

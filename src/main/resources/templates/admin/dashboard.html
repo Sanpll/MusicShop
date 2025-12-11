@@ -39,6 +39,10 @@
                 class="link tables__controls-button"
         >Список заведующих складом</a>
         <a
+                href="/admin/dashboard?table=orders"
+                class="link tables__controls-button"
+        >Список заказов</a>
+        <a
                 href="/admin/dashboard?table=stores"
                 class="link tables__controls-button"
         >Список магазинов</a>
@@ -166,6 +170,40 @@
                     <td th:text="${#temporals.format(warehouseManager.registeredAt, 'dd.MM.yyyy')}"></td>
                     <td th:text="${warehouseManager.storeLocation}"></td>
                     <td th:text="${warehouseManager.status}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:remove="${orders} ? 'tag' : 'all'">
+            <h1 class="h2">Список активных заказов</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Покупатель</th>
+                    <th scope="col">Сотрудник</th>
+                    <th scope="col">Время создания</th>
+                    <th scope="col">Товары</th>
+                    <th scope="col">Итоговая стоимость</th>
+                    <th scope="col">Статус оплаты</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.id}"></td>
+                    <td th:text="${order.customerLastName + ' ' + order.customerFirstName}"></td>
+                    <td th:text="${order.employeeLastName + ' ' + order.employeeFirstName}"></td>
+                    <td th:text="${#temporals.format(order.createdAt, 'dd.MM.yyyy HH:mm:ss')}"></td>
+                    <td>
+                        <div
+                                th:each="product : ${order.products}"
+                                th:text="${product.key} + ': ' + ${product.value}">
+                        </div>
+                    </td>
+                    <td th:text="${order.totalPrice}"></td>
+                    <td th:text="${order.status == 'PAID' ? 'Оплачено' : ''}"></td>
                 </tr>
                 </tbody>
             </table>
