@@ -1,7 +1,7 @@
 @use '../helpers/index' as *;
 
 .table {
-  width: 100%;
+  width: 1500px;
   border-collapse: collapse;
   border-radius: var(--border-radius);
   overflow: hidden;
@@ -50,6 +50,15 @@
         text-align: center;
       }
     }
+  }
+
+  &__ol {
+    width: 100%;
+    list-style-position: inside;
+  }
+
+  &__item {
+    text-align: start;
   }
 }
 

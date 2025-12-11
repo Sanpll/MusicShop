@@ -139,6 +139,10 @@
     width: calc(var(--input-height) * 2);
   }
 
+  &--order {
+    width: 100%;
+  }
+
   &--cart {
     &-ready {
       background-color: var(--caret);

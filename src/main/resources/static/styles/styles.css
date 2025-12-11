@@ -330,6 +330,21 @@ a[class] {
   text-decoration: none;
 }
 
+.empty-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 10vh;
+  border: var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  background-color: var(--bg-light);
+  color: var(--warning);
+  font-weight: 600;
+  text-align: center;
+}
+
 .section {
   display: flex;
   justify-content: center;
@@ -507,6 +522,9 @@ a[class] {
   justify-content: center;
   align-items: center;
   width: calc(var(--input-height) * 2);
+}
+.button--order {
+  width: 100%;
 }
 .button--cart-ready {
   background-color: var(--caret);
@@ -774,7 +792,7 @@ a[class] {
   }
 }
 .table {
-  width: 100%;
+  width: 1500px;
   border-collapse: collapse;
   border-radius: var(--border-radius);
   overflow: hidden;
@@ -819,6 +837,13 @@ a[class] {
   padding: 14px 16px;
   color: var(--text);
   text-align: center;
+}
+.table__ol {
+  width: 100%;
+  list-style-position: inside;
+}
+.table__item {
+  text-align: start;
 }
 
 .td__image {
@@ -887,6 +912,9 @@ a[class] {
   justify-items: stretch;
   align-items: center;
   padding: 24px;
+}
+.home__item::after {
+  display: none !important;
 }
 
 .list__item {

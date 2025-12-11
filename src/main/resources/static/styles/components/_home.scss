@@ -37,6 +37,11 @@
     align-items: center;
     padding: 24px;
   }
+  &__item {
+    &::after {
+      display: none !important;
+    }
+  }
 }
 
 .list__item {
