@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.randomplay.musicshop.dto.create.CategoryCreateRequest;
 import ru.randomplay.musicshop.dto.update.CategoryUpdateRequest;
 import ru.randomplay.musicshop.service.CategoryService;
+import ru.randomplay.musicshop.service.OrderService;
 import ru.randomplay.musicshop.service.ProductService;
 
 @Controller
@@ -16,6 +17,7 @@ import ru.randomplay.musicshop.service.ProductService;
 @PreAuthorize("hasRole('EMPLOYEE')")
 @RequiredArgsConstructor
 public class EmployeeController {
+    private final OrderService orderService;
     private final ProductService productService;
     private final CategoryService categoryService;
 
@@ -23,7 +25,7 @@ public class EmployeeController {
     public String productsPage(Model model,
                                @RequestParam(required = false) String table) {
         if (table == null) {
-            model.addAttribute("orders", null/*orderService.getAll()*/);
+            model.addAttribute("orders", orderService.getAll());
         } else {
             switch (table) {
                 case "products":
@@ -33,7 +35,7 @@ public class EmployeeController {
                     model.addAttribute("categories", categoryService.getAll());
                     break;
                 default:
-                    model.addAttribute("orders", null/*orderService.getAll()*/);
+                    model.addAttribute("orders", orderService.getAll());
                     break;
             }
         }

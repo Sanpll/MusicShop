@@ -43,13 +43,26 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <!--                    -->
+                    <th scope="col">ID</th>
+                    <th scope="col">Покупатель</th>
+                    <th scope="col">Время создания</th>
+                    <th scope="col">Товары</th>
+                    <th scope="col">Итоговая стоимость</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr th:each="order : ${orders}">
-                    <!--                    -->
+                    <td th:text="${order.id}"></td>
+                    <td th:text="${order.customerLastName + ' ' + order.customerFirstName}"></td>
+                    <td th:text="${#temporals.format(order.createdAt, 'dd.MM.yyyy HH:mm:ss')}"></td>
+                    <td>
+                        <div
+                                th:each="product : ${order.products}"
+                                th:text="${product.key} + ': ' + ${product.value}">
+                        </div>
+                    </td>
+                    <td th:text="${order.totalPrice}"></td>
                 </tr>
                 </tbody>
             </table>

@@ -22,7 +22,7 @@
 <section class="section container cart">
     <h1 class="h2">Корзина</h1>
     <div class="cart__list-wrapper">
-        <ul class="cart__list">
+        <ul th:if="${cartItems}" class="cart__list">
             <li class="list__item" th:each="cartItem : ${cartItems}">
                 <div class="cart-card">
                     <div class="cart-card__image-wrapper">
