@@ -1,0 +1,46 @@
+@use '../helpers/index' as *;
+
+.supply {
+  display: flex;
+  width: 100%;
+
+  &__titles,
+  &__form {
+    @include flex-center();
+    justify-content: space-between;
+    width: 55%;
+    gap: 36px;
+  }
+
+  &__list,
+  &__item {
+    width: 100%;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .input {
+    width: 100%;
+  }
+
+  &__controls {
+    @include flex-center();
+
+    width: 100%;
+    gap: 24px;
+
+    .button-submit {
+      width: 30%;
+    }
+  }
+}

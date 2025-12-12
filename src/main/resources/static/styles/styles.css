@@ -623,6 +623,23 @@ a[class] {
   transition-duration: var(--transition-duration);
   transform: translateY(2px);
 }
+.button--equals {
+  width: 150px;
+}
+.button--add, .button--remove {
+  font-size: clamp(0.875rem, 0.7944214876rem + 0.3305785124vw, 1.125rem);
+}
+.button--add {
+  width: 30%;
+  align-self: end;
+  flex-shrink: 0;
+}
+.button--remove {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius);
+  flex-shrink: 0;
+}
 
 .select {
   max-width: var(--input-width);
@@ -761,6 +778,9 @@ a[class] {
   position: relative;
   width: var(--input-width);
 }
+.custom-select-wrapper--wide {
+  width: 100%;
+}
 
 .custom-select-search {
   cursor: pointer;
@@ -835,6 +855,8 @@ a[class] {
 }
 .custom-select-option--empty-message.show {
   display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .button__wrapper {
@@ -1176,6 +1198,77 @@ a[class] {
   transform: translateY(var(--string-transform));
   background-color: var(--border-color);
   border-radius: var(--border-radius);
+}
+
+.order {
+  width: 35%;
+}
+.order__list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.order__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.order__controls {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+.order__label {
+  cursor: pointer;
+}
+.order__info {
+  width: 290px;
+  border: var(--border);
+  border-radius: 8px;
+  padding: 6px;
+  background-color: var(--bg-light);
+}
+
+.supply {
+  display: flex;
+  width: 100%;
+}
+.supply__titles, .supply__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  width: 55%;
+  gap: 36px;
+}
+.supply__list, .supply__item {
+  width: 100%;
+}
+.supply__list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.supply__item {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+.supply .input {
+  width: 100%;
+}
+.supply__controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+}
+.supply__controls .button-submit {
+  width: 30%;
 }
 
 /*# sourceMappingURL=styles.css.map */
