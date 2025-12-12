@@ -1,0 +1,69 @@
+@use '../helpers/index' as *;
+
+.header {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-light);
+  border-bottom: 2px solid var(--border-color);
+  position: relative;
+  padding-inline: calc(var(--container-padding-x) * 2);
+
+  &::before {
+    content: '';
+    z-index: -1;
+    width: 100vw;
+    height: 100%;
+    background-color: var(--bg-light);
+
+    @include abs-center;
+  }
+
+  &::after {
+    content: '';
+    z-index: -1;
+    transform: translateY(2px);
+    width: 100vw;
+    height: 100%;
+    border-bottom: 2px solid var(--border-color);
+
+    @include abs-center;
+  }
+
+  &__logo {
+    @include flex-center();
+    gap: 12px;
+
+    @include hover() {
+      opacity: 0.5;
+      color: var(--text);
+    }
+  }
+
+  &__title {
+    @include hover() {
+      color: var(--text);
+    }
+  }
+
+  &__list {
+    @include flex-center();
+    gap: 8px;
+  }
+
+  &__item {
+    @include flex-center();
+
+    a {
+      padding: 10px;
+    }
+  }
+
+  &__auth,
+  &__cart {
+    svg {
+      @include square(36px);
+    }
+  }
+}
