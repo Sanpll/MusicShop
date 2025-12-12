@@ -157,6 +157,28 @@
       }
     }
   }
+
+  &--equals {
+    width: 150px;
+  }
+
+  &--add,
+  &--remove{
+    @include fluid-text(18, 14);
+  }
+
+  &--add {
+    width: 30%;
+    align-self: end;
+    flex-shrink: 0;
+  }
+
+  &--remove {
+    @include square(48px);
+    border-radius: var(--border-radius);
+    flex-shrink: 0;
+  }
+
 }
 
 .select {
@@ -286,6 +308,10 @@
 .custom-select-wrapper {
   position: relative;
   width: var(--input-width);
+
+  &--wide {
+    width: 100%;
+  }
 }
 
 .custom-select-search {
@@ -353,6 +379,8 @@
 
     &.show {
       display: block;
+      width: 100%;
+      height: 100%;
     }
   }
 }

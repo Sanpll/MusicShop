@@ -57,10 +57,10 @@
 
                 <tbody>
                 <tr th:each="supply : ${supplies}">
-                    <th th:text="${supply.id}"></th>
-                    <th th:text="${supply.warehouseManagerLastName + ' ' + supply.warehouseManagerFirstName}"></th>
-                    <th th:text="${#temporals.format(supply.date, 'dd.MM.yyyy')}"></th>
-                    <th>
+                    <td th:text="${supply.id}"></td>
+                    <td th:text="${supply.warehouseManagerLastName + ' ' + supply.warehouseManagerFirstName}"></td>
+                    <td th:text="${#temporals.format(supply.date, 'dd.MM.yyyy')}"></td>
+                    <td>
                         <ol class="table__ol">
                             <li
                                     class="table__item"
@@ -68,7 +68,7 @@
                                     th:text="${product.key} + ' - ' + ${product.value} + ' шт.'"
                             ></li>
                         </ol>
-                    </th>
+                    </td>
                 </tr>
                 </tbody>
             </table>

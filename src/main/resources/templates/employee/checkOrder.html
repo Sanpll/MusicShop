@@ -2,49 +2,72 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Оформление заказа</title>
-    <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    >
-    <meta
-            http-equiv="X-UA-Compatible"
-            content="ie=edge"
-    >
-    <link
-            rel="stylesheet"
-            href="/styles/styles.css"
-    >
+  <meta charset="UTF-8">
+  <title>Оформление заказа</title>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <link
+    rel="stylesheet"
+    href="../../static/styles/styles.css"
+  >
 </head>
 
 <body>
 <section class="section container">
+  <div class="order">
+    <ul class="order__list">
+      <li class="order__item">
+        <p class="order__label">Покупатель</p>
+        <p class="order__info"></p>
+      </li>
+      <li class="order__item">
+        <p class="order__label">Время создания</p>
+        <p class="order__info"></p>
+      </li>
+      <li class="order__item">
+        <p class="order__label">Товары</p>
+        <p class="order__info"></p>
+      </li>
+      <li class="order__item">
+        <p class="order__label">Итоговая стоимость</p>
+        <p class="order__info"></p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="order__controls">
     <form
-            method="post"
-            th:action="@{'/employee/reject-order/' + ${order.id}}"
-            class="form"
+      method="post"
+      th:action="@{'/employee/reject-order/' + ${order.id}}"
+      class="form"
     >
-        <button
-                class="button button--info"
-                type="submit"
-        >
-            Отклонить
-        </button>
+      <button
+        class="button button--equals"
+        type="submit"
+      >
+        Отклонить
+      </button>
     </form>
 
     <form
-            method="post"
-            th:action="@{'/employee/confirm-order/' + ${order.id}}"
-            class="form"
+      method="post"
+      th:action="@{'/employee/confirm-order/' + ${order.id}}"
+      class="form"
     >
-        <button
-                class="button button--info"
-                type="submit"
-        >
-            Подтвердить
-        </button>
+      <button
+        class="button button--equals"
+        type="submit"
+      >
+        Подтвердить
+      </button>
     </form>
+  </div>
 </section>
 </body>
 </html>

@@ -1,0 +1,38 @@
+@use '../helpers/index' as *;
+
+.order {
+  width: 35%;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__controls {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__label {
+    cursor: pointer;
+  }
+
+  &__info {
+    width: 290px;
+    border: var(--border);
+    border-radius: 8px;
+    padding: 6px;
+    background-color: var(--bg-light);
+  }
+}
