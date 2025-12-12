@@ -19,7 +19,7 @@
 </head>
 
 <body>
-<header th:replace="fragments/header :: header"></header>
+<header th:replace="customer/header :: header"></header>
 <section class="section container cart">
     <h1 class="h2">Корзина</h1>
     <div
@@ -87,9 +87,10 @@
                         </div>
                         <div class="cart-card__delete">
                             <form
+                                    class="form"
                                     method="post"
                                     th:action="@{/delete/product}"
-                                    class="form"
+                                    onsubmit="return confirm('Вы уверены, что хотите удалить данный товар из корзины?')"
                             >
                                 <input
                                         type="hidden"
