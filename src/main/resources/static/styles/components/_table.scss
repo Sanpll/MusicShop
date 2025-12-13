@@ -1,5 +1,22 @@
 @use '../helpers/index' as *;
 
+.tables {
+  @include flex-center;
+  flex-direction: column;
+  gap: 12px;
+
+  &__controls {
+    max-width: 350px;
+    align-items: stretch;
+    padding-top: calc(var(--container-padding-x) * 5);
+
+    &-button {
+      width: 300px;
+      flex: 0;
+    }
+  }
+}
+
 .table {
   width: 1500px;
   border-collapse: collapse;
@@ -60,10 +77,8 @@
   &__item {
     text-align: start;
   }
-}
 
-.td {
-  &__image {
+  &__cell-image {
     @include flex-center;
     flex-direction: column;
 
@@ -73,12 +88,5 @@
       object-fit: cover;
       object-position: center;
     }
-  }
-}
-
-.button {
-  &--decrement,
-  &--increment {
-    width: var(--input-height);
   }
 }

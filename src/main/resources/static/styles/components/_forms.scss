@@ -1,0 +1,30 @@
+@use '../helpers/index' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &--auth {
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  &--right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  &--top {
+    align-items: start;
+  }
+}

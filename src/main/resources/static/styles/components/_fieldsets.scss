@@ -1,0 +1,40 @@
+@use '../helpers/index' as *;
+
+.fieldset {
+  --fieldset-width: 400px;
+
+  border: var(--border);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  background-color: var(--bg-light);
+  color: var(--text);
+  width: var(--fieldset-width);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+
+  label,
+  &__link {
+    --input-height: 48px;
+
+    height: var(--input-height);
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--bg);
+    border: var(--border);
+    border-radius: var(--border-radius);
+    padding: var(--padding) 10px;
+    gap: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    width: 100%;
+
+    @include hover {
+      background-color: var(--bg-dark);
+      border-color: var(--primary-active);
+      transition-duration: var(--transition-duration);
+    }
+  }
+}

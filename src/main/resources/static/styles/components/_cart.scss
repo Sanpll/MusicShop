@@ -5,11 +5,9 @@
 
   &__list-wrapper {
     width: 100%;
-    border: var(--border);
-    border-radius: 8px;
-    padding: 16px;
-    background-color: var(--bg-light);
     color: var(--text);
+    padding: 16px;
+    // border, border-radius, background через .u-card в HTML
   }
 
   &__list {
@@ -17,6 +15,7 @@
     flex-direction: column;
     justify-content: center;
     gap: var(--list-items-gap);
+    // список с разделителями через .u-list-divider в HTML
   }
 
   &-card {
@@ -28,15 +27,11 @@
 
     &__image-wrapper {
       max-width: 250px;
-      width: 100%;
-      aspect-ratio: 1;
-      border-radius: var(--border-radius);
+      // width, aspect-ratio, border-radius через .u-image-wrapper в HTML
     }
 
     &__image {
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
+      // стили через .u-image в HTML
     }
 
     &__controls {
@@ -48,25 +43,6 @@
     &__choose-quantity {
       @include flex-center;
       gap: 16px;
-    }
-  }
-}
-
-.list__item {
-  max-width: 100%;
-
-  &:not(:last-child) {
-
-    &::after {
-      --string-transform: calc(var(--list-items-gap) / 2);
-
-      content: "";
-      display: block;
-      width: 100%;
-      height: 3px;
-      transform: translateY(var(--string-transform));
-      background-color: var(--border-color);
-      border-radius: var(--border-radius);
     }
   }
 }

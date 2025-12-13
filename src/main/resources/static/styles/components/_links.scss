@@ -1,0 +1,45 @@
+@use '../helpers/index' as *;
+
+.link__wrapper {
+  @include flex-center;
+  gap: 24px;
+}
+
+.link {
+  --input-height: 48px;
+
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: inline-flex;
+  text-align: center;
+  height: var(--input-height);
+  text-decoration: none;
+  background-color: var(--primary);
+  border-radius: var(--border-radius);
+  border: none;
+  color: var(--text);
+  padding: var(--padding);
+  padding-right: 40px;
+  font-weight: 500;
+  box-shadow: var(--shadow-m);
+
+  &::after {
+    content: '';
+    @include abs-y;
+    @include square(24px);
+    right: 10px;
+    background: url("../icons/arrow-top-right.svg") center / contain no-repeat;
+  }
+
+  @include hover {
+    background-color: var(--primary-active);
+    transition-duration: var(--transition-duration);
+    color: var(--bg);
+  }
+
+  &:active {
+    transition-duration: var(--transition-duration);
+    transform: translateY(2px);
+  }
+}

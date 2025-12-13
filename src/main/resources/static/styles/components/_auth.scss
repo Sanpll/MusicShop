@@ -1,0 +1,23 @@
+@use '../helpers/index' as *;
+
+.auth {
+  &__help {
+    @include flex-center;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__error {
+    color: var(--error);
+    text-align: center;
+    animation: shake 1s;
+  }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}

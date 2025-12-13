@@ -1,0 +1,26 @@
+@use '../helpers/index' as *;
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  appearance: none;
+  -webkit-appearance: none;
+
+  &:checked + .checkbox__box {
+    background-color: var(--primary-active);
+  }
+
+  &__box {
+    display: inline-block;
+    @include square(24px);
+    border-radius: var(--border-radius);
+    background-color: var(--border-muted);
+    transition-duration: var(--transition-duration);
+  }
+}
+
+.label__category {
+  align-self: flex-start;
+}

@@ -11,4 +11,10 @@
     flex-direction: row;
     gap: 56px;
   }
+
+  &--auth {
+    @include flex-center();
+    flex-direction: column;
+    padding: 48px 16px;
+  }
 }

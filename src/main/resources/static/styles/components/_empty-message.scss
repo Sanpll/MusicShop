@@ -2,13 +2,8 @@
 
 .empty-message {
   @include flex-center();
-  width: 50%;
-  height: 10vh;
-  border: var(--border);
-  border-radius: 8px;
-  padding: 16px;
-  background-color: var(--bg-light);
-  color: var(--warning);
+  min-height: 250px;
+  color: var(--error);
   font-weight: 600;
   text-align: center;
 }

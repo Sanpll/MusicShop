@@ -1,0 +1,19 @@
+@use '../helpers/index' as *;
+
+.button-wrapper {
+  @include flex-center;
+  gap: 24px;
+  width: 30%;
+
+  button {
+    width: 60%;
+  }
+
+  form {
+    width: 60%;
+
+    button {
+      width: 100%;
+    }
+  }
+}

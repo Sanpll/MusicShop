@@ -1,0 +1,80 @@
+@use '../helpers/index' as *;
+
+.input {
+  --input-width: 250px;
+
+  border: var(--border);
+  border-radius: var(--border-radius);
+  padding: var(--padding);
+  background-color: var(--bg-light);
+  color: var(--text);
+  width: var(--input-width);
+
+  @include hover {
+    background-color: var(--bg-dark);
+    border-color: var(--primary-active);
+    transition-duration: var(--transition-duration);
+  }
+
+  &:focus {
+    outline: none;
+    background-color: var(--bg);
+    border-color: var(--primary-focus);
+  }
+
+  &--wide {
+    --input-width: 400px;
+  }
+
+  &--textarea {
+    resize: vertical;
+    min-height: 200px;
+  }
+
+  &--image {
+    @include hover() {
+      background-color: var(--bg-light);
+      border: var(--border);
+    }
+  }
+
+  &[type="number"] {
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      opacity: 0;
+    }
+  }
+
+  &[type="file"] {
+    --input-width: 400px;
+
+    padding: var(--padding);
+    width: var(--input-width);
+
+    @include hover {
+      background-color: var(--bg-light);
+      border: var(--border);
+    }
+
+    &::file-selector-button {
+      border: var(--border);
+      border-radius: var(--border-radius);
+      padding: var(--padding);
+      background-color: var(--bg-light);
+      color: var(--text);
+      margin-right: calc(var(--padding) * 2);
+      transition-duration: var(--transition-duration);
+
+      @include hover {
+        background-color: var(--bg-dark);
+        border-color: var(--primary-active);
+        transition-duration: var(--transition-duration);
+      }
+
+      &:active {
+        transition-duration: var(--transition-duration);
+        transform: translateY(2px);
+      }
+    }
+  }
+}

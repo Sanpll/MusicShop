@@ -1,0 +1,58 @@
+@use '../helpers/index' as *;
+
+.button {
+  height: var(--input-height);
+  width: 60%;
+  background-color: var(--primary);
+  border-radius: var(--border-radius);
+  border: none;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 500;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  display: inline-flex;
+  text-align: center;
+  padding: var(--padding);
+  box-shadow: var(--shadow-m);
+  cursor: pointer;
+
+  @include hover {
+    background-color: var(--primary-active);
+    transition-duration: var(--transition-duration);
+    color: var(--bg);
+  }
+
+  &:active {
+    transition-duration: var(--transition-duration);
+    transform: translateY(2px);
+  }
+
+  &--wide {
+    width: 100%;
+  }
+
+  &--ready {
+    background-color: var(--caret);
+
+    @include hover {
+      background-color: var(--primary-active);
+      color: var(--text);
+    }
+  }
+
+  &--add {
+    width: 30%;
+    flex-shrink: 0;
+  }
+
+  &--remove,
+  &--decrement,
+  &--increment {
+    @include square(48px);
+    border-radius: var(--border-radius);
+    flex-shrink: 0;
+    align-items: center;
+  }
+}
