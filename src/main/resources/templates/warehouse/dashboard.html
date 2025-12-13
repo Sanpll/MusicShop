@@ -2,162 +2,172 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Главная страница</title>
-    <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    >
-    <meta
-            http-equiv="X-UA-Compatible"
-            content="ie=edge"
-    >
-    <link
-            rel="stylesheet"
-            href="/styles/styles.css"
-    >
+  <meta charset="UTF-8">
+  <title>Главная страница</title>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <link
+    rel="stylesheet"
+    href="../../static/styles/styles.css"
+  >
 </head>
 
 <body>
 <section class="section container section--tables">
-    <h1 class="visually-hidden">Информация по таблицам</h1>
+  <h1 class="visually-hidden">Информация по таблицам</h1>
 
-    <div class="tables tables__controls">
-        <a
-                href="/warehouse-manager/dashboard?table=supplies"
-                class="link tables__controls-button"
-        >Список поставок</a>
-        <a
-                href="/warehouse-manager/dashboard?table=suppliers"
-                class="link tables__controls-button"
-        >Список поставщиков</a>
-        <a
-                href="/warehouse-manager/dashboard?table=products"
-                class="link tables__controls-button"
-        >Список товаров</a>
+  <div class="tables tables__controls">
+    <a
+      href="/warehouse-manager/dashboard?table=supplies"
+      class="link tables__controls-button"
+    >Список поставок
+    </a>
+    <a
+      href="/warehouse-manager/dashboard?table=suppliers"
+      class="link tables__controls-button"
+    >Список поставщиков
+    </a>
+    <a
+      href="/warehouse-manager/dashboard?table=products"
+      class="link tables__controls-button"
+    >Список товаров
+    </a>
+  </div>
+
+
+  <div class="tables tables__wrapper">
+    <div th:remove="${supplies} ? 'tag' : 'all'">
+      <h1 class="h2">Список поставок</h1>
+      <a
+        class="link"
+        href="/warehouse-manager/add/supply"
+      >Добавить поставку
+      </a>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Заведующий складом</th>
+            <th scope="col">Дата поставки</th>
+            <th scope="col">Поставленные товары</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="supply : ${supplies}">
+            <td th:text="${supply.id}"></td>
+            <td th:text="${supply.warehouseManagerLastName + ' ' + supply.warehouseManagerFirstName}"></td>
+            <td th:text="${#temporals.format(supply.date, 'dd.MM.yyyy')}"></td>
+            <td>
+              <ol class="table__ol">
+                <li
+                  class="table__item"
+                  th:each="product : ${supply.supplyItems}"
+                  th:text="${product.key} + ' - ' + ${product.value} + ' шт.'"
+                ></li>
+              </ol>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
+    <div th:remove="${suppliers} ? 'tag' : 'all'">
+      <h1 class="h2">Список поставщиков</h1>
+      <div class="link__wrapper">
+        <a
+          class="link"
+          href="/warehouse-manager/add/supplier"
+        >Добавить поставщика
+        </a>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Название</th>
+            <th scope="col">Страна</th>
+            <th scope="col">Дата начала контракта</th>
+            <th scope="col">Дата окончания контракта</th>
+          </tr>
+        </thead>
 
-    <div class="tables tables__wrapper">
-        <div th:remove="${supplies} ? 'tag' : 'all'">
-            <h1 class="h2">Список поставок</h1>
-            <a
-                    class="link"
-                    href="/warehouse-manager/add/supply"
-            >Добавить поставку</a>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Заведующий складом</th>
-                    <th scope="col">Дата поставки</th>
-                    <th scope="col">Поставленные товары</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr th:each="supply : ${supplies}">
-                    <td th:text="${supply.id}"></td>
-                    <td th:text="${supply.warehouseManagerLastName + ' ' + supply.warehouseManagerFirstName}"></td>
-                    <td th:text="${#temporals.format(supply.date, 'dd.MM.yyyy')}"></td>
-                    <td>
-                        <ol class="table__ol">
-                            <li
-                                    class="table__item"
-                                    th:each="product : ${supply.supplyItems}"
-                                    th:text="${product.key} + ' - ' + ${product.value} + ' шт.'"
-                            ></li>
-                        </ol>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div th:remove="${suppliers} ? 'tag' : 'all'">
-            <h1 class="h2">Список поставщиков</h1>
-            <div class="link__wrapper">
-                <a
-                        class="link"
-                        href="/warehouse-manager/add/supplier"
-                >Добавить поставщика</a>
-            </div>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Название</th>
-                    <th scope="col">Страна</th>
-                    <th scope="col">Дата начала контракта</th>
-                    <th scope="col">Дата окончания контракта</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr th:each="supplier : ${suppliers}">
-                    <td>
-                        <a th:href="@{'/warehouse-manager/update/supplier/' + ${supplier.id}}"
-                           th:text="${supplier.id}"></a>
-                    </td>
-                    <td th:text="${supplier.name}"></td>
-                    <td th:text="${supplier.country}"></td>
-                    <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}"></td>
-                    <td th:text="${#temporals.format(supplier.contractEnd, 'dd.MM.yyyy')}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div th:remove="${products} ? 'tag' : 'all'">
-            <h1 class="h2">Список товаров</h1>
-            <a
-                    class="link"
-                    href="/warehouse-manager/add/product"
-            >Добавить товар</a>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Поставщик</th>
-                    <th scope="col">Наименование</th>
-                    <th scope="col">Описание</th>
-                    <th scope="col">Цена</th>
-                    <th scope="col">Количество</th>
-                    <th scope="col">Статус</th>
-                    <th scope="col">Изображение</th>
-                    <th scope="col">Категории</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr th:each="product : ${products}">
-                    <td>
-                        <a th:href="@{'/warehouse-manager/update/product/' + ${product.id}}"
-                           th:text="${product.id}"></a>
-                    </td>
-                    <td th:text="${product.supplierName}"></td>
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.description ?: 'Нет описания'}"></td>
-                    <td th:text="${product.price}"></td>
-                    <td th:text="${product.quantity}"></td>
-                    <td th:text="${product.status}"></td>
-                    <td class="td__image">
-                        <img
-                                th:if="${product.imageFilename != null}"
-                                th:src="@{'/images/products/' + ${product.imageFilename ?: 'no_image.png'}}"
-                                th:alt="${product.imageFilename != null ? product.name : 'Нет изображения'}"
-                                width="100"
-                                height="100"
-                                loading="lazy"
-                        >
-                        <span th:if="${product.imageFilename == null}">Нет изображения</span>
-                    </td>
-                    <td th:text="${#lists.isEmpty(product.categoryNames) ? 'Нет категорий' : #strings.listJoin(product.categoryNames, ', ')}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <tbody>
+          <tr th:each="supplier : ${suppliers}">
+            <td>
+              <a
+                th:href="@{'/warehouse-manager/update/supplier/' + ${supplier.id}}"
+                th:text="${supplier.id}"
+              ></a>
+            </td>
+            <td th:text="${supplier.name}"></td>
+            <td th:text="${supplier.country}"></td>
+            <td th:text="${#temporals.format(supplier.contractStart, 'dd.MM.yyyy')}"></td>
+            <td th:text="${#temporals.format(supplier.contractEnd, 'dd.MM.yyyy')}"></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
+    <div th:remove="${products} ? 'tag' : 'all'">
+      <h1 class="h2">Список товаров</h1>
+      <a
+        class="link"
+        href="/warehouse-manager/add/product"
+      >Добавить товар
+      </a>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Поставщик</th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Изображение</th>
+            <th scope="col">Категории</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="product : ${products}">
+            <td>
+              <a
+                th:href="@{'/warehouse-manager/update/product/' + ${product.id}}"
+                th:text="${product.id}"
+              ></a>
+            </td>
+            <td th:text="${product.supplierName}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.description ?: 'Нет описания'}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.quantity}"></td>
+            <td th:text="${product.status}"></td>
+            <td class="table__cell-image u-image">
+              <img
+                th:if="${product.imageFilename != null}"
+                th:src="@{'/images/products/' + ${product.imageFilename ?: 'no_image.png'}}"
+                th:alt="${product.imageFilename != null ? product.name : 'Нет изображения'}"
+                width="100"
+                height="100"
+                loading="lazy"
+              >
+              <span th:if="${product.imageFilename == null}">Нет изображения</span>
+            </td>
+            <td th:text="${#lists.isEmpty(product.categoryNames) ? 'Нет категорий' : #strings.listJoin(product.categoryNames, ', ')}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </section>
 </body>
 </html>

@@ -17,12 +17,12 @@
     >
 </head>
 <body>
-<section class="section container">
+<section class="section container section--auth">
     <h1 class="h2">Регистрация</h1>
     <form
             method="post"
             th:action="@{/registration}"
-            class="form"
+            class="form form--auth"
     >
 
         <div class="field">
@@ -33,6 +33,7 @@
                     name="email"
                     placeholder="ivanovivan@email.com"
                     class="input"
+                    autocomplete="email"
                     required
             >
         </div>
@@ -46,6 +47,7 @@
                     minlength="6"
                     maxlength="32"
                     class="input"
+                    autocomplete="new-password"
                     required
             >
         </div>
@@ -84,12 +86,13 @@
                     name="phone"
                     placeholder="+71234567890"
                     class="input"
+                    autocomplete="tel"
             >
         </div>
 
         <button
                 type="submit"
-                class="button button-submit"
+                class="button button--submit"
         >Подтвердить
         </button>
     </form>

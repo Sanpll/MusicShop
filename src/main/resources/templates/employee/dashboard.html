@@ -103,7 +103,7 @@
                     <td th:text="${product.price}"></td>
                     <td th:text="${product.quantity}"></td>
                     <td th:text="${product.status}"></td>
-                    <td class="td__image">
+                    <td class="table__cell-image u-image">
                         <img
                                 th:if="${product.imageFilename != null}"
                                 th:src="@{'/images/products/' + ${product.imageFilename ?: 'no_image.png'}}"
