@@ -36,6 +36,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderResponse> getAllByEmail(String email) {
+        return orderMapper.toOrderResponseList(orderRepository.findAllByEmailWithProducts(email));
+    }
+
+    @Override
     public List<OrderResponse> getAllWithoutConfirm() {
         return orderMapper.toOrderResponseList(orderRepository.findAllWithUserAndProductsAndNullEmployee());
     }

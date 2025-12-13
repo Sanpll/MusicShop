@@ -42,4 +42,16 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "LEFT JOIN FETCH ci.product " +
             "WHERE o.employee IS NULL")
     List<Order> findAllWithUserAndProductsAndNullEmployee();
+
+    @Query("SELECT DISTINCT o FROM Order o " +
+            "LEFT JOIN FETCH o.customer cs " +
+            "LEFT JOIN FETCH cs.user u " +
+            "LEFT JOIN FETCH o.employee e " +
+            "LEFT JOIN FETCH e.user " +
+            "LEFT JOIN FETCH o.cart cr " +
+            "LEFT JOIN FETCH cr.cartItems ci " +
+            "LEFT JOIN FETCH ci.product " +
+            "WHERE u.email = :email AND " +
+            "o.employee IS NOT NULL")
+    List<Order> findAllByEmailWithProducts(@Param("email") String email);
 }

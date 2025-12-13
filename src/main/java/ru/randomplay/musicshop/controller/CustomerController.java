@@ -1,15 +1,14 @@
 package ru.randomplay.musicshop.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.randomplay.musicshop.dto.response.CartItemResponse;
+import ru.randomplay.musicshop.dto.update.CustomerUpdateRequest;
 import ru.randomplay.musicshop.entity.Customer;
 import ru.randomplay.musicshop.entity.User;
 import ru.randomplay.musicshop.model.ProductStatus;
@@ -31,8 +30,6 @@ public class CustomerController {
     public String home(Model model,
                        @AuthenticationPrincipal User user) {
         Customer customer = customerService.getByEmailWithCart(user.getEmail());
-
-        // Получаем словарь товаров в виде (ID товара, его кол-во)
         model.addAttribute("cartItemsProductId", cartService.getAll(customer.getCart()).stream().map(CartItemResponse::getProductId).toList());
         model.addAttribute("products", productService.getAllByStatus(ProductStatus.ACTIVE));
         model.addAttribute("categories", categoryService.getAll());
@@ -64,6 +61,27 @@ public class CustomerController {
         model.addAttribute("cartItems", cartService.getAll(customer.getCart()));
         model.addAttribute("totalPrice", cartService.getTotalPrice(customer.getCart()));
         return "/customer/checkOrder";
+    }
+
+    @GetMapping("/customer/profile")
+    public String profilePage(Model model,
+                               @AuthenticationPrincipal User user) {
+        model.addAttribute("customer", customerService.getByEmailWithUser(user.getEmail()));
+        return "customer/profile";
+    }
+
+    @GetMapping("/customer/orders")
+    public String ordersPage(Model model,
+                              @AuthenticationPrincipal User user) {
+        model.addAttribute("orders", orderService.getAllByEmail(user.getEmail()));
+        return "customer/orders";
+    }
+
+    @GetMapping("/customer/update")
+    public String updateCustomerPage(Model model,
+                              @AuthenticationPrincipal User user) {
+        model.addAttribute("customer", customerService.getByEmailWithUser(user.getEmail()));
+        return "customer/updateCustomer";
     }
 
     @PostMapping("/add/product")
@@ -104,5 +122,12 @@ public class CustomerController {
         BigDecimal totalPrice = cartService.getTotalPrice(customer.getCart());
         orderService.create(customer, totalPrice);
         return "redirect:/home";
+    }
+
+    @PostMapping("/customer/update")
+    public String updateCustomer(@Valid @ModelAttribute CustomerUpdateRequest customerUpdateRequest,
+                                 @AuthenticationPrincipal User user) {
+        customerService.update(user, customerUpdateRequest);
+        return "redirect:/customer/profile";
     }
 }

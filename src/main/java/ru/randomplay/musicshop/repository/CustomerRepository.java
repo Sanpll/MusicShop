@@ -16,5 +16,10 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             "LEFT JOIN FETCH cr.cartItems ci " +
             "LEFT JOIN FETCH ci.product " +
             "WHERE u.email = :email")
-    Optional<Customer> findWithCartAndProductsByUserEmail(@Param("email") String email);
+    Optional<Customer> findByEmailWithCartAndProducts(@Param("email") String email);
+
+    @Query("SELECT cs FROM Customer cs " +
+            "LEFT JOIN FETCH cs.user u " +
+            "WHERE u.email = :email")
+    Optional<Customer> findByEmail(@Param("email") String email);
 }

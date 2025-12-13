@@ -48,8 +48,10 @@ public class SupplyMapper {
             supplyItem.setSupply(supply);
             supplyItem.setProduct(product);
             supplyItem.setQuantity(supplyCreateRequest.getProductsId().get(productId));
-
             supplyItems.add(supplyItem);
+
+            product.setQuantity(product.getQuantity() + supplyItem.getQuantity());
+            productRepository.save(product);
         }
 
         return supplyItems;

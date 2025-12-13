@@ -13,6 +13,8 @@ public interface OrderService {
 
     List<OrderResponse> getAll();
 
+    List<OrderResponse> getAllByEmail(String email);
+
     List<OrderResponse> getAllWithoutConfirm();
 
     void create(Customer customer, BigDecimal orderPrice);
