@@ -1,0 +1,39 @@
+@use '../helpers/index' as *;
+
+.fieldset {
+  --fieldset-width: 400px;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  width: var(--fieldset-width);
+  padding: var(--padding);
+  color: var(--text);
+  background-color: var(--bg-light);
+  border: var(--border);
+  border-radius: var(--border-radius);
+
+  label,
+  &__link {
+    --input-height: 48px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    height: var(--input-height);
+    padding: var(--padding) 10px;
+    white-space: nowrap;
+    background-color: var(--bg);
+    border: var(--border);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+
+    @include hover {
+      background-color: var(--bg-dark);
+      border-color: var(--primary-active);
+      transition-duration: var(--transition-duration);
+    }
+  }
+}

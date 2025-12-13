@@ -34,3 +34,54 @@
     display: none !important;
   }
 }
+
+// Утилиты для работы с текстом
+.u-text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// Утилиты для изображений
+.u-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.u-image-wrapper {
+  overflow: hidden;
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: var(--border-radius);
+}
+
+// Утилиты для карточек
+.u-card {
+  background-color: var(--bg-light);
+  border: var(--border);
+  border-radius: 8px;
+}
+
+// Утилиты для списков
+.u-list-divider {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  > * + * {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--border-color);
+      border-radius: var(--border-radius);
+    }
+  }
+}

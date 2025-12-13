@@ -41,33 +41,33 @@
         </ul>
     </div>
 
-    <div class="order__controls">
-        <form
-                method="post"
-                th:action="@{'/employee/reject-order/' + ${order.id}}"
-                class="form"
-        >
-            <button
-                    class="button button--equals"
-                    type="submit"
-            >
-                Отклонить
-            </button>
-        </form>
+  <div class="order__controls">
+    <form
+      method="post"
+      th:action="@{'/employee/reject-order/' + ${order.id}}"
+      class="form"
+    >
+      <button
+        class="button button--submit"
+        type="submit"
+      >
+        Отклонить
+      </button>
+    </form>
 
-        <form
-                method="post"
-                th:action="@{'/employee/confirm-order/' + ${order.id}}"
-                class="form"
-        >
-            <button
-                    class="button button--equals"
-                    type="submit"
-            >
-                Подтвердить
-            </button>
-        </form>
-    </div>
+    <form
+      method="post"
+      th:action="@{'/employee/confirm-order/' + ${order.id}}"
+      class="form"
+    >
+      <button
+        class="button button--submit"
+        type="submit"
+      >
+        Подтвердить
+      </button>
+    </form>
+  </div>
 </section>
 </body>
 </html>

@@ -2,13 +2,22 @@
 
 .section {
   @include flex-center;
+
   flex-direction: column;
   gap: 12px;
+
   @include fluid-text(22, 16);
 
   &--tables {
-    align-items: flex-start;
     flex-direction: row;
+    align-items: flex-start;
     gap: 56px;
+  }
+
+  &--auth {
+    @include flex-center;
+
+    flex-direction: column;
+    padding: 48px 16px;
   }
 }

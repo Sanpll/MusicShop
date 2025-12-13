@@ -1,0 +1,48 @@
+@use '../helpers/index' as *;
+
+.link__wrapper {
+  @include flex-center;
+
+  gap: 24px;
+}
+
+.link {
+  --input-height: 48px;
+
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--input-height);
+  padding: var(--padding);
+  padding-right: 40px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+  background-color: var(--primary);
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-m);
+
+  &::after {
+    content: '';
+
+    @include abs-y;
+    @include square(24px);
+
+    right: 10px;
+    background: url("../icons/arrow-top-right.svg") center / contain no-repeat;
+  }
+
+  @include hover {
+    color: var(--bg);
+    background-color: var(--primary-active);
+    transition-duration: var(--transition-duration);
+  }
+
+  &:active {
+    transition-duration: var(--transition-duration);
+    transform: translateY(2px);
+  }
+}

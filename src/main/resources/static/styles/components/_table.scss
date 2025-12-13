@@ -1,22 +1,40 @@
 @use '../helpers/index' as *;
 
+.tables {
+  @include flex-center;
+
+  flex-direction: column;
+  gap: 12px;
+
+  &__controls {
+    align-items: stretch;
+    max-width: 350px;
+    padding-top: calc(var(--container-padding-x) * 5);
+
+    &-button {
+      flex: 0;
+      width: 300px;
+    }
+  }
+}
+
 .table {
-  width: 1500px;
-  border-collapse: collapse;
-  border-radius: var(--border-radius);
   overflow: hidden;
-  box-shadow: var(--shadow-l);
+  width: 1500px;
   background-color: var(--bg-light);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-l);
+  border-collapse: collapse;
 
   thead {
-    background-color: var(--primary);
     color: var(--bg);
+    background-color: var(--primary);
 
     tr {
       th {
         padding: 14px;
-        text-align: center;
         font-weight: 600;
+        text-align: center;
         border-bottom: 2px solid var(--caret);
 
         &:not(:last-child) {
@@ -28,9 +46,9 @@
 
   tbody {
     tr {
+      background-color: var(--bg);
       border-bottom: 1px solid var(--border-color);
       transition: background-color var(--transition-duration);
-      background-color: var(--bg);
 
       &:nth-child(odd) {
         background-color: var(--bg-light);
@@ -46,8 +64,8 @@
 
       td {
         padding: 14px 16px;
-        color: var(--text);
         text-align: center;
+        color: var(--text);
       }
     }
   }
@@ -60,11 +78,10 @@
   &__item {
     text-align: start;
   }
-}
 
-.td {
-  &__image {
+  &__cell-image {
     @include flex-center;
+
     flex-direction: column;
 
     img {
@@ -73,12 +90,5 @@
       object-fit: cover;
       object-position: center;
     }
-  }
-}
-
-.button {
-  &--decrement,
-  &--increment {
-    width: var(--input-height);
   }
 }

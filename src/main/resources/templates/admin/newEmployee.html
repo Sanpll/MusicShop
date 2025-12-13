@@ -31,7 +31,7 @@
             class="form"
     >
 
-        <div class="field--right">
+        <div class="field field--right">
             <label for="email">Почта:</label>
             <input
                     type="email"
@@ -39,11 +39,12 @@
                     name="email"
                     placeholder="ivanovivan@email.com"
                     class="input"
+                    autocomplete="email"
                     required
             >
         </div>
 
-        <div class="field--right">
+        <div class="field field--right">
             <label for="password">Пароль:</label>
             <input
                     type="password"
@@ -52,11 +53,12 @@
                     minlength="6"
                     maxlength="32"
                     class="input"
+                    autocomplete="new-password"
                     required
             >
         </div>
 
-        <div class="field--right">
+        <div class="field field--right">
             <label for="firstName">Имя:</label>
             <input
                     type="text"
@@ -69,7 +71,7 @@
             >
         </div>
 
-        <div class="field--right">
+        <div class="field field--right">
             <label for="lastName">Фамилия:</label>
             <input
                     type="text"
@@ -82,7 +84,7 @@
             >
         </div>
 
-        <div class="field--right">
+        <div class="field field--right">
             <label for="phone">Телефон:</label>
             <input
                     type="tel"
@@ -90,10 +92,11 @@
                     name="phone"
                     placeholder="+71234567890"
                     class="input"
+                    autocomplete="tel"
             >
         </div>
 
-        <div class="field--right">
+        <div class="field field--right">
             <label for="storeSearch">Магазин:</label>
             <div class="custom-select-wrapper">
                 <input
@@ -125,7 +128,7 @@
 
         <button
                 type="submit"
-                class="button button-submit"
+                class="button button--submit"
         >Подтвердить
         </button>
     </form>

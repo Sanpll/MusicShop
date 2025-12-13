@@ -6,10 +6,11 @@
 
   &__titles,
   &__form {
-    @include flex-center();
+    @include flex-center;
+
     justify-content: space-between;
-    width: 55%;
     gap: 36px;
+    width: 55%;
   }
 
   &__list,
@@ -34,12 +35,12 @@
   }
 
   &__controls {
-    @include flex-center();
+    @include flex-center;
 
-    width: 100%;
     gap: 24px;
+    width: 100%;
 
-    .button-submit {
+    .button--submit {
       width: 30%;
     }
   }

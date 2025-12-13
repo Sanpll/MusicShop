@@ -2,118 +2,118 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Каталог</title>
-    <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    >
-    <meta
-            http-equiv="X-UA-Compatible"
-            content="ie=edge"
-    >
-    <link
-            rel="stylesheet"
-            href="/styles/styles.css"
-    >
+  <meta charset="UTF-8">
+  <title>Каталог</title>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <link
+    rel="stylesheet"
+    href="../../static/styles/styles.css"
+  >
 </head>
 
 <body>
 <header th:replace="~{customer/header :: header}"></header>
 <section class="section container home">
-    <h1 class="visually-hidden">Товары</h1>
-    <div class="home__controls">
-        <h2 class="visually-hidden">Список тегов</h2>
-        <div class="home__field field">
-            <label
-                    for="categoryIds"
-                    class="label__category h2 home__field-label"
-            >Категории
-            </label>
-            <fieldset
-                    id="categoryIds"
-                    class="fieldset home__fieldset"
-            >
-                <label
-                        th:if="${categories != null}"
-                        th:each="category : ${categories}"
+  <h1 class="visually-hidden">Товары</h1>
+  <div class="home__controls">
+    <h2 class="visually-hidden">Список тегов</h2>
+    <div class="home__field field">
+      <label
+        for="categoryIds"
+        class="label__category h2 home__field-label"
+      >Категории
+      </label>
+      <fieldset
+        id="categoryIds"
+        class="fieldset home__fieldset"
+      >
+        <label
+          th:if="${categories != null}"
+          th:each="category : ${categories}"
+        >
+          <input
+            type="checkbox"
+            name="categoryIds"
+            class="checkbox"
+            th:value="${category.id}"
+          >
+          <span class="checkbox__box"></span>
+          <span th:text="${category.name}"></span>
+        </label>
+        <label th:if="${categories == null}">
+          Категорий не найдено
+        </label>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="home__products">
+    <h2 class="home__products-title h2">Каталог товаров</h2>
+
+    <ul class="home__products-list">
+      <li
+        class="home__item"
+        th:each="product : ${products}"
+      >
+        <div class="product-card">
+          <div class="product-card__image-wrapper u-image-wrapper">
+            <img
+              th:src="@{'/images/products/' + ${product.imageFilename ?: 'no_image.png'}}"
+              th:alt="${product.imageFilename != null ? product.name : 'Нет изображения'}"
+              width="100"
+              height="100"
+              loading="lazy"
+              class="product-card__image u-image"
+            />
+          </div>
+          <div class="product-card__content">
+            <h3
+              class="product-card__title u-text-ellipsis"
+              th:text="${product.name}"
+              th:title="${product.name}"
+            ></h3>
+            <p
+              class="product-card__price"
+              th:text="${product.price} + ' ₽'"
+            ></p>
+            <div class="product-card__controls">
+              <a
+                th:href="@{'/product/' + ${product.id}}"
+                class="button button--wide"
+              >
+                Подробнее
+              </a>
+              <form
+                method="post"
+                th:action="@{/add/product}"
+                class="product-card__form form"
+              >
+                <input
+                  type="hidden"
+                  name="productId"
+                  th:value="${product.id}"
                 >
-                    <input
-                            type="checkbox"
-                            name="categoryIds"
-                            class="checkbox"
-                            th:value="${category.id}"
-                    >
-                    <span class="checkbox__box"></span>
-                    <span th:text="${category.name}"></span>
-                </label>
-                <label th:if="${categories == null}">
-                    Категорий не найдено
-                </label>
-            </fieldset>
-        </div>
-    </div>
-
-    <div class="home__products">
-        <h2 class="home__products-title h2">Каталог товаров</h2>
-
-        <ul class="home__products-list">
-            <li
-                    class="home__item list__item"
-                    th:each="product : ${products}"
-            >
-                <div class="product-card">
-                    <div class="product-card__image-wrapper">
-                        <img
-                                th:src="@{'/images/products/' + ${product.imageFilename ?: 'no_image.png'}}"
-                                th:alt="${product.imageFilename != null ? product.name : 'Нет изображения'}"
-                                width="100"
-                                height="100"
-                                loading="lazy"
-                                class="product-card__image"
-                        />
-                    </div>
-                    <div class="product-card__content">
-                        <h3
-                                class="product-card__title"
-                                th:text="${product.name}"
-                                th:title="${product.name}"
-                        ></h3>
-                        <p
-                                class="product-card__price"
-                                th:text="${product.price} + ' ₽'"
-                        ></p>
-                        <div class="product-card__controls">
-                            <a
-                                    th:href="@{'/product/' + ${product.id}}"
-                                    class="button button--info"
-                            >
-                                Подробнее
-                            </a>
-                            <form
-                                    method="post"
-                                    th:action="@{/add/product}"
-                                    class="product-card__form form"
-                            >
-                                <input
-                                        type="hidden"
-                                        name="productId"
-                                        th:value="${product.id}"
-                                >
-                                <button
-                                        type="submit"
-                                        th:class="${#lists.contains(cartItemsProductId, product.id) ?
-                                        'button button--cart button--cart-ready' : 'button button--cart'}"
-                                        th:text="${#lists.contains(cartItemsProductId, product.id) ?
+                <button
+                  type="submit"
+                  th:class="${#lists.contains(cartItemsProductId, product.id) ?
+                                        'button button--wide button--ready' : 'button button--wide'}"
+                  th:text="${#lists.contains(cartItemsProductId, product.id) ?
                                         'В корзине' : 'Купить'}"
-                                ></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+                ></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </section>
 </body>
 </html>

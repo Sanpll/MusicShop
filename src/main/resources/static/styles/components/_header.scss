@@ -1,14 +1,14 @@
 @use '../helpers/index' as *;
 
 .header {
+  position: relative;
   display: flex;
-  gap: 24px;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-inline: calc(var(--container-padding-x) * 2);
   background-color: var(--bg-light);
   border-bottom: 2px solid var(--border-color);
-  position: relative;
-  padding-inline: calc(var(--container-padding-x) * 2);
 
   &::before {
     content: '';
@@ -23,37 +23,39 @@
   &::after {
     content: '';
     z-index: -1;
-    transform: translateY(2px);
     width: 100vw;
     height: 100%;
     border-bottom: 2px solid var(--border-color);
+    transform: translateY(2px);
 
     @include abs-center;
   }
 
   &__logo {
-    @include flex-center();
+    @include flex-center;
+
     gap: 12px;
 
-    @include hover() {
-      opacity: 0.5;
+    @include hover {
       color: var(--text);
+      opacity: 0.5;
     }
   }
 
   &__title {
-    @include hover() {
+    @include hover {
       color: var(--text);
     }
   }
 
   &__list {
-    @include flex-center();
+    @include flex-center;
+
     gap: 8px;
   }
 
   &__item {
-    @include flex-center();
+    @include flex-center;
 
     a {
       padding: 10px;
