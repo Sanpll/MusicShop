@@ -28,17 +28,17 @@
 
   thead {
     color: var(--bg);
-    background-color: var(--primary);
+    background-color: var(--primary-focus);
 
     tr {
       th {
         padding: 14px;
         font-weight: 600;
         text-align: center;
-        border-bottom: 2px solid var(--caret);
+        border-bottom: 2px solid var(--primary-active);
 
         &:not(:last-child) {
-          border-right: 1px solid var(--bg-light);
+          border-right: 1px solid var(--primary);
         }
       }
     }
@@ -46,12 +46,12 @@
 
   tbody {
     tr {
-      background-color: var(--bg);
+      background-color: var(--bg-light);
       border-bottom: 1px solid var(--border-color);
       transition: background-color var(--transition-duration);
 
       &:nth-child(odd) {
-        background-color: var(--bg-light);
+        background-color: var(--bg-grey);
       }
 
       &:last-child {

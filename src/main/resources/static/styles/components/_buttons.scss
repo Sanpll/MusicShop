@@ -37,7 +37,7 @@
     background-color: var(--caret);
 
     @include hover {
-      color: var(--text);
+      color: var(--bg);
       background-color: var(--primary-active);
     }
   }

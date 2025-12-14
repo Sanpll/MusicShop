@@ -2,86 +2,89 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Профиль</title>
-    <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    >
-    <meta
-            http-equiv="X-UA-Compatible"
-            content="ie=edge"
-    >
-    <link
-            rel="stylesheet"
-            href="/styles/styles.css"
-    >
+  <meta charset="UTF-8">
+  <title>Профиль</title>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <link
+    rel="stylesheet"
+    href="/styles/styles.css"
+  >
 </head>
 
 <body>
 <header th:replace="~{customer/header :: header}"></header>
 <section class="section container section--tables">
-    <h1 class="visually-hidden">Информация по таблицам</h1>
-    <div class="tables tables__controls">
-        <a
-                href="/customer/profile"
-                class="link tables__controls-button"
-        >Профиль</a>
-        <a
-                href="/customer/orders"
-                class="link tables__controls-button"
-        >Заказы</a>
-        <a
-                href="/customer/update"
-                class="link tables__controls-button"
-        >Измененить профиль</a>
-    </div>
+  <h1 class="visually-hidden">Информация по таблицам</h1>
+  <div class="tables tables__controls">
+    <a
+      href="/customer/profile"
+      class="link tables__controls-button"
+    >Профиль
+    </a>
+    <a
+      href="/customer/profiles"
+      class="link tables__controls-button"
+    >Заказы
+    </a>
+    <a
+      href="/customer/update"
+      class="link tables__controls-button"
+    >Изменить профиль
+    </a>
+  </div>
 
-    <!--    скопировано из employee/chechOrder-->
-    <div class="order">
-        <ul class="order__list">
-            <li class="order__item">
-                <p class="order__label">Почта</p>
-                <p
-                        class="order__info"
-                        th:text="${customer.email}"
-                >
-                </p>
-            </li>
-            <li class="order__item">
-                <p class="order__label">Имя</p>
-                <p
-                        class="order__info"
-                        th:text="${customer.firstName}">
-
-                </p>
-            </li>
-            <li class="order__item">
-                <p class="order__label">Фамилия</p>
-                <p
-                        class="order__info"
-                        th:text="${customer.lastName}">
-
-                </p>
-            </li>
-            <li class="order__item">
-                <p class="order__label">Телефон</p>
-                <p
-                        class="order__info"
-                        th:text="${#strings.isEmpty(customer.phone) ? 'Не указан' : customer.phone}">
-
-                </p>
-            </li>
-            <li class="order__item">
-                <p class="order__label">Дата регистрации</p>
-                <p
-                        class="order__info"
-                        th:text="${#temporals.format(customer.registeredAt, 'dd.MM.yyyy HH:mm:ss')}">
-
-                </p>
-            </li>
-        </ul>
-    </div>
+  <div class="profile">
+    <h1 class="profile__title h2">Профиль</h1>
+    <ul class="profile__list">
+      <li class="profile__item">
+        <p class="profile__label">Почта:</p>
+        <p
+          class="profile__info u-card"
+          th:text="${customer.email}"
+        >
+        </p>
+      </li>
+      <li class="profile__item">
+        <p class="profile__label">Имя:</p>
+        <p
+          class="profile__info u-card"
+          th:text="${customer.firstName}"
+        >
+        </p>
+      </li>
+      <li class="profile__item">
+        <p class="profile__label">Фамилия:</p>
+        <p
+          class="profile__info u-card"
+          th:text="${customer.lastName}"
+        >
+        </p>
+      </li>
+      <li class="profile__item">
+        <p class="profile__label">Телефон:</p>
+        <p
+          class="profile__info u-card"
+          th:text="${#strings.isEmpty(customer.phone) ? 'Не указан' : customer.phone}"
+        >
+        </p>
+      </li>
+      <li class="profile__item">
+        <p class="profile__label">Дата регистрации:</p>
+        <p
+          class="profile__info u-card"
+          th:text="${#temporals.format(customer.registeredAt, 'dd.MM.yyyy HH:mm:ss')}"
+        >
+        </p>
+      </li>
+    </ul>
+  </div>
 </section>
 </body>
 </html>

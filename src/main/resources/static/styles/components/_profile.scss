@@ -1,0 +1,33 @@
+@use '../helpers/index' as *;
+@use './order' as *;
+
+.profile {
+  @extend .order;
+
+  width: 35%;
+
+  &__list {
+    @extend .order__list;
+  }
+
+  &__item {
+    @extend .order__item;
+  }
+
+  &__controls {
+    @extend .order__controls;
+  }
+
+  &__label {
+    @extend .order__label;
+
+  }
+
+  &__info {
+    @extend .order__info;
+  }
+
+  &__title {
+    text-align: center;
+  }
+}

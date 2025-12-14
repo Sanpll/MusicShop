@@ -2,95 +2,98 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Обновление информации</title>
-    <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    >
-    <meta
-            http-equiv="X-UA-Compatible"
-            content="ie=edge"
-    >
-    <link
-            rel="stylesheet"
-            href="/styles/styles.css"
-    >
+  <meta charset="UTF-8">
+  <title>Обновление информации</title>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <link
+    rel="stylesheet"
+    href="/styles/styles.css"
+  >
 </head>
 
 <body>
 <header th:replace="~{customer/header :: header}"></header>
 <section class="section container section--tables">
-    <h1 class="visually-hidden">Информация по таблицам</h1>
-    <div class="tables tables__controls">
-        <a
-                href="/customer/profile"
-                class="link tables__controls-button"
-        >Профиль</a>
-        <a
-                href="/customer/orders"
-                class="link tables__controls-button"
-        >Заказы</a>
-        <a
-                href="/customer/update"
-                class="link tables__controls-button"
-        >Измененить профиль</a>
-    </div>
+  <h1 class="visually-hidden">Информация по таблицам</h1>
+  <div class="tables tables__controls">
+    <a
+      href="/customer/profile"
+      class="link tables__controls-button"
+    >Профиль
+    </a>
+    <a
+      href="/customer/orders"
+      class="link tables__controls-button"
+    >Заказы
+    </a>
+    <a
+      href="/customer/update"
+      class="link tables__controls-button"
+    >Изменить профиль
+    </a>
+  </div>
 
-    <div>
-        <h1 class="h2">Изменение личной информации</h1>
-        <form
-                method="post"
-                th:action="@{/customer/update}"
-                class="form"
+  <div class="profile">
+    <h1 class="profile__title h2">Изменение профиля</h1>
+    <form
+      method="post"
+      th:action="@{/customer/update}"
+      class="form"
+    >
+      <div class="field">
+        <label for="firstName">Имя:</label>
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          minlength="2"
+          maxlength="32"
+          class="input"
+          th:value="${customer.firstName}"
+          required
         >
-            <div class="field--right">
-                <label for="firstName">Имя:</label>
-                <input
-                        type="text"
-                        id="firstName"
-                        name="firstName"
-                        minlength="2"
-                        maxlength="32"
-                        class="input"
-                        th:value="${customer.firstName}"
-                        required
-                >
-            </div>
+      </div>
 
-            <div class="field--right">
-                <label for="lastName">Фамилия:</label>
-                <input
-                        type="text"
-                        id="lastName"
-                        name="lastName"
-                        minlength="2"
-                        maxlength="32"
-                        class="input"
-                        th:value="${customer.lastName}"
-                        required
-                >
-            </div>
+      <div class="field">
+        <label for="lastName">Фамилия:</label>
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          minlength="2"
+          maxlength="32"
+          class="input"
+          th:value="${customer.lastName}"
+          required
+        >
+      </div>
 
-            <div class="field--right">
-                <label for="phone">Телефон:</label>
-                <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        placeholder="+71234567890"
-                        th:value="${customer.phone}"
-                        class="input"
-                >
-            </div>
+      <div class="field">
+        <label for="phone">Телефон:</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="+71234567890"
+          th:value="${customer.phone}"
+          class="input"
+        >
+      </div>
 
-            <button
-                    type="submit"
-                    class="button button-submit"
-            >Подтвердить
-            </button>
-        </form>
-    </div>
+      <button
+        type="submit"
+        class="button button-submit"
+      >Подтвердить
+      </button>
+    </form>
+  </div>
 </section>
 </body>
 </html>
