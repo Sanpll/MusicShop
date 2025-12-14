@@ -27,7 +27,7 @@ public class Category {
     private String description;
 
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<ProductCategoryLink> productLinks = new HashSet<>();
 
 }

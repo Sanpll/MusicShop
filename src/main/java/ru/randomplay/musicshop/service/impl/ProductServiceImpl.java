@@ -26,6 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -154,37 +155,34 @@ public class ProductServiceImpl implements ProductService {
 
         productMapper.updateProduct(product, productUpdateRequest);
 
-        // Получаем ID новых категорий
-        List<Long> newCategoryIds = productUpdateRequest.getCategoryIds() != null
+        // Получаем новые ID категорий
+        Set<Long> newCategoryIds = new HashSet<>(productUpdateRequest.getCategoryIds() != null
                 ? productUpdateRequest.getCategoryIds()
-                : new ArrayList<>();
+                : Collections.emptyList());
 
-        // Получаем ID текущих категорий продукта
-        List<Long> currentCategoryIds = product.getCategoryLinks().stream()
+        // Получаем текущие ID категорий из загруженных links
+        Set<Long> currentCategoryIds = product.getCategoryLinks().stream()
                 .map(link -> link.getCategory().getId())
-                .toList();
+                .collect(Collectors.toSet());
 
-        // Получаем ID категорий для удаления (есть в текущих, но нет в новых)
-        List<Long> categoryIdsToRemove = currentCategoryIds.stream()
-                .filter(categoryId -> !newCategoryIds.contains(categoryId))
-                .toList();
+        // Вычисляем ID для удаления
+        Set<Long> categoryIdsToRemove = new HashSet<>(currentCategoryIds);
+        categoryIdsToRemove.removeAll(newCategoryIds);
 
-        // Получаем ID категорий для добавления (есть в новых, но нет в текущих)
-        List<Long> categoryIdsToAdd = newCategoryIds.stream()
-                .filter(categoryId -> !currentCategoryIds.contains(categoryId))
-                .toList();
-
-        // Удаляем пропавшие категории
+        // Удаляем links для категорий, которых больше нет
         if (!categoryIdsToRemove.isEmpty()) {
-            List<ProductCategoryLink> linksToRemove = product.getCategoryLinks().stream()
-                    .filter(link -> categoryIdsToRemove.contains(link.getCategory().getId()))
-                    .toList();
-
-            for (ProductCategoryLink link : linksToRemove) {
-                link.getCategory().getProductLinks().remove(link);
-                product.getCategoryLinks().remove(link);
-            }
+            product.getCategoryLinks().removeIf(link -> {
+                if (categoryIdsToRemove.contains(link.getCategory().getId())) {
+                    link.getCategory().getProductLinks().remove(link);
+                    return true;
+                }
+                return false;
+            });
         }
+
+        // Вычисляем ID для добавления
+        Set<Long> categoryIdsToAdd = new HashSet<>(newCategoryIds);
+        categoryIdsToAdd.removeAll(currentCategoryIds);
 
         // Добавляем новые категории
         if (!categoryIdsToAdd.isEmpty()) {
