@@ -53,7 +53,7 @@ class Tags {
       this.removeNoResultsMessage()
     }
   }
-  
+
   onFocusSearchInput() {
     this.dropdown.classList.add(this.stateClasses.show)
     this.filterOptions('')

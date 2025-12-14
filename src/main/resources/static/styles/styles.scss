@@ -3,25 +3,23 @@
 @use 'variables';
 @use 'utils';
 @use 'globals';
-
-@use 'components/buttons'; //
-@use 'components/inputs'; //
-@use 'components/selects'; //
-@use 'components/checkboxes'; //
-@use 'components/fieldsets'; //
-@use 'components/links'; //
-@use 'components/forms'; //
-@use 'components/auth'; //
-@use 'components/button-wrapper'; //
-
-@use 'components/empty-message'; //
+@use 'components/buttons';
+@use 'components/inputs';
+@use 'components/checkboxes';
+@use 'components/fieldsets';
+@use 'components/links';
+@use 'components/forms';
+@use 'components/auth';
+@use 'components/button-wrapper';
+@use 'components/empty-message';
+@use 'components/selects';
 @use 'components/header';
 @use 'components/section';
 @use 'components/card';
 @use 'components/table';
-
 @use 'components/home';
 @use 'components/product';
 @use 'components/cart';
 @use 'components/order';
+@use 'components/profile';
 @use 'components/supply';

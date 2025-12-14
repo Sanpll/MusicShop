@@ -2,87 +2,87 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Оформление заказа</title>
-    <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    >
-    <meta
-            http-equiv="X-UA-Compatible"
-            content="ie=edge"
-    >
-    <link
-            rel="stylesheet"
-            href="/styles/styles.css"
-    >
+  <meta charset="UTF-8">
+  <title>Оформление заказа</title>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="ie=edge"
+  >
+  <link
+    rel="stylesheet"
+    href="../../static/styles/styles.css"
+  >
 </head>
 
 <body>
 <section class="section container">
-    <div class="order">
-        <ul class="order__list">
-            <li class="order__item">
-                <p class="order__label">Покупатель:</p>
-                <p
-                        class="order__info"
-                        th:text="${order.customerLastName + ' ' + order.customerFirstName}"
-                ></p>
-            </li>
-            <li class="order__item">
-                <p class="order__label">Время создания:</p>
-                <p
-                        class="order__info"
-                        th:text="${#temporals.format(order.createdAt, 'dd.MM.yyyy HH:mm:ss')}"
-                ></p>
-            </li>
-            <li class="order__item">
-                <p class="order__label">Товары:</p>
-                <ol class="table__ol">
-                    <li
-                            class="table__item"
-                            th:each="product : ${order.products}"
-                            th:text="${product.key} + ' - ' + ${product.value} + ' шт.'"
-                    ></li>
-                </ol>
-            </li>
-            <li class="order__item">
-                <p class="order__label">Итоговая стоимость:</p>
-                <p
-                        class="order__info"
-                        th:text="${order.totalPrice}"
-                ></p>
-            </li>
-        </ul>
-    </div>
+  <div class="order">
+    <ul class="order__list">
+      <li class="order__item">
+        <p class="order__label">Покупатель:</p>
+        <p
+          class="order__info u-card"
+          th:text="${order.customerLastName + ' ' + order.customerFirstName}"
+        ></p>
+      </li>
+      <li class="order__item">
+        <p class="order__label">Время создания:</p>
+        <p
+          class="order__info u-card"
+          th:text="${#temporals.format(order.createdAt, 'dd.MM.yyyy HH:mm:ss')}"
+        ></p>
+      </li>
+      <li class="order__item">
+        <p class="order__label order__label--products">Товары:</p>
+        <ol class="order__info u-card">
+          <li
+            class="table__item"
+            th:each="product : ${order.products}"
+            th:text="${product.key} + ' - ' + ${product.value} + ' шт.'"
+          ></li>
+        </ol>
+      </li>
+      <li class="order__item">
+        <p class="order__label">Итоговая стоимость:</p>
+        <p
+          class="order__info u-card"
+          th:text="${order.totalPrice}"
+        ></p>
+      </li>
+    </ul>
+  </div>
 
-    <div class="order__controls">
-        <form
-                method="post"
-                th:action="@{'/employee/reject-order/' + ${order.id}}"
-                class="form"
-        >
-            <button
-                    class="button button--submit"
-                    type="submit"
-            >
-                Отклонить
-            </button>
-        </form>
+  <div class="order__controls">
+    <form
+      method="post"
+      th:action="@{'/employee/reject-order/' + ${order.id}}"
+      class="form"
+    >
+      <button
+        class="button button--submit"
+        type="submit"
+      >
+        Отклонить
+      </button>
+    </form>
 
-        <form
-                method="post"
-                th:action="@{'/employee/confirm-order/' + ${order.id}}"
-                class="form"
-        >
-            <button
-                    class="button button--submit"
-                    type="submit"
-            >
-                Подтвердить
-            </button>
-        </form>
-    </div>
+    <form
+      method="post"
+      th:action="@{'/employee/confirm-order/' + ${order.id}}"
+      class="form"
+    >
+      <button
+        class="button button--submit"
+        type="submit"
+      >
+        Подтвердить
+      </button>
+    </form>
+  </div>
 </section>
 </body>
 </html>

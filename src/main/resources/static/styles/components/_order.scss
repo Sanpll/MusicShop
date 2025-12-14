@@ -30,12 +30,22 @@
 
   &__label {
     cursor: pointer;
+
+    &--products {
+      align-self: start;
+    }
   }
 
   &__info {
+    flex-shrink: 0;
     width: 290px;
+    max-width: 290px;
     padding: 6px;
+  }
+}
 
-    // border, border-radius, background через .u-card в HTML
+ol {
+  &.order__info {
+    list-style-position: inside;
   }
 }
