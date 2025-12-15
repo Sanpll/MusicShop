@@ -11,19 +11,19 @@ import java.util.List;
 @Getter
 @Setter
 public class ProductUpdateRequest {
-    @NotBlank
-    @Size(min = 2, max = 32)
+    @NotBlank(message = "Product name is required")
+    @Size(min = 2, max = 32, message = "Product name must have from {min} to {max} characters")
     private String name;
 
-    @Size(max = 256)
+    @Size(max = 256, message = "Product description must have up to {max} characters")
     private String description;
 
-    @NotNull
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 8, fraction = 2)
+    @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than {value}")
+    @Digits(integer = 8, fraction = 2, message = "Price must have up to {integer} integer digits and {fraction} fraction digits")
     private BigDecimal price;
 
-    @NotNull
+    @NotNull(message = "Product status is required")
     private ProductStatus status;
 
     private List<Long> categoryIds;

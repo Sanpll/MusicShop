@@ -12,7 +12,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class SupplyCreateRequest {
-    @NotNull
-    @NotEmpty
-    private Map<@NotNull @Positive Long, @NotNull @Min(1) Integer> productsId;
+    @NotNull(message = "Products map is required")
+    @NotEmpty(message = "Products map must not be empty")
+    private Map<@NotNull(message = "Product ID is required") @Positive(message = "Product ID must be positive") Long, @NotNull(message = "Product quantity is required") @Min(value = 1, message = "Product quantity must be at least {value}") Integer> productsId;
 }
