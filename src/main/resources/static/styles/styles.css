@@ -370,12 +370,12 @@ a {
 }
 @media (any-hover: hover) {
   a:hover {
-    color: var(--border-color);
+    color: var(--text-muted);
   }
 }
 @media (any-hover: none) {
   a:active {
-    color: var(--border-color);
+    color: var(--text-muted);
   }
 }
 a[class] {
@@ -624,11 +624,11 @@ a[class] {
   height: var(--input-height);
   padding: var(--padding);
   padding-right: 40px;
+  font-size: 16px;
   font-weight: 500;
   text-align: center;
   text-decoration: none;
   color: var(--text);
-  font-size: 16px;
   background-color: var(--primary);
   border: none;
   border-radius: var(--border-radius);
@@ -643,7 +643,6 @@ a[class] {
   height: 24px;
   right: 10px;
   background-color: currentColor;
-  -webkit-mask: url("../icons/arrow-top-right.svg") center/contain no-repeat;
   mask: url("../icons/arrow-top-right.svg") center/contain no-repeat;
 }
 @media (any-hover: hover) {
@@ -745,6 +744,9 @@ a[class] {
   text-align: center;
   color: var(--error);
 }
+.empty-message--cart {
+  width: 100%;
+}
 
 .select {
   overflow: hidden;
@@ -819,9 +821,9 @@ a[class] {
 }
 .custom-select-option--empty-message {
   display: none;
+  min-height: 0;
   color: var(--text-muted);
   pointer-events: none;
-  min-height: 0;
 }
 @media (any-hover: hover) {
   .custom-select-option--empty-message:hover {
@@ -989,11 +991,11 @@ a[class] {
   align-items: stretch;
   max-width: 350px;
   padding-top: calc(var(--container-padding-x) * 5);
+  font-size: 24px;
 }
 .tables__controls-button {
   flex: 0;
   width: 300px;
-  font-size: 24px;
 }
 
 .table {
@@ -1136,6 +1138,12 @@ a[class] {
 .product__supplier p, .product__description p, .product__price p, .product__quantity p {
   margin: 0;
 }
+.product__supplier-title, .product__description-title, .product__price-title, .product__quantity-title {
+  font-weight: 600;
+}
+.product__description-title {
+  align-self: start;
+}
 .product__cart {
   flex-direction: row;
   justify-content: start;
@@ -1152,6 +1160,16 @@ a[class] {
 }
 .product__fieldset {
   width: 100%;
+}
+@media (any-hover: hover) {
+  .product__fieldset-link:hover {
+    color: var(--text);
+  }
+}
+@media (any-hover: none) {
+  .product__fieldset-link:active {
+    color: var(--text);
+  }
 }
 .product__fieldset label, .product__fieldset-link {
   width: auto;
@@ -1224,10 +1242,10 @@ a[class] {
   align-self: start;
 }
 .order__info, .profile__info {
+  flex-shrink: 0;
   width: 290px;
   max-width: 290px;
   padding: 6px;
-  flex-shrink: 0;
 }
 
 ol.order__info, ol.profile__info {
@@ -1247,7 +1265,6 @@ ol.order__info, ol.profile__info {
 }
 .supply__titles, .supply__form {
   display: flex;
-  justify-content: center;
   align-items: center;
   justify-content: space-between;
   gap: 36px;

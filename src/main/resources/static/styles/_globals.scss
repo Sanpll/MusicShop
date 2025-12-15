@@ -72,7 +72,7 @@ a {
   color: inherit;
 
   @include hover {
-    color: var(--border-color);
+    color: var(--text-muted);
   }
 
   &[class] {

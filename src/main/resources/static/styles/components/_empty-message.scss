@@ -7,4 +7,8 @@
   font-weight: 600;
   text-align: center;
   color: var(--error);
+
+  &--cart {
+    width: 100%;
+  }
 }

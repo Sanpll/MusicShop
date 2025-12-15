@@ -11,22 +11,22 @@ import ru.randomplay.musicshop.model.WorkerStatus;
 @Getter
 @Setter
 public class EmployeeUpdateRequest {
-    @NotBlank
-    @Size(min = 2, max = 32)
+    @NotBlank(message = "First name is required")
+    @Size(min = 2, max = 32, message = "First name must have from {min} to {max} characters")
     private String firstName;
 
-    @NotBlank
-    @Size(min = 2, max = 32)
+    @NotBlank(message = "Last name is required")
+    @Size(min = 2, max = 32, message = "Last name must have from {min} to {max} characters")
     private String lastName;
 
     private String phone;
 
-    @NotNull
+    @NotNull(message = "User activity is required")
     private UserActivity activity;
 
-    @NotNull
+    @NotNull(message = "Worker status is required")
     private WorkerStatus status;
 
-    @NotNull
+    @NotNull(message = "Store ID is required")
     private Long storeId;
 }

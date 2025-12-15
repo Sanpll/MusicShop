@@ -13,18 +13,18 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class StoreCreateRequest {
-    @NotNull
+    @NotNull(message = "Store status is required")
     private StoreStatus status;
 
-    @NotBlank
-    @Size(min = 10, max = 64)
+    @NotBlank(message = "Location is required")
+    @Size(min = 10, max = 64, message = "Location must have from {min} to {max} characters")
     private String location;
 
-    @NotBlank
-    @Size(min = 6, max = 32)
+    @NotBlank(message = "Working hours are required")
+    @Size(min = 6, max = 32, message = "Working hours must have from {min} to {max} characters")
     private String workingHours;
 
-    @NotNull
-    @PastOrPresent
+    @NotNull(message = "Open date is required")
+    @PastOrPresent(message = "Open date must be in the past or present")
     private LocalDate openDate;
 }

@@ -51,6 +51,16 @@
     p {
       margin: 0;
     }
+
+    &-title {
+      font-weight: 600;
+    }
+  }
+
+  &__description {
+    &-title {
+      align-self: start;
+    }
   }
 
   &__cart {
@@ -72,6 +82,12 @@
 
   &__fieldset {
     width: 100%;
+
+    &-link {
+      @include hover {
+        color: var(--text);
+      }
+    }
 
     label,
     &-link {
