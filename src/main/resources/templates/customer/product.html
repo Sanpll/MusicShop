@@ -2,103 +2,105 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title th:text="${product.name}"></title>
-  <meta
-    name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-  >
-  <meta
-    http-equiv="X-UA-Compatible"
-    content="ie=edge"
-  >
-  <link
-    rel="stylesheet"
-    href="/styles/styles.css"
-  >
+    <meta charset="UTF-8">
+    <title th:text="${product.name}"></title>
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    >
+    <meta
+            http-equiv="X-UA-Compatible"
+            content="ie=edge"
+    >
+    <link
+            rel="stylesheet"
+            href="/styles/styles.css"
+    >
 </head>
 
 <body>
 <header th:replace="~{customer/header :: header}"></header>
 <section class="section container product">
-  <h1 class="visually-hidden">Информация о товаре</h1>
-  <div class="product__card">
-    <div class="product__image-wrapper u-image-wrapper">
-      <img
-        class="product__image u-image"
-        th:src="@{'/images/products/' + ${product.imageFilename ?: 'no_image.png'}}"
-        th:alt="${product.imageFilename != null ? product.name : 'Нет изображения'}"
-        width="350"
-        height=""
-        loading="lazy"
-      />
+    <h1 class="visually-hidden">Информация о товаре</h1>
+    <div class="product__card">
+        <div class="product__image-wrapper u-image-wrapper">
+            <img
+                    class="product__image u-image"
+                    th:src="@{'/images/products/' + ${product.imageFilename ?: 'no_image.png'}}"
+                    th:alt="${product.imageFilename != null ? product.name : 'Нет изображения'}"
+                    width="350"
+                    height=""
+                    loading="lazy"
+            />
+        </div>
+        <div class="product__content">
+            <h2
+                    class="product__title u-text-ellipsis"
+                    th:text="${product.name}"
+            ></h2>
+            <div class="product__supplier">
+                <p class="product__supplier-title">Поставщик:</p>
+                <p th:text="${product.supplierName}"></p>
+            </div>
+            <div class="product__description">
+                <p class="product__description-title">Описание:</p>
+                <p th:text="${product.description ?: 'Нет описания'}">Lorem ipsum dolor sit amet, consectetur
+                    adipisicing elit. At excepturi illum ipsam sit ullam unde? Alias error expedita id iste nam
+                    necessitatibus nemo omnis quas, quibusdam saepe tempora ullam voluptates!</p>
+            </div>
+            <div
+                    class="product__quantity"
+            >
+                <p class="product__quantity-title">Количество на складе:</p>
+                <p th:text="${product.quantity}"></p>
+            </div>
+            <div
+                    class="product__price"
+            >
+                <p class="product__price-title">Цена:</p>
+                <p th:text="${product.price} + ' ₽'"></p>
+            </div>
+            <form
+                    method="post"
+                    th:action="@{/add/product}"
+                    class="product__cart form"
+            >
+                <input
+                        type="hidden"
+                        name="productId"
+                        th:value="${product.id}"
+                >
+                <button
+                        type="submit"
+                        class="button button--submit"
+                >Добавить в корзину
+                </button>
+            </form>
+        </div>
+        <div class="product__tags">
+            <label
+                    for="categoryIds"
+                    class="label__category h3"
+            >Категории:
+            </label>
+            <fieldset
+                    id="categoryIds"
+                    class="fieldset product__fieldset"
+            >
+                <a
+                        class="product__fieldset-link fieldset__link"
+                        th:if="${product.categoryNames != null}"
+                        th:each="category : ${product.categoryNames}"
+                        th:href="'/home?category=' + ${category}"
+                >
+                    <span th:text="${category}"></span>
+                </a>
+                <label th:if="${product.categoryNames == null}">
+                    Категорий не найдено
+                </label>
+            </fieldset>
+        </div>
     </div>
-    <div class="product__content">
-      <h2
-        class="product__title u-text-ellipsis"
-        th:text="${product.name}"
-      ></h2>
-      <div class="product__supplier">
-        <p class="product__supplier-title">Поставщик:</p>
-        <p th:text="${product.supplierName}"></p>
-      </div>
-      <div class="product__description">
-        <p class="product__description-title">Описание:</p>
-        <p th:text="${product.description ?: 'Нет описания'}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At excepturi illum ipsam sit ullam unde? Alias error expedita id iste nam necessitatibus nemo omnis quas, quibusdam saepe tempora ullam voluptates!</p>
-      </div>
-      <div
-        class="product__quantity"
-      >
-        <p class="product__quantity-title">Количество на складе:</p>
-        <p th:text="${product.quantity}"></p>
-      </div>
-      <div
-        class="product__price"
-      >
-        <p class="product__price-title">Цена:</p>
-        <p th:text="${product.price} + ' ₽'"></p>
-      </div>
-      <form
-        method="post"
-        th:action="@{/add/product}"
-        class="product__cart form"
-      >
-        <input
-          type="hidden"
-          name="productId"
-          th:value="${product.id}"
-        >
-        <button
-          type="submit"
-          class="button button--submit"
-        >Добавить в корзину
-        </button>
-      </form>
-    </div>
-    <div class="product__tags">
-      <label
-        for="categoryIds"
-        class="label__category h3"
-      >Категории:
-      </label>
-      <fieldset
-        id="categoryIds"
-        class="fieldset product__fieldset"
-      >
-        <a
-          class="product__fieldset-link fieldset__link"
-          th:if="${product.categoryNames != null}"
-          th:each="category : ${product.categoryNames}"
-          th:href="'/home?category=' + ${category}"
-        >
-          <span th:text="${category}"></span>
-        </a>
-        <label th:if="${product.categoryNames == null}">
-          Категорий не найдено
-        </label>
-      </fieldset>
-    </div>
-  </div>
 </section>
 </body>
 </html>

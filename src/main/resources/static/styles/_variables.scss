@@ -33,12 +33,12 @@
   --border-muted: oklch(75% 0.01 260deg);
 
   /* Shadows - light theme */
-  --shadow-s:
-    0 1px 2px #2d207610, /* subtle shadow */ 0 2px 4px #2d207608; /* soft shadow */
-  --shadow-m:
-    0 2px 4px #2d207615, /* subtle shadow */ 0 4px 8px #2d207610; /* soft shadow */
-  --shadow-l:
-    0 4px 6px #2d207620, /* subtle shadow */ 0 6px 12px #2d207612; /* soft shadow */
+  --shadow-s: 0 1px 2px #2d207610, /* subtle shadow */
+  0 2px 4px #2d207608; /* soft shadow */
+  --shadow-m: 0 2px 4px #2d207615, /* subtle shadow */
+  0 4px 8px #2d207610; /* soft shadow */
+  --shadow-l: 0 4px 6px #2d207620, /* subtle shadow */
+  0 6px 12px #2d207612; /* soft shadow */
 
   --border: var(--border-width-m) solid var(--primary);
 

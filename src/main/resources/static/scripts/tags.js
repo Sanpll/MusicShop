@@ -1,17 +1,17 @@
- // Класс для выбора магазина/тега
+// Класс для выбора магазина/тега
 class Tags extends CustomSelect {
-  constructor() {
-    super({
-      searchInputId: 'storeSearch',
-      hiddenInputId: 'storeId',
-      dropdownId: 'storeDropdown',
-    })
-  }
+    constructor() {
+        super({
+            searchInputId: 'storeSearch',
+            hiddenInputId: 'storeId',
+            dropdownId: 'storeDropdown',
+        })
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const storeSearch = document.getElementById('storeSearch')
-  if (storeSearch) {
-    new Tags()
-  }
+    const storeSearch = document.getElementById('storeSearch')
+    if (storeSearch) {
+        new Tags()
+    }
 })

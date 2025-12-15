@@ -22,7 +22,7 @@ WAREHOUSE_MANAGER - warehouse@manager.com warehousemanager
 ADMIN - admin@admin.ad admin  
 
 Задачи frontend:
-Нет задач
+1. Перенести все иконки в static/icons
 
 Задачи backend:
 1. Сделать постраничную работу с бд (то есть работаем условно только с 20 записями за раз)

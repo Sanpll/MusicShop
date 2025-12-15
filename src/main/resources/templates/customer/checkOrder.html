@@ -26,6 +26,7 @@
         <thead>
         <tr>
             <th scope="col">Наименование</th>
+            <th scope="col">Цена за 1 ед.</th>
             <th scope="col">Количество</th>
             <th scope="col">Стоимость</th>
         </tr>
@@ -39,10 +40,12 @@
                         th:text="${cartItem.productName}"
                 ></a>
             </td>
+            <td th:text="${cartItem.productPrice}"></td>
             <td th:text="${cartItem.quantity}"></td>
-            <td th:text="${cartItem.quantity} + ' x ' + ${cartItem.productPrice} + ' = ' + ${cartItem.productPrice * cartItem.quantity} + ' ₽'"></td>
+            <td th:text="${cartItem.productPrice * cartItem.quantity} + ' ₽'"></td>
         </tr>
         <tr>
+            <td></td>
             <td></td>
             <td></td>
             <td th:text="'Итого: ' + ${totalPrice} + ' ₽'"></td>
