@@ -52,11 +52,16 @@
 
     <div class="tables tables__wrapper">
         <h2 class="h2">Список магазинов</h2>
+        <div th:text="${'Общее кол-во магазинов: ' + #lists.size(stores) + ' шт.'}"></div>
+        <div th:text="${'Общее кол-во работающих мгазинов: ' + storesActive + ' шт.'}"></div>
+        <div th:text="${'Общее кол-во закрытых магазинов: ' + storesClosed + ' шт.'}"></div>
+        <div th:text="${'Общее кол-во временно закрытых магазинов: ' + storesInactive + ' шт.'}"></div>
         <a
                 class="link"
                 href="/admin/add/store"
         >Добавить магазин
         </a>
+
         <table class="table">
             <thead>
             <tr>

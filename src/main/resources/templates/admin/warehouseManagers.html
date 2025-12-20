@@ -51,6 +51,10 @@
 
     <div class="tables tables__wrapper">
         <h2 class="h2">Список заведующих складом</h2>
+        <div th:text="${'Общее кол-во заведующих складом: ' + #lists.size(warehouseManagers) + ' чел.'}"></div>
+        <div th:text="${'Общее кол-во активных заведующих складом: ' + warehouseManagersActive + ' чел.'}"></div>
+        <div th:text="${'Общее кол-во заведующих складом в отпуске: ' + warehouseManagersOnLeave + ' чел.'}"></div>
+        <div th:text="${'Общее кол-во уволенных заведующих складом: ' + warehouseManagersFired + ' чел.'}"></div>
         <a
                 class="link"
                 href="/admin/add/warehouse-manager"

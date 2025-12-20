@@ -2,7 +2,6 @@ package ru.randomplay.musicshop.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -40,10 +39,10 @@ public class SecurityConfig {
                 // Настройка выхода из аккаунта
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/home")
                         .permitAll())
                 // Настраиваем csrf (достаточно использовать thymeleaf в формах - th:action и "_csrf" автоматически вставится)
-                .csrf(Customizer.withDefaults());
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/logout"));
 
         return http.build();
     }

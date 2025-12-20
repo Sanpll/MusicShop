@@ -6,9 +6,22 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.randomplay.musicshop.dto.create.*;
-import ru.randomplay.musicshop.dto.update.*;
+import ru.randomplay.musicshop.dto.create.AdminCreateRequest;
+import ru.randomplay.musicshop.dto.create.EmployeeCreateRequest;
+import ru.randomplay.musicshop.dto.create.StoreCreateRequest;
+import ru.randomplay.musicshop.dto.create.WarehouseManagerCreateRequest;
+import ru.randomplay.musicshop.dto.response.*;
+import ru.randomplay.musicshop.dto.update.AdminUpdateRequest;
+import ru.randomplay.musicshop.dto.update.EmployeeUpdateRequest;
+import ru.randomplay.musicshop.dto.update.StoreUpdateRequest;
+import ru.randomplay.musicshop.dto.update.WarehouseManagerUpdateRequest;
+import ru.randomplay.musicshop.model.PaymentStatus;
+import ru.randomplay.musicshop.model.StoreStatus;
+import ru.randomplay.musicshop.model.WorkerStatus;
 import ru.randomplay.musicshop.service.*;
+
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/admin")
@@ -25,24 +38,46 @@ public class AdminController {
     public String dashboard(Model model,
                             @RequestParam(required = false) String table) {
         if (table == null) {
-            model.addAttribute("admins", adminService.getAll());
+            List<AdminResponse> admins = adminService.getAll();
+            model.addAttribute("admins", admins);
+            model.addAttribute("adminsActive", admins.stream().filter(admin -> Objects.equals(admin.getActivity(), "ACTIVE")).count());
+            model.addAttribute("adminsDeleted", admins.stream().filter(admin -> Objects.equals(admin.getActivity(), "DELETED")).count());
             return "admin/admins";
         }
         switch (table) {
             case "employees":
-                model.addAttribute("employees", employeeService.getAll());
+                List<EmployeeResponse> employees = employeeService.getAll();
+                model.addAttribute("employees", employees);
+                model.addAttribute("employeesActive", employees.stream().filter(employee -> Objects.equals(employee.getStatus(), WorkerStatus.ACTIVE)).count());
+                model.addAttribute("employeesOnLeave", employees.stream().filter(employee -> Objects.equals(employee.getStatus(), WorkerStatus.ON_LEAVE)).count());
+                model.addAttribute("employeesFired", employees.stream().filter(employee -> Objects.equals(employee.getStatus(), WorkerStatus.FIRED)).count());
                 return "admin/employees";
             case "warehouseManagers":
-                model.addAttribute("warehouseManagers", warehouseManagerService.getAll());
+                List<WarehouseManagerResponse> warehouseManagers = warehouseManagerService.getAll();
+                model.addAttribute("warehouseManagers", warehouseManagers);
+                model.addAttribute("warehouseManagersActive", warehouseManagers.stream().filter(warehouseManager -> Objects.equals(warehouseManager.getStatus(), WorkerStatus.ACTIVE)).count());
+                model.addAttribute("warehouseManagersOnLeave", warehouseManagers.stream().filter(warehouseManager -> Objects.equals(warehouseManager.getStatus(), WorkerStatus.ON_LEAVE)).count());
+                model.addAttribute("warehouseManagersFired", warehouseManagers.stream().filter(warehouseManager -> Objects.equals(warehouseManager.getStatus(), WorkerStatus.FIRED)).count());
                 return "admin/warehouseManagers";
             case "stores":
-                model.addAttribute("stores", storeService.getAll());
+                List<StoreResponse> stores = storeService.getAll();
+                model.addAttribute("stores", stores);
+                model.addAttribute("storesActive", stores.stream().filter(store -> Objects.equals(store.getStatus(), StoreStatus.ACTIVE)).count());
+                model.addAttribute("storesClosed", stores.stream().filter(store -> Objects.equals(store.getStatus(), StoreStatus.CLOSED)).count());
+                model.addAttribute("storesInactive", stores.stream().filter(store -> Objects.equals(store.getStatus(), StoreStatus.INACTIVE)).count());
                 return "admin/stores";
             case "orders":
-                model.addAttribute("orders", orderService.getAll());
+                List<OrderResponse> orders = orderService.getAll();
+                model.addAttribute("orders", orders);
+                model.addAttribute("ordersPaid", orders.stream().filter(order -> Objects.equals(order.getStatus(), PaymentStatus.PAID)).count());
+                model.addAttribute("ordersFailed", orders.stream().filter(order -> Objects.equals(order.getStatus(), PaymentStatus.FAILED)).count());
+                model.addAttribute("ordersWaiting", orders.stream().filter(order -> Objects.equals(order.getEmployeeLastName(), null)).count());
                 return "admin/orders";
             default:
-                model.addAttribute("admins", adminService.getAll());
+                List<AdminResponse> admins = adminService.getAll();
+                model.addAttribute("admins", admins);
+                model.addAttribute("adminsActive", admins.stream().filter(admin -> Objects.equals(admin.getActivity(), "ACTIVE")).count());
+                model.addAttribute("adminsDeleted", admins.stream().filter(admin -> Objects.equals(admin.getActivity(), "DELETED")).count());
                 return "admin/admins";
         }
     }

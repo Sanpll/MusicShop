@@ -52,6 +52,11 @@
 
     <div class="tables tables__wrapper">
         <h1 class="h2">Список заказов</h1>
+        <div th:text="${'Общее кол-во заказов: ' + #lists.size(orders) + ' шт.'}"></div>
+        <div th:text="${'Общее кол-во оплаченных заказов: ' + ordersPaid + ' шт.'}"></div>
+        <div th:text="${'Общее кол-во отклонённых заказов: ' + ordersFailed + ' шт.'}"></div>
+        <div th:text="${'Общее кол-во нерассмотренных заказов: ' + ordersWaiting + ' шт.'}"></div>
+
         <table class="table">
             <thead>
             <tr>

@@ -52,11 +52,16 @@
 
     <div class="tables tables__wrapper">
         <h2 class="h2">Список сотрудников</h2>
+        <div th:text="${'Общее кол-во сотрудников: ' + #lists.size(employees) + ' чел.'}"></div>
+        <div th:text="${'Общее кол-во активных сотрудников: ' + employeesActive + ' чел.'}"></div>
+        <div th:text="${'Общее кол-во сотрудников в отпуске: ' + employeesOnLeave + ' чел.'}"></div>
+        <div th:text="${'Общее кол-во уволенных сотрудников: ' + employeesFired + ' чел.'}"></div>
         <a
                 class="link"
                 href="/admin/add/employee"
         >Добавить сотрудника
         </a>
+
         <table class="table">
             <thead>
             <tr>
